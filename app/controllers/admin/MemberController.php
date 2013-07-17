@@ -2,13 +2,13 @@
 
 use Auth;
 use View;
-use Trouble;
+use Member;
 use Validator;
 use Input;
 use Redirect;
 use Str;
 
-class TypeController extends AdminController {
+class MemberController extends AdminController {
 
     /**
      * getIndex
@@ -83,14 +83,6 @@ class TypeController extends AdminController {
         return View::make('admin/type/edit', compact('trouble'));
     }
 
-    /**
-     *
-     * postEdit
-     *
-     * @param null $typeId
-     *
-     * @return mixed
-     */
     public function postEdit($typeId = NULL)
     {
         if (is_null($trouble = Trouble::find($typeId)))
@@ -122,13 +114,6 @@ class TypeController extends AdminController {
 
     }
 
-    /**
-     * getDelete
-     *
-     * @param null $typeId
-     *
-     * @return mixed
-     */
     public function getDelete($typeId = NULL){
 
         if (is_null($trouble = Trouble::find($typeId)))

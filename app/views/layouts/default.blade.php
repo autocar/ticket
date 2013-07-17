@@ -78,12 +78,12 @@
                     <li class="navbar-text">您好， {{{ Auth::user()->name }}}</li>
                     <li class="divider-vertical"></li>
                     <li
-                    {{{ (Request::is('account') ? 'class="active"' : '') }}}><a href="{{{ URL::to('account') }}}">个人资料</a></li>
-                    <li><a href="{{{ URL::to('account/logout') }}}">退出</a></li>
+                    {{{ (Request::is('account') ? 'class=active' : '') }}}><a href="{{{ URL::to('account') }}}"><i class="icon-user icon-white"></i> 个人资料</a></li>
+                    <li><a href="{{{ URL::to('account/logout') }}}"><i class="icon-off icon-white"></i> 退出</a></li>
                     @else
                     <li
-                    {{{ (Request::is('account/login') ? 'class="active"' : '') }}}><a
-                        href="{{{ URL::to('account/login') }}}">登陆</a></li>
+                    {{{ (Request::is('account/login') ? 'class=active' : '') }}}><a
+                        href="{{{ URL::to('account/login') }}}"><i class="icon-info-sign icon-white"></i> 登陆</a></li>
                     <li
                     @endif
                 </ul>

@@ -14,6 +14,7 @@ class CreateMembersTable extends Migration {
         Schema::create('members', function($table)
         {
             $table->increments('id');
+            $table->string('bn');
             $table->string('email');
             $table->string('password');
             $table->string('name');

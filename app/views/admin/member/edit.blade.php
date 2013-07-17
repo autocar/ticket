@@ -9,7 +9,7 @@
                     class="icon-circle-arrow-left icon-white"></i> 返回</a>
         </div>
 
-        创建问题类型
+        修改问题类型
     </h3>
 </div>
 
@@ -22,7 +22,7 @@
         <label class="control-label" for="name">问题类型</label>
 
         <div class="controls">
-            <input type="text" name="name" id="name" value="{{ Input::old('name') }}"/>
+            <input type="text" name="name" id="name" value="{{ Input::old('name', $trouble->name) }}"/>
             {{ $errors->first('name', '<span class="help-inline">:message</span>') }}
         </div>
     </div>
@@ -30,7 +30,7 @@
     <!-- Form Actions -->
     <div class="control-group">
         <div class="controls">
-            <button type="submit" class="btn btn-success">创建</button>
+            <button type="submit" class="btn btn-success">更新</button>
 
             <button type="reset" class="btn">重置</button>
 

@@ -9,7 +9,7 @@
                     class="icon-circle-arrow-left icon-white"></i> 返回</a>
         </div>
 
-        创建问题类型
+        问题类型
     </h3>
 </div>
 
