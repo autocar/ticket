@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('admin.layouts')
 
 {{-- Web site Title --}}
 @section('title')

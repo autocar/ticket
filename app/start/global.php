@@ -20,6 +20,17 @@ ClassLoader::addDirectories(array(
 
 ));
 
+//用户驱动
+//use Illuminate\Auth\Guard;
+//
+//Auth::extend('AdminUserProvider', function()
+//{
+//    return new Guard(
+//        new Ecdo\Auth\AdminUserProvider(),
+//        App::make('session')
+//    );
+//});
+
 /*
 |--------------------------------------------------------------------------
 | Application Error Logger
@@ -48,9 +59,29 @@ Log::useDailyFiles(storage_path().'/logs/'.$logFile);
 |
 */
 
+//App::error(function(Exception $exception, $code)
+//{
+//	Log::error($exception);
+//});
+
 App::error(function(Exception $exception, $code)
 {
-	Log::error($exception);
+    Log::error($exception);
+
+    if ( ! Config::get('app.debug'))
+    {
+        switch ($code)
+        {
+            case 403:
+                return Response::make(View::make('error/403'), 403);
+
+            case 500:
+                return Response::make(View::make('error/500'), 500);
+
+            default:
+                return Response::make(View::make('error/404'), 404);
+        }
+    }
 });
 
 /*
@@ -66,9 +97,14 @@ App::error(function(Exception $exception, $code)
 |
 */
 
+//App::down(function()
+//{
+//	return Response::make("Be right back!", 503);
+//});
+
 App::down(function()
 {
-	return Response::make("Be right back!", 503);
+    return Response::make(View::make('error/503'), 503);
 });
 
 /*

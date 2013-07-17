@@ -6,12 +6,9 @@
     <meta charset="utf-8"/>
     <title>
         @section('title')
-        ECDO - 在线工单系统
+        ECDO - 在线工单系统 :: 管理后台
         @show
     </title>
-    <meta name="keywords" content="ecdo" />
-    <meta name="author" content="cooper" />
-    <meta name="description" content="" />
 
     <!-- Mobile Specific Metas
     ================================================== -->
@@ -62,29 +59,26 @@
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li {{{ (Request::is('/') ? 'class="active"' : '') }}}><a href="{{{ URL::to('') }}}"><i class="icon-home icon-white"></i> 首页</a></li>
+<!--                    <li {{{ (Request::is('/') ? 'class="active"' : '') }}}><a href="{{{ URL::to('') }}}"><i class="icon-home icon-white"></i> 首页</a></li>-->
 
                     <!--工单-->
                     @if (Auth::check())
-                    <li><a href="{{{ URL::to('') }}}"><i class="icon-check icon-white"></i> 提交工单</a></li>
-                    <li><a href="{{{ URL::to('') }}}"><i class="icon-th-list icon-white"></i> 工单列表</a></li>
+                    <li><a href="{{{ URL::to('') }}}"><i class="icon-th-list icon-white"></i> 工单管理</a></li>
+                        @if (Auth::user()->lv > 0)
+                        <li><a href="{{{ URL::to('') }}}"><i class="icon-user icon-white"></i> 客户管理</a></li>
+                        <li><a href="{{{ URL::to('') }}}"><i class="icon-list-alt icon-white"></i> 用户管理</a></li>
+                        <li><a href="{{{ URL::to('') }}}"><i class="icon-cog icon-white"></i> 工单配置</a></li>
+                        @endif
                     @endif
-
-                    <li {{ (Request::is('help') ? 'class="active"' : '') }}><a href="{{ URL::to('') }}"><i class="icon-file icon-white"></i> 帮助文档</a></li>
                 </ul>
 
                 <ul class="nav pull-right">
                     @if (Auth::check())
-                    <li class="navbar-text">您好， {{{ Auth::user()->name }}}</li>
+                    <li class="navbar-text">您好， {{{ Auth::user()->username }}}</li>
                     <li class="divider-vertical"></li>
                     <li
-                    {{{ (Request::is('account') ? 'class="active"' : '') }}}><a href="{{{ URL::to('account') }}}">个人资料</a></li>
-                    <li><a href="{{{ URL::to('account/logout') }}}">退出</a></li>
-                    @else
-                    <li
-                    {{{ (Request::is('account/login') ? 'class="active"' : '') }}}><a
-                        href="{{{ URL::to('account/login') }}}">登陆</a></li>
-                    <li
+                    {{{ (Request::is('account') ? 'class="active"' : '') }}}><a href="{{{ URL::to('admin/account') }}}">个人资料</a></li>
+                    <li><a href="{{{ URL::to('admin/logout') }}}">退出</a></li>
                     @endif
                 </ul>
             </div>
@@ -103,11 +97,6 @@
     <!-- Content -->
     @yield('content')
     <!-- ./ content -->
-
-    <p>
-        <hr />
-        在线工单平台 &copy; ecdo.cc 2013
-    </p>
 </div>
 <!-- ./ container -->
 

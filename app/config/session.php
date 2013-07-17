@@ -94,7 +94,7 @@ return array(
 	|
 	*/
 
-	'cookie' => 'laravel_session',
+	'cookie' => 'ecdo_ticket',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -133,6 +133,6 @@ return array(
 	|
 	*/
 
-	'payload' => 'laravel_payload',
+	'payload' => 'ecdo_payload',
 
 );

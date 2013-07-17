@@ -3,14 +3,14 @@
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class User extends Eloquent implements UserInterface, RemindableInterface {
+class Member extends Eloquent implements UserInterface, RemindableInterface {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'users';
+	protected $table = 'members';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -39,17 +39,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->password;
 	}
 
-    /**
-     * Get the user full name.
-     *
-     * @access   public
-     * @return   string
-     */
-    public function fullName()
-    {
-        return $this->first_name . ' ' . $this->last_name;
-    }
-	
 	/**
 	 * Get the e-mail address where password reminders are sent.
 	 *

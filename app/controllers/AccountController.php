@@ -10,9 +10,7 @@ class AccountController extends AuthorizedController
 	 */
 	protected $whitelist = array(
 		'getLogin',
-		'postLogin',
-		'getRegister',
-		'postRegister'
+		'postLogin'
 	);
 
 	/**
@@ -39,9 +37,9 @@ class AccountController extends AuthorizedController
 		// Declare the rules for the form validation.
 		//
 		$rules = array(
-			'first_name' => 'Required',
-			'last_name'  => 'Required',
-			'email'      => 'Required|Email|Unique:users,email,' . Auth::user()->email . ',email',
+			//'email'      => 'Required|Email|Unique:users,email,' . Auth::user()->email . ',email',
+            'name'   => 'Required',
+            'mobile' => 'Required'
 		);
 
 		// If we are updating the password.
@@ -68,10 +66,10 @@ class AccountController extends AuthorizedController
 		{
 			// Create the user.
 			//
-			$user =  User::find(Auth::user()->id);
-			$user->first_name = Input::get('first_name');
-			$user->last_name  = Input::get('last_name');
-			$user->email      = Input::get('email');
+			$user =  Member::find(Auth::user()->id);
+			//$user->email      = Input::get('email');
+            $user->name        = Input::get('name');
+            $user->mobile      = Input::get('mobile');
 
 			if (Input::get('password') !== '')
 			{
@@ -82,7 +80,7 @@ class AccountController extends AuthorizedController
 
 			// Redirect to the register page.
 			//
-			return Redirect::to('account')->with('success', 'Account updated with success!');
+			return Redirect::to('account')->with('success', '资料更新成功!');
 		}
 
 		// Something went wrong.
@@ -127,7 +125,7 @@ class AccountController extends AuthorizedController
 
 		// Get all the inputs.
 		//
-		$email = Input::get('email');
+		$email    = Input::get('email');
 		$password = Input::get('password');
 
 		// Validate the inputs.
@@ -144,88 +142,19 @@ class AccountController extends AuthorizedController
 			{
 				// Redirect to the users page.
 				//
-				return Redirect::to('account')->with('success', 'You have logged in successfully');
+				return Redirect::to('account')->with('success', '登陆成功');
 			}
 			else
 			{
 				// Redirect to the login page.
 				//
-				return Redirect::to('account/login')->with('error', 'Email/password invalid.');
+				return Redirect::to('account/login')->with('error', '邮箱/密码 无效');
 			}
 		}
 
 		// Something went wrong.
 		//
 		return Redirect::to('account/login')->withErrors($validator->getMessageBag());
-	}
-
-	/**
-	 * User account creation form page.
-	 *
-	 * @access   public
-	 * @return   View
-	 */
-	public function getRegister()
-	{
-		// Are we logged in?
-		//
-		if (Auth::check())
-		{
-			return Redirect::to('account');
-		}
-
-		// Show the page.
-		//
-		return View::make('account/register');
-	}
-
-	/**
-	 * User account creation form processing.
-	 *
-	 * @access   public
-	 * @return   Redirect
-	 */
-	public function postRegister()
-	{
-		// Declare the rules for the form validation.
-		//
-		$rules = array(
-			'first_name'            => 'Required',
-			'last_name'             => 'Required',
-			'email'                 => 'Required|Email|Unique:users',
-			'password'              => 'Required|Confirmed',
-			'password_confirmation' => 'Required'
-		);
-
-		// Get all the inputs.
-		//
-		$inputs = Input::all();
-
-		// Validate the inputs.
-		//
-		$validator = Validator::make($inputs, $rules);
-
-		// Check if the form validates with success.
-		//
-		if ($validator->passes())
-		{
-			// Create the user.
-			//
-			$user = new User;
-			$user->first_name = Input::get('first_name');
-			$user->last_name  = Input::get('last_name');
-			$user->email      = Input::get('email');
-			$user->password   = Hash::make(Input::get('password'));
-			$user->save();
-
-			// Redirect to the register page.
-			//
-			return Redirect::to('account/register')->with('success', 'Account created with success!');
-		}
-
-		// Something went wrong.
-		//
-		return Redirect::to('account/register')->withInput($inputs)->withErrors($validator->getMessageBag());
 	}
 
 	/**
@@ -237,11 +166,9 @@ class AccountController extends AuthorizedController
 	public function getLogout()
 	{
 		// Log the user out.
-		//
 		Auth::logout();
 
 		// Redirect to the users page.
-		//
-		return Redirect::to('account/login')->with('success', 'Logged out with success!');
+		return Redirect::to('account/login')->with('success', '退出成功');
 	}
 }

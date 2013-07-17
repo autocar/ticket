@@ -2,23 +2,44 @@
 
 class UsersTableSeeder extends Seeder {
 
+    /**
+     * 用户初始化数据
+     */
     public function run()
     {
-        DB::table('users')->delete();
-
+        // 前台用户
+        DB::table('members')->delete();
 
         $users = array(
             array(
-                'email'      => 'test@test.com',
-                'password'   => Hash::make('test'),
-	        'first_name' => 'John',
-	        'last_name'  => 'Doe',
+                'id'         => '10000',
+                'email'      => 'demo@ecdo.cc',
+                'password'   => Hash::make('demo'),
+                'name'       => 'demo',
+                'mobile'     => '13000000000',
+                'product'    => '',
+                'start_time' => new DateTime,
                 'created_at' => new DateTime,
-                'updated_at' => new DateTime,
             )
         );
 
-        DB::table('users')->insert( $users );
+        DB::table('members')->insert($users);
+
+        // 后台管理
+        DB::table('operators')->delete();
+
+        $users = array(
+            array(
+                'username' => 'admin',
+                'password' => Hash::make('admin'),
+                'name'     => 'admin',
+                'mobile'   => '13500000000',
+                'lv'    => '2',
+                'created_at' => new DateTime,
+            )
+        );
+
+        DB::table('operators')->insert($users);
     }
 
 }

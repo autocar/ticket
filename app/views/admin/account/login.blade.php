@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('admin.layouts')
 
 {{-- Web site Title --}}
 @section('title')
@@ -16,11 +16,11 @@
 	<input type="hidden" name="csrf_token" id="csrf_token" value="{{{ Session::getToken() }}}" />
 
 	<!-- Email -->
-	<div class="control-group {{{ $errors->has('email') ? 'error' : '' }}}">
-		<label class="control-label" for="email">邮箱</label>
+	<div class="control-group {{{ $errors->has('username') ? 'error' : '' }}}">
+		<label class="control-label" for="username">用户名</label>
 		<div class="controls">
-			<input type="text" name="email" id="email" value="{{{ Input::old('email') }}}" />
-			{{{ $errors->first('email') }}}
+			<input type="text" name="username" id="username" value="{{{ Input::old('username') }}}" />
+			{{{ $errors->first('username') }}}
 		</div>
 	</div>
 	<!-- ./ email -->
