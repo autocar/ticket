@@ -26,10 +26,11 @@
 
 前台账号：
 
-	邮箱 : demo@demo.cc
+	邮箱 : demo@ecdo.cc
 	密码 : demo
 
-后台账号
+后台账号 :
+
     账号：admin
     密码：admin
 
