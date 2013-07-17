@@ -21,7 +21,7 @@
     <style>
         @section('styles')
 			body {
-				padding-top: 60px;
+				padding-top: 50px;
 			}
         @show
     </style>
@@ -59,7 +59,7 @@
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
-<!--                    <li {{{ (Request::is('/') ? 'class="active"' : '') }}}><a href="{{{ URL::to('') }}}"><i class="icon-home icon-white"></i> 首页</a></li>-->
+<!--                    <li {{{ (Request::is('/') ? 'class=active' : '') }}}><a href="{{{ URL::to('') }}}"><i class="icon-home icon-white"></i> 首页</a></li>-->
 
                     <!--工单-->
                     @if (Auth::check())
@@ -67,7 +67,7 @@
                         @if (Auth::user()->lv > 0)
                         <li><a href="{{{ URL::to('') }}}"><i class="icon-user icon-white"></i> 客户管理</a></li>
                         <li><a href="{{{ URL::to('') }}}"><i class="icon-list-alt icon-white"></i> 用户管理</a></li>
-                        <li><a href="{{{ URL::to('') }}}"><i class="icon-cog icon-white"></i> 工单配置</a></li>
+                        <li {{{ (Request::is('admin/type') ? 'class=active' : '') }}}><a href="{{{ URL::to('admin/type') }}}"><i class="icon-globe icon-white"></i> 问题类型</a></li>
                         @endif
                     @endif
                 </ul>
@@ -104,5 +104,11 @@
 ================================================== -->
 <script src="{{{ asset('assets/js/jquery.v1.8.3.min.js') }}}"></script>
 <script src="{{{ asset('assets/js/bootstrap/bootstrap.min.js') }}}"></script>
+
+@section('script')
+<script type="text/javascript">
+
+</script>
+@show
 </body>
 </html>

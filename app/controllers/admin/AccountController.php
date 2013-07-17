@@ -76,7 +76,7 @@ class AccountController extends AdminController
 			{
 				// Redirect to the users page.
 				//
-				return Redirect::to('admin')->with('success', '登陆成功');
+				return Redirect::to('admin/ticket')->with('success', '登陆成功');
 			}
 			else
 			{

@@ -62,7 +62,7 @@
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li {{{ (Request::is('/') ? 'class="active"' : '') }}}><a href="{{{ URL::to('') }}}"><i class="icon-home icon-white"></i> 首页</a></li>
+                    <li {{{ (Request::is('/') ? 'class=active' : '') }}}><a href="{{{ URL::to('') }}}"><i class="icon-home icon-white"></i> 首页</a></li>
 
                     <!--工单-->
                     @if (Auth::check())
@@ -70,7 +70,7 @@
                     <li><a href="{{{ URL::to('') }}}"><i class="icon-th-list icon-white"></i> 工单列表</a></li>
                     @endif
 
-                    <li {{ (Request::is('help') ? 'class="active"' : '') }}><a href="{{ URL::to('') }}"><i class="icon-file icon-white"></i> 帮助文档</a></li>
+                    <li {{ (Request::is('help') ? 'class=active' : '') }}><a href="{{ URL::to('') }}"><i class="icon-file icon-white"></i> 帮助文档</a></li>
                 </ul>
 
                 <ul class="nav pull-right">

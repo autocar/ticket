@@ -38,13 +38,20 @@ App::after(function($request, $response)
 |
 */
 
+// 后台权限
 Route::filter('adminauth', function()
 {
     if (Auth::guest()) return Redirect::guest('admin/login');
 
-
+    // 客服权限
+    if(Auth::user()->lv == 0 && (! Request::is('admin/ticket*')) && (! Request::is('admin/logout')))
+    {
+        return Redirect::to('admin/ticket')->with('error', '权限不够，请勿越权操作！');
+    }
 });
 
+
+// 前台权限
 Route::filter('auth', function()
 {
 	if (Auth::guest()) return Redirect::guest('account/login');
