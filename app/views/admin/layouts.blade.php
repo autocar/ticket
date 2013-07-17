@@ -21,7 +21,7 @@
     <style>
         @section('styles')
 			body {
-				padding-top: 50px;
+				padding: 50px 0;
 			}
         @show
     </style>

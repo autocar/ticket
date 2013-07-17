@@ -43,8 +43,9 @@
             @endif
         </td>
         <td>
-            <a href="{{ route('update/operator', $operator->id) }}" class="btn btn-mini">编辑</a>
             @if ((Auth::user()->lv > $operator->lv) && (Auth::user()->id <> $operator->id))
+            <a href="{{ route('update/operator', $operator->id) }}" class="btn btn-mini">编辑</a>
+
             <a href="{{ route('delete/operator', $operator->id) }}" class="btn btn-mini btn-danger">删除</a>
             @endif
         </td>

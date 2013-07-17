@@ -43,7 +43,7 @@ class OperatorController extends AdminController {
     {
         $rules = array(
             'username'              => 'required|min:4|max:10|Unique:operators,username',
-            'name'                  => 'required|min:4',
+            'name'                  => 'required|min:2',
             'password'              => 'Required|Confirmed',
             'password_confirmation' => 'Required',
             'mobile'                => 'Required|Unique:operators,mobile',
@@ -107,7 +107,7 @@ class OperatorController extends AdminController {
 
         $rules = array(
             'username'              => 'required|min:4|max:10',
-            'name'                  => 'required|min:4',
+            'name'                  => 'required|min:2',
             'mobile'                => 'Required',
             'email'                 => 'Required|Email',
         );
@@ -130,11 +130,15 @@ class OperatorController extends AdminController {
         $operator->name     = e(Input::get('name'));
         $operator->mobile   = e(Input::get('mobile'));
         $operator->email    = e(Input::get('email'));
-        $operator->lv       = e(Input::get('lv'));
 
         if (Input::get('password') !== '')
         {
             $operator->password = Hash::make(Input::get('password'));
+        }
+
+        if (Input::get('lv') !== '')
+        {
+            $operator->lv       = e(Input::get('lv'));
         }
 
         if ($operator->save())

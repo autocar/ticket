@@ -33,7 +33,7 @@ class AccountController extends AdminController
 		//
 		if (Auth::check())
 		{
-			return Redirect::to('admin/login');
+			return Redirect::to('admin/ticket');
 		}
 
 		// Show the page.

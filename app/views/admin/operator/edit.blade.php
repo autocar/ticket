@@ -52,18 +52,28 @@
         </div>
     </div>
 
+    @if ($operator->lv < 2)
     <div class="control-group {{{ $errors->has('lv') ? 'error' : '' }}}">
         <label class="control-label" for="lv">权限</label>
         <div class="controls">
             <label class="radio">
-                <input type="radio" name="lv" id="lv0" value="0" checked>客服
+                <input type="radio" name="lv" id="lv0" value="0"
+                @if ($operator->lv == 0)
+                checked
+                @endif
+                >客服
             </label>
             <label class="radio">
-                <input type="radio" name="lv" id="lv1" value="1">管理
+                <input type="radio" name="lv" id="lv1" value="1"
+                @if ($operator->lv == 1)
+                checked
+                @endif
+                    >管理
             </label>
             {{ $errors->first('lv', '<span class="help-inline">:message</span>') }}
         </div>
     </div>
+    @endif
 
     <legend>修改密码 <small>不修改请为空</small></legend>
 
