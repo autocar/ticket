@@ -16,10 +16,11 @@
     <thead>
     <tr>
         <th class="span1">用户ID</th>
-        <th class="span3">员工号 / 用户名</th>
+        <th class="span2">员工号 / 用户名</th>
         <th class="span2">姓名</th>
+        <th class="span2">邮箱</th>
         <th class="span2">手机</th>
-        <th class="span2">权限</th>
+        <th class="span1">权限</th>
         <th class="span2">操作</th>
     </tr>
     </thead>
@@ -30,6 +31,7 @@
         <td>{{ $operator->id }}</td>
         <td>{{ $operator->username }}</td>
         <td>{{ $operator->name }}</td>
+        <td>{{ $operator->email }}</td>
         <td>{{ $operator->mobile }}</td>
         <td>
             @if ($operator->lv == 0)

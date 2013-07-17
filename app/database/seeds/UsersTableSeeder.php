@@ -30,11 +30,12 @@ class UsersTableSeeder extends Seeder {
 
         $users = array(
             array(
-                'username' => 'admin',
-                'password' => Hash::make('admin'),
-                'name'     => 'admin',
-                'mobile'   => '13500000000',
-                'lv'    => '2',
+                'username'   => 'admin',
+                'password'   => Hash::make('admin'),
+                'name'       => 'admin',
+                'email'      => 'cc@ecdo.cc',
+                'mobile'     => '13500000000',
+                'lv'         => '2',
                 'created_at' => new DateTime,
             )
         );

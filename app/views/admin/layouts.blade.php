@@ -76,7 +76,7 @@
                     @if (Auth::check())
                     <li class="navbar-text">您好， {{{ Auth::user()->username }}}</li>
                     <li class="divider-vertical"></li>
-<!--                    <li {{{ (Request::is('admin/account') ? 'class=active' : '') }}}><a href="{{{ URL::to('admin/account') }}}">个人资料</a></li>-->
+                   <li {{{ (Request::is('admin/account') ? 'class=active' : '') }}}><a href="{{{ URL::to('admin/account') }}}"><i class="icon-user icon-white"></i> 个人资料</a></li>
                     <li><a href="{{{ URL::to('admin/logout') }}}"><i class="icon-off icon-white"></i> 退出</a></li>
                     @endif
                 </ul>

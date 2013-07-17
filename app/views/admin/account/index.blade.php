@@ -2,8 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-个人信息 ::
-@parent
+个人信息 - @parent
 @stop
 
 {{-- Content --}}
@@ -17,17 +16,16 @@
 	<!-- CSRF Token -->
 	{{ Form::token() }}
 
-	<!-- Email -->
-	<div class="control-group {{{ $errors->has('email') ? 'error' : '' }}}">
-		<label class="control-label" for="email">邮箱</label>
-		<div class="controls">
-			<input type="text" name="email" disabled id="email" value="{{{ Request::old('email', $user->email) }}}" />
-			{{ $errors->first('email') }}
-		</div>
-	</div>
-	<!-- ./ email -->
-
     <legend>基本信息</legend>
+
+    <!-- Name -->
+    <div class="control-group {{{ $errors->has('username') ? 'error' : '' }}}">
+        <label class="control-label" for="name">用户名</label>
+        <div class="controls">
+            <input type="text" name="username" id="username" value="{{{ Request::old('username', $user->username) }}}" disabled />
+            {{ $errors->first('username') }}
+        </div>
+    </div>
 
     <!-- Name -->
     <div class="control-group {{{ $errors->has('name') ? 'error' : '' }}}">
@@ -37,9 +35,15 @@
             {{ $errors->first('name') }}
         </div>
     </div>
-    <!-- ./ name -->
 
-    <!-- Name -->
+    <div class="control-group {{{ $errors->has('email') ? 'error' : '' }}}">
+        <label class="control-label" for="email">邮箱</label>
+        <div class="controls">
+            <input type="text" name="email" id="email" value="{{{ Request::old('email', $user->email) }}}" />
+            {{ $errors->first('email') }}
+        </div>
+    </div>
+
     <div class="control-group {{{ $errors->has('mobile') ? 'error' : '' }}}">
         <label class="control-label" for="mobile">手机号码</label>
         <div class="controls">
@@ -47,21 +51,9 @@
             {{ $errors->first('mobile') }}
         </div>
     </div>
-    <!-- ./ name -->
-
-    <!-- product -->
-    <div class="control-group">
-        <label class="control-label" for="product">服务产品</label>
-        <div class="controls">
-            <input type="text" disabled value="{{{ Request::old('product', $user->product) }}}" />
-        </div>
-    </div>
-    <!-- ./ product -->
-
 
     <legend>修改密码 <small>不修改请为空</small></legend>
 
-	<!-- Password -->
 	<div class="control-group {{{ $errors->has('password') ? 'error' : '' }}}">
 		<label class="control-label" for="password">密码</label>
 		<div class="controls">
@@ -69,9 +61,7 @@
 			{{ $errors->first('password') }}
 		</div>
 	</div>
-	<!-- ./ password -->
 
-	<!-- Password Confirm -->
 	<div class="control-group {{{ $errors->has('password_confirmation') ? 'error' : '' }}}">
 		<label class="control-label" for="password_confirmation">确认密码</label>
 		<div class="controls">
@@ -79,9 +69,7 @@
 			{{ $errors->first('password_confirmation') }}
 		</div>
 	</div>
-	<!-- ./ password confirm -->
 
-	<!-- Update button -->
 	<div class="control-group">
 		<div class="controls">
 			<button type="submit" class="btn">更新</button>

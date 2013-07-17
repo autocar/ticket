@@ -31,7 +31,7 @@
         <label class="control-label" for="name">姓名</label>
 
         <div class="controls">
-            <input type="text" name="name" id="name" value="{{ Input::old('name', $operator->username) }}"/>
+            <input type="text" name="name" id="name" value="{{ Input::old('name', $operator->name) }}"/>
             {{ $errors->first('name', '<span class="help-inline">:message</span>') }}
         </div>
     </div>
@@ -68,7 +68,7 @@
                 @if ($operator->lv == 1)
                 checked
                 @endif
-                    >管理
+                >管理
             </label>
             {{ $errors->first('lv', '<span class="help-inline">:message</span>') }}
         </div>

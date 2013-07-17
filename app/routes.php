@@ -15,6 +15,11 @@ Route::group(array('prefix' => 'admin'), function()
     // 首页
     Route::get('/', array('as' => 'admin', 'uses' => 'Controllers\Admin\DashboardController@getIndex'));
 
+    // 个人资料
+    Route::get('account', 'Controllers\Admin\AccountController@getIndex');
+    Route::post('account', 'Controllers\Admin\AccountController@postIndex');
+
+
     // 工单管理
     Route::get('ticket', array('as' => 'ticket', 'uses' => 'Controllers\Admin\TicketController@getIndex'));
 
