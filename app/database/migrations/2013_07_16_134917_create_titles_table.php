@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTitleTable extends Migration {
+class CreateTitlesTable extends Migration {
 
 	/**
 	 * Run the migrations.
