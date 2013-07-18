@@ -42,11 +42,11 @@
     </div>
 
     <div class="control-group {{{ $errors->has('level') ? 'error' : '' }}}">
-        <label class="control-label" for="level">处理级别</label>
+        <label class="control-label" for="level">请求级别</label>
         <div class="controls">
             <select name="level" id="level">
                 <option value="0" selected>一般</option>
-                <option value="1">一般</option>
+                <option value="1">中等</option>
                 <option value="2">紧急</option>
             </select>
             {{ $errors->first('level') }}

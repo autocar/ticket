@@ -47,5 +47,13 @@ Route::group(array('prefix' => 'admin'), function()
     Route::post('operator/{operatorId}/edit', 'Controllers\Admin\OperatorController@postEdit');
     Route::get('operator/{operatorId}/delete', array('as' => 'delete/operator', 'uses' => 'Controllers\Admin\OperatorController@getDelete'));
 
+    // 产品管理
+    Route::get('product', array('as' => 'product', 'uses' => 'Controllers\Admin\ProductController@getIndex'));
+    Route::get('product/create', array('as' => 'product/add', 'uses' => 'Controllers\Admin\ProductController@getCreate'));
+    Route::post('product/create', 'Controllers\Admin\ProductController@postCreate');
+    Route::get('product/{productId}/edit', array('as' => 'update/product', 'uses' => 'Controllers\Admin\ProductController@getEdit'));
+    Route::post('product/{productId}/edit', 'Controllers\Admin\ProductController@postEdit');
+    Route::get('product/{productId}/delete', array('as' => 'delete/product', 'uses' => 'Controllers\Admin\ProductController@getDelete'));
+
 });
 

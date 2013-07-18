@@ -17,7 +17,6 @@ class UsersTableSeeder extends Seeder {
                 'password'    => Hash::make('demo'),
                 'name'        => 'demo',
                 'mobile'      => '13000000000',
-                'product'     => '',
                 'bn'          => '',
                 'operator_id' => '1',
                 'start_time'  => new DateTime,

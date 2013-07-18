@@ -27,9 +27,9 @@ class Title extends Eloquent  {
      *
      * @return mixed
      */
-    public function project()
+    public function projects()
     {
-        return $this->hasOne('Project');
+        return $this->hasMany('Project');
     }
 
 }

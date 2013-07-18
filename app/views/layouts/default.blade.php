@@ -20,7 +20,7 @@
     <!-- CSS
     ================================================== -->
     <link href="{{{ asset('assets/css/bootstrap.css') }}}" rel="stylesheet">
-    <link href="{{{ asset('assets/css/bootstrap-responsive.css') }}}" rel="stylesheet">
+    <!--<link href="{{{ asset('assets/css/bootstrap-responsive.css') }}}" rel="stylesheet">-->
 
     <!-- google style -->
     <!--<link href="{{{ asset('http://todc.github.io/todc-bootstrap/assets/css/todc-bootstrap.css') }}}" rel="stylesheet">-->
@@ -28,7 +28,7 @@
     <style>
         @section('styles')
 			body {
-				padding: 70px 0 30px 0;
+				padding: 50px 0 30px 0;
 			}
         @show
     </style>

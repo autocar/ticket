@@ -18,6 +18,7 @@ class CreateProjectTable extends Migration {
             $table->integer('title_id')->unsigned();
             $table->integer('operator_id')->unsigned();
             $table->text('content');
+            $table->string('file');
             $table->timestamp('end_time');
         });
 	}

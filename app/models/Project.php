@@ -23,6 +23,16 @@ class Project extends Eloquent  {
     }
 
     /**
+     * 客服
+     *
+     * @return mixed
+     */
+    public function operator()
+    {
+        return $this->belongsTo('Operator');
+    }
+
+    /**
      * 标题
      *
      * @return mixed

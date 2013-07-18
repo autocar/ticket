@@ -19,7 +19,6 @@ class CreateMembersTable extends Migration {
             $table->string('password');
             $table->string('name');
             $table->string('mobile');
-            $table->string('product');
             $table->timestamp('start_time');
             $table->timestamp('end_time');
             $table->integer('operator_id')->unsigned();

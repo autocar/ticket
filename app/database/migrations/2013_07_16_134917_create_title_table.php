@@ -18,6 +18,7 @@ class CreateTitleTable extends Migration {
             $table->integer('member_id')->unsigned();
             $table->string('title');
             $table->text('content');
+            $table->string('file');
             $table->timestamp('start_time');
         });
 	}

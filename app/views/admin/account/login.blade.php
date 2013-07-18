@@ -2,13 +2,17 @@
 
 {{-- Web site Title --}}
 @section('title')
-登陆 ::
+后台登陆 ::
 @parent
 @stop
 
 {{-- Content --}}
 @section('content')
 <div class="page-header">
+    <div class="pull-right">
+        <a href="{{ URL::to('/') }}" class="btn"><i class="icon-home"></i> 返回首页</a>
+    </div>
+
 	<h1>登陆</h1>
 </div>
 <form method="post" action="" class="form-horizontal">

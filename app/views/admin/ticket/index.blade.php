@@ -4,7 +4,7 @@
 @section('content')
 <div class="page-header">
     <h2>
-        工单列表 <small> 共 {{ $jobs->count() }} 条</small>
+        工单列表
     </h2>
 </div>
 
@@ -40,7 +40,7 @@
             @if ($job->status == 0)
             <span class="label label-success">处理中</span>
             @elseif ($job->status == 1)
-            <span class="label label-important">已处理</span>
+            <span class="label badge-warning">已处理</span>
             @elseif ($job->status == 2)
             <span class="label label-info">已完成</span>
             @else
@@ -55,7 +55,7 @@
     @endforeach
     @else
     <tr>
-        <td colspan="3">没工单记录</td>
+        <td colspan="7">没工单记录</td>
     </tr>
     @endif
     </tbody>
