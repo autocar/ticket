@@ -12,15 +12,16 @@ class UsersTableSeeder extends Seeder {
 
         $users = array(
             array(
-                'id'         => '10000',
-                'email'      => 'demo@ecdo.cc',
-                'password'   => Hash::make('demo'),
-                'name'       => 'demo',
-                'mobile'     => '13000000000',
-                'product'    => '',
-                'bn'         => '',
-                'start_time' => new DateTime,
-                'created_at' => new DateTime,
+                'id'          => '10000',
+                'email'       => 'demo@ecdo.cc',
+                'password'    => Hash::make('demo'),
+                'name'        => 'demo',
+                'mobile'      => '13000000000',
+                'product'     => '',
+                'bn'          => '',
+                'operator_id' => '1',
+                'start_time'  => new DateTime,
+                'created_at'  => new DateTime,
             )
         );
 

@@ -16,6 +16,7 @@ class CreateTitleTable extends Migration {
             $table->increments('id');
             $table->integer('job_id')->unsigned();
             $table->integer('member_id')->unsigned();
+            $table->string('title');
             $table->text('content');
             $table->timestamp('start_time');
         });
