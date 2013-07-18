@@ -9,7 +9,7 @@
                     class="icon-circle-arrow-left icon-white"></i> 返回</a>
         </div>
 
-        修改用户
+        修改用户信息
     </h3>
 </div>
 

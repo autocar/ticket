@@ -77,7 +77,7 @@ class OperatorController extends AdminController {
     /**
      * getEdit
      *
-     * @param null $typeId
+     * @param null $operatorId
      *
      * @return mixed
      */
@@ -94,7 +94,7 @@ class OperatorController extends AdminController {
     /**
      * postEdit
      *
-     * @param null $typeId
+     * @param null $operatorId
      *
      * @return mixed
      */
@@ -162,11 +162,11 @@ class OperatorController extends AdminController {
 
         if (is_null($operator = Operator::find($operatorId)))
         {
-            return Redirect::to('admin/type')->with('error', '用户不存在');
+            return Redirect::to('admin/operator')->with('error', '用户不存在');
         }
 
         $operator->delete();
 
-        return Redirect::to('admin/type')->with('success', '删除成功');
+        return Redirect::to('admin/operator')->with('success', '删除成功');
     }
 }

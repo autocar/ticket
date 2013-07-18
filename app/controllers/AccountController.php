@@ -100,7 +100,7 @@ class AccountController extends AuthorizedController
 		//
 		if (Auth::check())
 		{
-			return Redirect::to('account');
+			return Redirect::to('ticket');
 		}
 
 		// Show the page.
@@ -142,7 +142,7 @@ class AccountController extends AuthorizedController
 			{
 				// Redirect to the users page.
 				//
-				return Redirect::to('account')->with('success', '登陆成功');
+				return Redirect::to('ticket')->with('success', '登陆成功');
 			}
 			else
 			{

@@ -4,6 +4,7 @@ Route::get('/', array('as' => 'home', 'uses' => 'HomeController@showIndex'));
 Route::controller('account','AccountController');
 
 // 工单
+Route::controller('ticket','TicketController');
 
 // 后台登陆
 Route::get('admin/login', 'Controllers\Admin\AccountController@getLogin');
@@ -19,7 +20,6 @@ Route::group(array('prefix' => 'admin'), function()
     Route::get('account', 'Controllers\Admin\AccountController@getIndex');
     Route::post('account', 'Controllers\Admin\AccountController@postIndex');
 
-
     // 工单管理
     Route::get('ticket', array('as' => 'ticket', 'uses' => 'Controllers\Admin\TicketController@getIndex'));
 
@@ -33,6 +33,11 @@ Route::group(array('prefix' => 'admin'), function()
 
     // 客户管理
     Route::get('member', array('as' => 'member', 'uses' => 'Controllers\Admin\MemberController@getIndex'));
+    Route::get('member/create', array('as' => 'member/add', 'uses' => 'Controllers\Admin\MemberController@getCreate'));
+    Route::post('member/create', 'Controllers\Admin\MemberController@postCreate');
+    Route::get('member/{memberId}/edit', array('as' => 'update/member', 'uses' => 'Controllers\Admin\MemberController@getEdit'));
+    Route::post('member/{operatorId}/edit', 'Controllers\Admin\MemberController@postEdit');
+    Route::get('member/{operatorId}/delete', array('as' => 'delete/member', 'uses' => 'Controllers\Admin\MemberController@getDelete'));
 
     // 用户管理
     Route::get('operator', array('as' => 'operator', 'uses' => 'Controllers\Admin\OperatorController@getIndex'));

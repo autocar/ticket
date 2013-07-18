@@ -24,7 +24,7 @@
     <style>
         @section('styles')
 			body {
-				padding-top: 60px;
+				padding: 70px 0 30px 0;
 			}
         @show
     </style>
@@ -51,7 +51,7 @@
 <body>
 
 <!-- Navbar -->
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -62,28 +62,29 @@
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li {{{ (Request::is('/') ? 'class=active' : '') }}}><a href="{{{ URL::to('') }}}"><i class="icon-home icon-white"></i> 首页</a></li>
+                    <li {{{ (Request::is('/') ? 'class=active' : '') }}}><a href="{{{ URL::to('/') }}}"><i class="icon-home"></i> 首页</a></li>
 
                     <!--工单-->
                     @if (Auth::check())
-                    <li><a href="{{{ URL::to('') }}}"><i class="icon-check icon-white"></i> 提交工单</a></li>
-                    <li><a href="{{{ URL::to('') }}}"><i class="icon-th-list icon-white"></i> 工单列表</a></li>
+                    <li {{ (Request::is('ticket/create') ? 'class=active' : '') }}><a href="{{{ URL::to('ticket/create') }}}"><i class="icon-check"></i> 提交工单</a></li>
+                    <li {{ (Request::is('ticket') ? 'class=active' : '') }}><a href="{{{ URL::to('ticket') }}}"><i class="icon-th-list"></i> 工单列表</a></li>
                     @endif
 
-                    <li {{ (Request::is('help') ? 'class=active' : '') }}><a href="{{ URL::to('') }}"><i class="icon-file icon-white"></i> 帮助文档</a></li>
+                    <li {{ (Request::is('help') ? 'class=active' : '') }}><a href="{{ URL::to('') }}"><i class="icon-file"></i> 帮助文档</a></li>
                 </ul>
 
                 <ul class="nav pull-right">
                     @if (Auth::check())
-                    <li class="navbar-text">您好， {{{ Auth::user()->name }}}</li>
+                    <li class="navbar-text">您好， {{{ Auth::user()->name }}} </li>
+                    <li> <span class="badge badge-important">6</span> </li>
                     <li class="divider-vertical"></li>
                     <li
-                    {{{ (Request::is('account') ? 'class=active' : '') }}}><a href="{{{ URL::to('account') }}}"><i class="icon-user icon-white"></i> 个人资料</a></li>
-                    <li><a href="{{{ URL::to('account/logout') }}}"><i class="icon-off icon-white"></i> 退出</a></li>
+                    {{{ (Request::is('account') ? 'class=active' : '') }}}><a href="{{{ URL::to('account') }}}"><i class="icon-user"></i> 个人资料</a></li>
+                    <li><a href="{{{ URL::to('account/logout') }}}"><i class="icon-off"></i> 退出</a></li>
                     @else
                     <li
                     {{{ (Request::is('account/login') ? 'class=active' : '') }}}><a
-                        href="{{{ URL::to('account/login') }}}"><i class="icon-info-sign icon-white"></i> 登陆</a></li>
+                        href="{{{ URL::to('account/login') }}}"><i class="icon-info-sign"></i> 登陆</a></li>
                     <li
                     @endif
                 </ul>

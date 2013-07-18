@@ -3,15 +3,13 @@
 @section('content')
 <div class="hero-unit">
     <div class="page-header">
-        <h1>欢迎使用 <small>ECDO在线工单系统</small></h1>
+        <h1>ECDO在线工单系统 <small>alpha 1.0</small></h1>
     </div>
 
     <p>
-        <a class="btn btn-primary">
+        <a class="btn btn-primary" href="{{{ URL::to('ticket/create') }}}">
             提交工单
         </a>
     </p>
 </div>
-
-
 @stop

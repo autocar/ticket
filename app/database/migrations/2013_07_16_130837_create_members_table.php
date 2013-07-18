@@ -22,6 +22,7 @@ class CreateMembersTable extends Migration {
             $table->string('product');
             $table->timestamp('start_time');
             $table->timestamp('end_time');
+            $table->integer('operator_id')->unsigned();
             $table->timestamps();
         });
 	}

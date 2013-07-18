@@ -38,4 +38,14 @@ class Operator extends Eloquent implements UserInterface{
 		return $this->password;
 	}
 
+    /**
+     * members 客户
+     *
+     * @return mixed
+     */
+    public function members()
+    {
+        return $this->hasMany('Member');
+    }
+
 }

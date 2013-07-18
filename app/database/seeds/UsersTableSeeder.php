@@ -18,6 +18,7 @@ class UsersTableSeeder extends Seeder {
                 'name'       => 'demo',
                 'mobile'     => '13000000000',
                 'product'    => '',
+                'bn'         => '',
                 'start_time' => new DateTime,
                 'created_at' => new DateTime,
             )

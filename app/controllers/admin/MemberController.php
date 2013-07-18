@@ -3,6 +3,8 @@
 use Auth;
 use View;
 use Member;
+use Operator;
+use Hash;
 use Validator;
 use Input;
 use Redirect;
@@ -17,10 +19,10 @@ class MemberController extends AdminController {
      */
     public function getIndex()
     {
-        $troubles = Trouble::all();
+        $members = Member::all();
 
         // Show the page
-        return View::make('admin/type/index', compact('troubles'));
+        return View::make('admin/member/index', compact('members'));
     }
 
     /**
@@ -30,7 +32,9 @@ class MemberController extends AdminController {
      */
     public function getCreate()
     {
-        return View::make('admin/type/create');
+        $operators = Operator::where('lv', '0')->get();
+
+        return View::make('admin/member/create', compact('operators'));
     }
 
     /**
@@ -41,88 +45,143 @@ class MemberController extends AdminController {
     public function postCreate()
     {
         $rules = array(
-            'name' => 'required',
+            'bn'                    => 'required|min:4|max:10|Unique:members,bn',
+            'name'                  => 'required|min:2',
+            'email'                 => 'Required|Email|Unique:members,email',
+            'mobile'                => 'Required|Unique:operators,mobile',
+            'password'              => 'Required|Confirmed',
+            'password_confirmation' => 'Required',
+            'start_time'            => 'date',
+            'end_time'              => 'date',
+            //'start_time'            => 'Required',
         );
 
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails())
         {
-            // Ooops.. something went wrong
             return Redirect::back()->withInput()->withErrors($validator);
         }
 
-        $trouble = new Trouble;
+        $member = new Member;
 
-        $trouble->name = e(Input::get('name'));
+        $member->bn          = e(Input::get('bn'));
+        $member->name        = e(Input::get('name'));
+        $member->email       = e(Input::get('email'));
+        $member->mobile      = e(Input::get('mobile'));
+        $member->product     = e(Input::get('product'));
+        $member->start_time  = e(Input::get('start_time'));
+        $member->end_time    = e(Input::get('end_time'));
+        $member->password    = Hash::make(Input::get('password'));
+        $member->operator_id = e(Input::get('operator_id'));
 
-        if ($trouble->save())
+        if ($member->save())
         {
-            // Redirect to the new blog post page
-            return Redirect::to("admin/type")->with('success', '添加成功');
+            return Redirect::to("admin/member")->with('success', '客户添加成功');
         }
 
-        return Redirect::to('admin/type/create')->with('error', '添加失败');
+        return Redirect::to('admin/member/create')->with('error', '客户添加失败');
     }
 
     /**
      * getEdit
      *
-     * @param null $typeId
+     * @param null $memberId
      *
      * @return mixed
      */
-    public function getEdit($typeId = NULL)
+    public function getEdit($memberId = NULL)
     {
-        if (is_null($trouble = Trouble::find($typeId)))
+        if (is_null($member = Member::find($memberId)))
         {
-            return Redirect::to('admin/type')->with('error', '问题类型不存在');
+            return Redirect::to('admin/member')->with('error', '客户不存在');
         }
 
-        // Show the page
-        return View::make('admin/type/edit', compact('trouble'));
+        $operators = Operator::where('lv', '0')->get();
+
+        return View::make('admin/member/edit', array(
+                                                    'operators' => $operators,
+                                                    'member'    => $member
+                                               ));
     }
 
-    public function postEdit($typeId = NULL)
+    /**
+     * postEdit
+     *
+     * @param null $memberId
+     *
+     * @return mixed
+     */
+    public function postEdit($memberId = NULL)
     {
-        if (is_null($trouble = Trouble::find($typeId)))
+        if (is_null($member = Member::find($memberId)))
         {
-            return Redirect::to('admin/type')->with('error', '问题类型不存在');
+            return Redirect::to('admin/member')->with('error', '客户不存在');
         }
 
         $rules = array(
-            'name' => 'required',
+            'bn'         => 'required|min:4|max:10',
+            'name'       => 'required|min:2',
+            'mobile'     => 'Required',
+            'email'      => 'Required|Email',
+            'start_time' => 'date',
+            'end_time'   => 'date',
         );
+
+        if (Input::get('password'))
+        {
+            $rules['password']              = 'Required|Confirmed';
+            $rules['password_confirmation'] = 'Required';
+        }
 
         $validator = Validator::make(Input::all(), $rules);
 
 
         if ($validator->fails())
         {
-            // Ooops.. something went wrong
             return Redirect::back()->withInput()->withErrors($validator);
         }
 
-        $trouble->name = e(Input::get('name'));
+        $member->bn          = e(Input::get('bn'));
+        $member->name        = e(Input::get('name'));
+        $member->email       = e(Input::get('email'));
+        $member->mobile      = e(Input::get('mobile'));
+        $member->product     = e(Input::get('product'));
+        $member->start_time  = e(Input::get('start_time'));
+        $member->end_time    = e(Input::get('end_time'));
+        $member->operator_id = e(Input::get('operator_id'));
 
-        if ($trouble->save())
+        if (Input::get('password') !== '')
         {
-            return Redirect::to("admin/type")->with('success', '更新成功');
+            $member->password = Hash::make(Input::get('password'));
         }
 
-        return Redirect::to("admin/type/$typeId/edit")->with('error', '更新失败');
+        if ($member->save())
+        {
+            return Redirect::to("admin/member")->with('success', '更新成功');
+        }
+
+        return Redirect::to("admin/member/$memberId/edit")->with('error', '更新失败');
 
     }
 
-    public function getDelete($typeId = NULL){
+    /**
+     * getDelete
+     *
+     * @param null $memberId
+     *
+     * @return mixed
+     */
+    public function getDelete($memberId = NULL)
+    {
 
-        if (is_null($trouble = Trouble::find($typeId)))
+        if (is_null($member = Member::find($memberId)))
         {
-            return Redirect::to('admin/type')->with('error', '问题类型不存在');
+            return Redirect::to('admin/member')->with('error', '客户不存在');
         }
 
-        $trouble->delete();
+        $member->delete();
 
-        return Redirect::to('admin/type')->with('success', '删除成功');
+        return Redirect::to('admin/member')->with('success', '删除成功');
     }
 }

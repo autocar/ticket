@@ -49,4 +49,16 @@ class Member extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
+    /**
+     * 客服信息
+     *
+     * @return mixed
+     */
+    public function operator()
+    {
+        return $this->belongsTo('Operator');
+    }
+
+
+
 }

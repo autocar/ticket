@@ -18,6 +18,8 @@
     ================================================== -->
     <link href="{{{ asset('assets/css/bootstrap.css') }}}" rel="stylesheet">
 
+    @yield('styles_src')
+
     <style>
         @section('styles')
 			body {
