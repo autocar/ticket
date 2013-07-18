@@ -59,6 +59,16 @@ class Member extends Eloquent implements UserInterface, RemindableInterface {
         return $this->belongsTo('Operator');
     }
 
+    /**
+     * 绑定产品
+     *
+     * @return mixed
+     */
+    public function MP()
+    {
+        return $this->hasMany('MP', 'member_id');
+    }
+
 
 
 }

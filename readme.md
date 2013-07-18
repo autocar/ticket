@@ -1,8 +1,9 @@
 ##帮助文档
 
-先执行 composer install 安装
+先执行 `composer install` 安装
 
 ###更改数据库信息
+
 ***app/config/database.php***
 
 -----
@@ -11,6 +12,12 @@
 
 	php artisan migrate
 	php artisan db:seed
+
+-----
+
+###初始化类：（git更新后请执行）
+
+	php artisan dump-autoload
 
 -----
 
@@ -24,12 +31,12 @@
 
 -----
 
-前台账号：
+####前台账号：
 
 	邮箱 : demo@ecdo.cc
 	密码 : demo
 
-后台账号 :
+####后台账号 :
 
     账号：admin
     密码：admin

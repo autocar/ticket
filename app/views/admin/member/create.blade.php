@@ -75,7 +75,15 @@
     <div class="control-group {{ $errors->has('product') ? 'error' : '' }}">
         <label class="control-label" for="product">服务产品</label>
         <div class="controls">
-            <input type="text" name="product" id="product" value="{{ Input::old('product') }}"/>
+            @if ($products->count() >= 1)
+            @foreach ($products as $product)
+            <label class="checkbox inline">
+                <input type="checkbox" name="product[]" id="product{{ $product->id }}" value="{{ $product->id }}"> {{ $product->name }}
+            </label>
+            @endforeach
+            @else
+                <span class="help-inline">请先添加产品</span>
+            @endif
             {{ $errors->first('product', '<span class="help-inline">:message</span>') }}
         </div>
     </div>

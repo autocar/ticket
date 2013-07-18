@@ -4,7 +4,8 @@ use Auth;
 use View;
 use Member;
 use Operator;
-use Trouble;
+use MP;
+use Product;
 use Hash;
 use Validator;
 use Input;
@@ -35,8 +36,9 @@ class MemberController extends AdminController {
     public function getCreate()
     {
         $operators = Operator::where('lv', '0')->get();
+        $products  = Product::all();
 
-        return View::make('admin/member/create', compact('operators'));
+        return View::make('admin/member/create', compact('operators', 'products'));
     }
 
     /**
@@ -55,7 +57,7 @@ class MemberController extends AdminController {
             'password_confirmation' => 'Required',
             'start_time'            => 'date',
             'end_time'              => 'date',
-            //'start_time'            => 'Required',
+            'product'               => 'Required',
         );
 
         $validator = Validator::make(Input::all(), $rules);
@@ -66,20 +68,35 @@ class MemberController extends AdminController {
         }
 
         $member = new Member;
+        $mp     = new MP;
 
         $member->bn          = e(Input::get('bn'));
         $member->name        = e(Input::get('name'));
         $member->email       = e(Input::get('email'));
         $member->mobile      = e(Input::get('mobile'));
-        $member->product     = e(Input::get('product'));
         $member->start_time  = e(Input::get('start_time'));
         $member->end_time    = e(Input::get('end_time'));
         $member->password    = Hash::make(Input::get('password'));
-        $member->operator_id = e(Input::get('operator_id'));
+        $member->operator_id = Input::get('operator_id');
 
         if ($member->save())
         {
-            return Redirect::to("admin/member")->with('success', '客户添加成功');
+            $mp_array = array();
+
+            foreach (Input::get('product') as $key => $val)
+            {
+                $mp_array[$key]['member_id']  = $member->id;
+                $mp_array[$key]['product_id'] = $val;
+            }
+
+            if ($mp->insert($mp_array))
+            {
+                return Redirect::to("admin/member")->with('success', '客户添加成功');
+            }
+            else
+            {
+                return Redirect::to("admin/member")->with('error', '客户绑定产品失败');
+            }
         }
 
         return Redirect::to('admin/member/create')->with('error', '客户添加失败');
@@ -100,10 +117,12 @@ class MemberController extends AdminController {
         }
 
         $operators = Operator::where('lv', '0')->get();
+        $products  = Product::all();
 
         return View::make('admin/member/edit', array(
                                                     'operators' => $operators,
-                                                    'member'    => $member
+                                                    'member'    => $member,
+                                                    'products'  => $products,
                                                ));
     }
 
@@ -128,6 +147,7 @@ class MemberController extends AdminController {
             'email'      => 'Required|Email',
             'start_time' => 'date',
             'end_time'   => 'date',
+            'product'    => 'Required',
         );
 
         if (Input::get('password'))
@@ -148,10 +168,9 @@ class MemberController extends AdminController {
         $member->name        = e(Input::get('name'));
         $member->email       = e(Input::get('email'));
         $member->mobile      = e(Input::get('mobile'));
-        $member->product     = e(Input::get('product'));
         $member->start_time  = e(Input::get('start_time'));
         $member->end_time    = e(Input::get('end_time'));
-        $member->operator_id = e(Input::get('operator_id'));
+        $member->operator_id = Input::get('operator_id');
 
         if (Input::get('password') !== '')
         {
@@ -160,7 +179,24 @@ class MemberController extends AdminController {
 
         if ($member->save())
         {
-            return Redirect::to("admin/member")->with('success', '更新成功');
+            $mp = new MP;
+
+            foreach (Input::get('product') as $key => $val)
+            {
+                $mp_array[$key]['member_id']  = $member->id;
+                $mp_array[$key]['product_id'] = $val;
+            }
+
+            $mp->where('member_id', '=', $member->id)->delete();
+
+            if ($mp->insert($mp_array))
+            {
+                return Redirect::to("admin/member")->with('success', '更新成功');
+            }
+            else
+            {
+                return Redirect::to("admin/member")->with('error', '客户绑定产品失败');
+            }
         }
 
         return Redirect::to("admin/member/$memberId/edit")->with('error', '更新失败');
