@@ -107,7 +107,7 @@
 
     <p>
         <hr />
-        在线工单平台 &copy; ecdo.cc 2013
+        在线工单平台 &copy; ecdo.cc 2013 当前呈现版本 13.07.18
     </p>
 </div>
 <!-- ./ container -->

@@ -54,4 +54,6 @@
     </tbody>
 </table>
 
+{{ $members->links() }}
+
 @stop

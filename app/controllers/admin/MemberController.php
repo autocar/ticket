@@ -4,11 +4,13 @@ use Auth;
 use View;
 use Member;
 use Operator;
+use Trouble;
 use Hash;
 use Validator;
 use Input;
 use Redirect;
 use Str;
+use Paginator;
 
 class MemberController extends AdminController {
 
@@ -19,7 +21,7 @@ class MemberController extends AdminController {
      */
     public function getIndex()
     {
-        $members = Member::all();
+        $members = Member::query()->paginate();
 
         // Show the page
         return View::make('admin/member/index', compact('members'));

@@ -50,7 +50,7 @@ class Member extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
     /**
-     * 客服信息
+     * 客服
      *
      * @return mixed
      */
