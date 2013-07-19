@@ -80,7 +80,7 @@
             @if ($products->count() >= 1)
             @foreach ($products as $product)
             <label class="checkbox inline">
-                <input type="checkbox" name="product[]" id="product{{ $product->id }}" value="{{ $product->id }}"
+                <input type="checkbox" name="product[]" id="product_{{ $product->id }}" value="{{ $product->id }}"
                     @if ($member->MP()->where('member_id','=', $member->id )->where('product_id','=', $product->id )->first())
                     checked
                     @endif

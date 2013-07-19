@@ -64,7 +64,7 @@
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li {{{ (Request::is('/') ? 'class=active' : '') }}}><a href="{{{ URL::to('/') }}}"><i class="icon-home"></i> 首页</a></li>
+                    <li><a href="{{{ URL::to('/') }}}"><i class="icon-home"></i> 首页</a></li>
 
                     <!--工单-->
                     @if (Auth::check())
@@ -84,8 +84,7 @@
                     {{{ (Request::is('account') ? 'class=active' : '') }}}><a href="{{{ URL::to('account') }}}"><i class="icon-user"></i> 个人资料</a></li>
                     <li><a href="{{{ URL::to('account/logout') }}}"><i class="icon-off"></i> 退出</a></li>
                     @else
-                    <li
-                    {{{ (Request::is('account/login') ? 'class=active' : '') }}}><a
+                    <li><a
                         href="{{{ URL::to('account/login') }}}"><i class="icon-info-sign"></i> 登陆</a></li>
                     <li
                     @endif

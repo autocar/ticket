@@ -78,6 +78,16 @@ class AccountController extends AuthorizedController
 
 			$user->save();
 
+            // 修改密码，重新登录
+            if (Input::get('password') !== '')
+            {
+                // Log the user out.
+                Auth::logout();
+
+                // Redirect to the users page.
+                return Redirect::to('account/login')->with('success', '密码修改、请重新登录！');
+            }
+
 			// Redirect to the register page.
 			//
 			return Redirect::to('account')->with('success', '资料更新成功!');

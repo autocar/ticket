@@ -53,10 +53,24 @@
         </div>
     </div>
 
+    <div class="control-group {{ $errors->has('product') ? 'error' : '' }}">
+        <label class="control-label" for="product">相关产品</label>
+        <div class="controls">
+            @if (Auth::user()->MP->count() >= 1)
+            @foreach (Auth::user()->MP as $product)
+            <label class="checkbox inline">
+                <input type="checkbox" name="product[]" id="product_{{ $product->product_id }}" value="{{ $product->product_id }}"> {{ $product->product->name }}
+            </label>
+            @endforeach
+            @endif
+            {{ $errors->first('product') }}
+        </div>
+    </div>
+
     <div class="control-group {{{ $errors->has('content') ? 'error' : '' }}}">
         <label class="control-label" for="content">工单内容</label>
         <div class="controls">
-            <textarea class="full-width span8" name="content" value="{{{ Request::old('content') }}}" rows="10" placeholder="请输入工单内容">{{{ Input::old('content')}}}</textarea>
+            <textarea class="full-width span6" name="content" value="{{{ Request::old('content') }}}" rows="10" placeholder="请输入工单内容">{{{ Input::old('content')}}}</textarea>
             {{ $errors->first('content') }}
         </div>
     </div>

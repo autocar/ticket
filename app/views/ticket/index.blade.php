@@ -52,7 +52,14 @@
         <td>{{ $job->title->start_time }}</td>
         <td>
             <a href="{{{ URL::to('ticket/view/'. $job->id) }}}" class="btn btn-mini">查看</a>
-            <a href="" class="btn btn-mini btn-danger">关闭</a>
+
+            @if ($job->status == 1)
+            <a href="{{{ URL::to('ticket/close/'. $job->id) }}}" class="btn btn-mini btn-danger">关闭</a>
+            @endif
+
+            @if ($job->status == 0)
+            <a href="{{{ URL::to('ticket/invalid/'. $job->id) }}}" class="btn btn-mini btn-danger">作废</a>
+            @endif
         </td>
     </tr>
     @endforeach

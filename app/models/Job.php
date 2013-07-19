@@ -52,4 +52,14 @@ class Job extends Eloquent  {
         return $this->hasMany('Project');
     }
 
+    /**
+     * 绑定产品
+     *
+     * @return mixed
+     */
+    public function JP()
+    {
+        return $this->hasMany('JP', 'job_id');
+    }
+
 }

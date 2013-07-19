@@ -36,6 +36,7 @@ class TicketController extends AuthorizedController {
             'title'      => 'required|min:4',
             'trouble_id' => 'required',
             'content'    => 'required|min:10',
+            //'product'    => 'Required',
         );
 
         $validator = Validator::make(Input::all(), $rules);
@@ -66,6 +67,19 @@ class TicketController extends AuthorizedController {
 
             if ($title->save())
             {
+
+                $jp = new JP;
+
+                $jp_array = array();
+
+                foreach (Input::get('product') as $key => $val)
+                {
+                    $jp_array[$key]['job_id']     = $job->id;
+                    $jp_array[$key]['product_id'] = $val;
+                }
+
+                $jp->insert($jp_array);
+
                 return Redirect::to("ticket")->with('success', '工单提交成功');
             }
         }
@@ -89,6 +103,13 @@ class TicketController extends AuthorizedController {
         return View::make('ticket/view', compact('job'));
     }
 
+    /**
+     *
+     *
+     * @param null $job_id
+     *
+     * @return mixed
+     */
     public function postView($job_id = NULL)
     {
         if (is_null($job = Job::where('member_id', '=', Auth::user()->id)->find($job_id)))
@@ -115,14 +136,14 @@ class TicketController extends AuthorizedController {
         $title->start_time = new DateTime;
 
 
-
         if ($title->save())
         {
             $job = Job::find($title->job_id);
 
-            $job->status      = '0';
+            $job->status = '0';
 
-            if($job->save()){
+            if ($job->save())
+            {
                 return Redirect::to("ticket/view/" . $title->job_id)->with('success', '工单追加成功');
             }
         }
@@ -130,5 +151,43 @@ class TicketController extends AuthorizedController {
         return Redirect::to('ticket/view/' . $title->job_id)->with('error', '工单追加失败');
     }
 
+    /**
+     *
+     * getClose
+     *
+     * @param $job_id
+     *
+     * @return mixed
+     */
+    public function getClose($job_id)
+    {
+        if (is_null($job = Job::where('member_id', '=', Auth::user()->id)->find($job_id)))
+        {
+            return Redirect::to('ticket')->with('error', '工单不存在');
+        }
+
+        $job->where('id', $job_id)->update(array('status' => 2));
+
+        return Redirect::to('ticket')->with('success', '工单关闭成功');
+    }
+
+    /**
+     * getInvalid
+     *
+     * @param $job_id
+     *
+     * @return mixed
+     */
+    public function getInvalid($job_id)
+    {
+        if (is_null($job = Job::where('member_id', '=', Auth::user()->id)->find($job_id)))
+        {
+            return Redirect::to('ticket')->with('error', '工单不存在');
+        }
+
+        $job->where('id', $job_id)->update(array('status' => 3));
+
+        return Redirect::to('ticket')->with('success', '工单作废成功');
+    }
 
 }

@@ -181,6 +181,8 @@ class MemberController extends AdminController {
         {
             $mp = new MP;
 
+            $mp_array = array();
+
             foreach (Input::get('product') as $key => $val)
             {
                 $mp_array[$key]['member_id']  = $member->id;

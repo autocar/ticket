@@ -9,7 +9,12 @@
 {{-- Content --}}
 @section('content')
 <div class="page-header">
-    <h2>查看工单</h2>
+    <h2>
+        <div class="pull-right">
+            @if ($job->status == 1)<a href="{{{ URL::to('ticket/close/'. $job->id) }}}" class="btn btn-danger">关闭工单</a>@endif
+        </div>
+        查看工单
+    </h2>
 </div>
 
 <p class="well well-small">
@@ -35,6 +40,9 @@
     @else
     <span class="label">已作废</span>
     @endif
+    &nbsp; / &nbsp;
+    相关产品：
+    @foreach ($job->JP as $product) <span class="label label-inverse">{{ $product->product->name }}</span> @endforeach
 </p>
 
 @foreach ($job->titles as $title)

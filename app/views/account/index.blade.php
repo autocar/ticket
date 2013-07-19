@@ -53,7 +53,7 @@
     <div class="control-group">
         <label class="control-label" for="product">服务产品</label>
         <div class="controls">
-            <input type="text" disabled value="{{{ Request::old('product', $user->product) }}}" />
+            <textarea disabled>@foreach ($user->MP as $product) {{ $product->product->name }} \ @endforeach </textarea>
         </div>
     </div>
     <!-- ./ product -->
