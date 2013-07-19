@@ -38,9 +38,9 @@
         <td>{{ $job->title->title }}</td>
         <td>
             @if ($job->status == 0)
-            <span class="label label-success">处理中</span>
+            <span class="label badge-warning">待处理</span>
             @elseif ($job->status == 1)
-            <span class="label badge-warning">已处理</span>
+            <span class="label label-success">已处理</span>
             @elseif ($job->status == 2)
             <span class="label label-info">已完成</span>
             @else
