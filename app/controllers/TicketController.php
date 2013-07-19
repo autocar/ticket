@@ -88,6 +88,7 @@ class TicketController extends AuthorizedController {
     }
 
     /**
+     * getView
      *
      * @param null $job_id
      *
@@ -104,7 +105,7 @@ class TicketController extends AuthorizedController {
     }
 
     /**
-     *
+     * postView
      *
      * @param null $job_id
      *
@@ -159,7 +160,7 @@ class TicketController extends AuthorizedController {
      *
      * @return mixed
      */
-    public function getClose($job_id)
+    public function getClose($job_id = NULL)
     {
         if (is_null($job = Job::where('member_id', '=', Auth::user()->id)->find($job_id)))
         {
@@ -178,7 +179,7 @@ class TicketController extends AuthorizedController {
      *
      * @return mixed
      */
-    public function getInvalid($job_id)
+    public function getInvalid($job_id = NULL)
     {
         if (is_null($job = Job::where('member_id', '=', Auth::user()->id)->find($job_id)))
         {

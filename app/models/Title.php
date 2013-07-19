@@ -23,6 +23,16 @@ class Title extends Eloquent  {
     }
 
     /**
+     * 客服
+     *
+     * @return mixed
+     */
+    public function member()
+    {
+        return $this->belongsTo('Member');
+    }
+
+    /**
      * 回复
      *
      * @return mixed

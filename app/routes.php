@@ -22,6 +22,11 @@ Route::group(array('prefix' => 'admin'), function()
 
     // 工单管理
     Route::get('ticket', array('as' => 'ticket', 'uses' => 'Controllers\Admin\TicketController@getIndex'));
+    Route::get('ticket/{jobId}/view', array('as' => 'view/ticket', 'uses' => 'Controllers\Admin\TicketController@getView'));
+    Route::post('ticket/{jobId}/view', 'Controllers\Admin\TicketController@postView');
+    Route::get('ticket/{jobId}/assign', array('as' => 'view/assign', 'uses' => 'Controllers\Admin\TicketController@getAssign'));
+    Route::post('ticket/{jobId}/assign', 'Controllers\Admin\TicketController@postAssign');
+    Route::get('ticket/{jobId}/close', array('as' => 'view/close', 'uses' => 'Controllers\Admin\TicketController@getClose'));
 
     // 问题类型
     Route::get('type', array('as' => 'type', 'uses' => 'Controllers\Admin\TypeController@getIndex'));

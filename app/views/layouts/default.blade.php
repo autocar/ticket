@@ -81,7 +81,7 @@
                 <ul class="nav pull-right">
                     @if (Auth::check())
                     <li class="navbar-text">您好， {{{ Auth::user()->name }}} </li>
-                    <li> <span class="badge badge-important">6</span> </li>
+<!--                    <li> <span class="badge badge-important">6</span> </li>-->
                     <li class="divider-vertical"></li>
                     <li
                     {{{ (Request::is('account') ? 'class=active' : '') }}}><a href="{{{ URL::to('account') }}}"><i class="icon-user"></i> 个人资料</a></li>
@@ -89,7 +89,6 @@
                     @else
                     <li><a
                         href="{{{ URL::to('account/login') }}}"><i class="icon-info-sign"></i> 登陆</a></li>
-                    <li
                     @endif
                 </ul>
             </div>
@@ -111,7 +110,7 @@
 
     <p>
         <hr />
-        在线工单平台 &copy; ecdo.cc 2013 当前呈现版本 13.07.18
+        在线工单平台 &copy; ecdo.cc 2013 当前呈现版本 13.07.19
     </p>
 </div>
 <!-- ./ container -->
@@ -123,6 +122,7 @@
 
 <!-- baidu js cdn-->
 <script src="http://libs.baidu.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
-<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.min.js"></script>
+
 </body>
 </html>
