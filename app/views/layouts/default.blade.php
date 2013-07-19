@@ -110,7 +110,7 @@
 
     <p>
         <hr />
-        在线工单平台 &copy; ecdo.cc 2013 当前呈现版本 13.07.19
+        在线工单平台 &copy; <a href="http://www.ecdo.cc" target="_blank">ecdo.cc</a> 2013 当前呈现版本 13.07.19
     </p>
 </div>
 <!-- ./ container -->
@@ -121,8 +121,8 @@
 <!--<script src="{{{ asset('assets/js/bootstrap/bootstrap.min.js') }}}"></script>-->
 
 <!-- baidu js cdn-->
-<script src="http://libs.baidu.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
 <script src="http://libs.baidu.com/jquery/1.9.0/jquery.min.js"></script>
+<script src="http://libs.baidu.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>
