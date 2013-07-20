@@ -3,7 +3,7 @@
 {{-- styles--}}
 @section('styles')
 @parent
-.o_content { margin-left: 100px;}
+.o_content { margin-left: 80px; background: #FAFAD2;}
 @stop
 
 {{-- Content --}}
@@ -46,7 +46,7 @@
 </p>
 
 @foreach ($job->titles as $title)
-<div class="well" id="t_{{ $title->id }}">
+<div class="t_content well" id="t_{{ $title->id }}">
     @if( $title->title )
     <h4>标题：{{ $title->title }}</h4>
     @endif

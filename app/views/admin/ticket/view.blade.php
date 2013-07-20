@@ -3,7 +3,7 @@
 {{-- styles--}}
 @section('styles')
 @parent
-.o_content { margin-left: 100px;}
+.o_content { margin-left: 80px; background: #FAFAD2; }
 @stop
 
 {{-- Content --}}

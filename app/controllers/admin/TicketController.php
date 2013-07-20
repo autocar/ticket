@@ -97,7 +97,7 @@ class TicketController extends AdminController {
             {
                 // 邮件数据
                 $d = array(
-                    'url'   => URL::to('ticket/view/' . $job->id) . '#' . $project->job_id,
+                    'url'   => URL::to('ticket/view/' . $job->id) . '#c_' . $project->id,
                     'reply' => $project->content,
                 );
 

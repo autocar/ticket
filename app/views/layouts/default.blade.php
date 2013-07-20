@@ -75,7 +75,7 @@
                     <li {{ (Request::is('ticket') ? 'class=active' : '') }}><a href="{{{ URL::to('ticket') }}}"><i class="icon-th-list"></i> 工单列表</a></li>
                     @endif
 
-                    <li {{ (Request::is('help') ? 'class=active' : '') }}><a href="{{ URL::to('') }}"><i class="icon-file"></i> 帮助文档</a></li>
+<!--                    <li {{ (Request::is('help') ? 'class=active' : '') }}><a href="{{ URL::to('') }}"><i class="icon-file"></i> 帮助文档</a></li>-->
                 </ul>
 
                 <ul class="nav pull-right">
