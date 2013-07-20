@@ -99,7 +99,7 @@
         </div>
     </div>
 
-    <input type="hidden" name="title_id" id="title_id" value="{{ Input::old('title_id', $job->titles()->orderBy('id', 'desc')->get()[0]->id ) }}"/>
+    <input type="hidden" name="title_id" id="title_id" value="{{ Input::old('title_id', $job->titles()->orderBy('id', 'desc')->first()->id ) }}"/>
 
     <!-- 工单ID -->
     <input type="hidden" id="job_id" name="job_id" value="{{ Input::old('job_id', $job->id) }}" />
