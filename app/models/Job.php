@@ -23,6 +23,26 @@ class Job extends Eloquent  {
     }
 
     /**
+     * 客户
+     *
+     * @return mixed
+     */
+    public function member()
+    {
+        return $this->belongsTo('Member');
+    }
+
+    /**
+     * 客服
+     *
+     * @return mixed
+     */
+    public function operator()
+    {
+        return $this->belongsTo('Operator');
+    }
+
+    /**
      * 标题
      *
      * @return mixed

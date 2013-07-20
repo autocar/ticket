@@ -80,7 +80,7 @@
 @endforeach
 @endforeach
 
-@if ($job->status == 0)
+@if ($job->status == 0 || $job->status == 1)
 <form method="post" action="" class="form-horizontal">
     <!-- CSRF Token -->
     {{ Form::token() }}
@@ -97,7 +97,7 @@
         </div>
     </div>
 
-    <input type="hidden" name="title_id" id="title_id" value="{{ Input::old('title_id', $job->title->id) }}"/>
+    <input type="hidden" name="title_id" id="title_id" value="{{ Input::old('title_id', $job->titles()->orderBy('id', 'desc')->get()[0]->id ) }}"/>
 
     <!-- 工单ID -->
     <input type="hidden" id="job_id" name="job_id" value="{{ Input::old('job_id', $job->id) }}" />

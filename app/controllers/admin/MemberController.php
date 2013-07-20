@@ -22,7 +22,7 @@ class MemberController extends AdminController {
      */
     public function getIndex()
     {
-        $members = Member::query()->paginate();
+        $members = Member::query()->orderBy('id', 'desc')->paginate();
 
         // Show the page
         return View::make('admin/member/index', compact('members'));

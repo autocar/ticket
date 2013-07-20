@@ -9,6 +9,8 @@ use Validator;
 use Input;
 use DateTime;
 use Operator;
+use URL;
+use Mail;
 
 
 class TicketController extends AdminController {
@@ -93,7 +95,25 @@ class TicketController extends AdminController {
 
             if ($job->save())
             {
-                // TODO 发送邮件
+                // 邮件数据
+                $d = array(
+                    'url'   => URL::to('ticket/view/' . $job->id) . '#' . $project->job_id,
+                    'reply' => $project->content,
+                );
+
+                $u = array(
+                    'email' => $job->member->email,
+                    'name'  => $job->member->name,
+                    'title' => $job->title->title,
+                );
+
+                // 发送邮件
+                Mail::send('emails.ticket.reply', $d, function ($m) use ($u)
+                {
+                    $m->to($u['email'], $u['name']);
+                    $m->subject('回复工单：' . $u['title']);
+                });
+
                 return Redirect::to("admin/ticket/{$job_id}/view")->with('success', '工单回复成功');
             }
         }
@@ -108,7 +128,8 @@ class TicketController extends AdminController {
      *
      * @return mixed
      */
-    public function getAssign($job_id = NULL){
+    public function getAssign($job_id = NULL)
+    {
         if (is_null($job = Job::find($job_id)))
         {
             return Redirect::to('admin/ticket')->with('error', '工单不存在');
@@ -127,7 +148,8 @@ class TicketController extends AdminController {
      *
      * @return mixed
      */
-    public function postAssign($job_id = NULL){
+    public function postAssign($job_id = NULL)
+    {
         if (is_null($job = Job::find($job_id)))
         {
             return Redirect::to('admin/ticket')->with('error', '工单不存在');

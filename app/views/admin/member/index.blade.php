@@ -37,7 +37,9 @@
         <td>{{ $member->email }}</td>
         <td>{{ $member->name }}</td>
         <td>{{ $member->mobile }}</td>
-        <td>{{ $member->product }}</td>
+        <td>
+            @foreach ($member->MP as $product) <span class="label label-inverse">{{ $product->product->name }}</span> @endforeach
+        </td>
         <td>{{ $member->start_time }}</td>
         <td>{{ $member->end_time }}</td>
         <td>

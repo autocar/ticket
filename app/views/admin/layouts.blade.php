@@ -14,9 +14,12 @@
     ================================================== -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- baidu css cdn -->
+    <link href="http://libs.baidu.com/bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- CSS
     ================================================== -->
-    <link href="{{{ asset('assets/css/bootstrap.css') }}}" rel="stylesheet">
+    <!--    <link href="{{{ asset('assets/css/bootstrap.css') }}}" rel="stylesheet">-->
     <!--<link href="{{{ asset('assets/css/bootstrap-responsive.css') }}}" rel="stylesheet">-->
 
     @yield('styles_src')
@@ -106,10 +109,15 @@
 </div>
 <!-- ./ container -->
 
+
 <!-- Javascripts
 ================================================== -->
-<script src="{{{ asset('assets/js/jquery.v1.8.3.min.js') }}}"></script>
-<script src="{{{ asset('assets/js/bootstrap/bootstrap.min.js') }}}"></script>
+<!--<script src="{{{ asset('assets/js/jquery.v1.8.3.min.js') }}}"></script>-->
+<!--<script src="{{{ asset('assets/js/bootstrap/bootstrap.min.js') }}}"></script>-->
+
+<!-- baidu js cdn-->
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.min.js"></script>
+<script src="http://libs.baidu.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
 
 @section('script')
 <script type="text/javascript">
