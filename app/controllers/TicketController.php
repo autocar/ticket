@@ -68,17 +68,19 @@ class TicketController extends AuthorizedController {
             if ($title->save())
             {
 
-                $jp = new JP;
+                if(is_array(Input::get('product'))){
+                    $jp = new JP;
 
-                $jp_array = array();
+                    $jp_array = array();
 
-                foreach (Input::get('product') as $key => $val)
-                {
-                    $jp_array[$key]['job_id']     = $job->id;
-                    $jp_array[$key]['product_id'] = $val;
+                    foreach (Input::get('product') as $key => $val)
+                    {
+                        $jp_array[$key]['job_id']     = $job->id;
+                        $jp_array[$key]['product_id'] = $val;
+                    }
+
+                    $jp->insert($jp_array);
                 }
-
-                $jp->insert($jp_array);
 
                 return Redirect::to("ticket")->with('success', '工单提交成功');
             }
