@@ -16,7 +16,7 @@
         todayBtn:  1,
         autoclose: 1,
         todayHighlight: 1,
-        startView: 2,
+        minView:2,
         forceParse: 0,
         showMeridian: 1
     });
@@ -69,6 +69,22 @@
         <div class="controls">
             <input type="text" name="mobile" id="mobile" value="{{ Input::old('mobile') }}"/>
             {{ $errors->first('mobile', '<span class="help-inline">:message</span>') }}
+        </div>
+    </div>
+
+    <div class="control-group {{{ $errors->has('company') ? 'error' : '' }}}">
+        <label class="control-label" for="company">公司名称</label>
+        <div class="controls">
+            <input type="text" name="company" id="company" value="{{ Input::old('company') }}"/>
+            {{ $errors->first('company', '<span class="help-inline">:message</span>') }}
+        </div>
+    </div>
+
+    <div class="control-group {{{ $errors->has('introduction') ? 'error' : '' }}}">
+        <label class="control-label" for="introduction">公司简介</label>
+        <div class="controls">
+            <input type="text" name="introduction" id="introduction" value="{{ Input::old('introduction') }}"/>
+            {{ $errors->first('introduction', '<span class="help-inline">:message</span>') }}
         </div>
     </div>
 

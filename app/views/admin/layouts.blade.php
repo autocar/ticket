@@ -6,7 +6,7 @@
     <meta charset="utf-8"/>
     <title>
         @section('title')
-        ECDO - 在线工单系统 :: 管理后台
+        ECDO支持系统 :: 管理后台
         @show
     </title>
 

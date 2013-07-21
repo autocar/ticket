@@ -3,7 +3,7 @@
 @section('content')
 <div class="hero-unit" style="margin-top: 30px;">
     <div class="page-header">
-        <h1>ECDO在线工单系统 <small>alpha 1.0</small></h1>
+        <h1>ECDO支持系统 <small>beta 1.0</small></h1>
     </div>
 
     <p>

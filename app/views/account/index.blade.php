@@ -49,6 +49,22 @@
     </div>
     <!-- ./ name -->
 
+    <div class="control-group {{{ $errors->has('company') ? 'error' : '' }}}">
+        <label class="control-label" for="company">公司名称</label>
+        <div class="controls">
+            <input type="text" name="company" id="company" value="{{{ Request::old('company', $user->company) }}}" />
+            {{ $errors->first('company') }}
+        </div>
+    </div>
+
+    <div class="control-group {{{ $errors->has('introduction') ? 'error' : '' }}}">
+        <label class="control-label" for="introduction">公司简介</label>
+        <div class="controls">
+            <input type="text" name="introduction" id="introduction" value="{{{ Request::old('introduction', $user->introduction) }}}" />
+            {{ $errors->first('introduction') }}
+        </div>
+    </div>
+
     <!-- product -->
     <div class="control-group">
         <label class="control-label" for="product">服务产品</label>

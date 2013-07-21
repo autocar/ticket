@@ -6,12 +6,11 @@
     <meta charset="utf-8"/>
     <title>
         @section('title')
-        ECDO - 在线工单系统
+        ECDO支持系统
         @show
     </title>
     <meta name="keywords" content="ecdo" />
-    <meta name="author" content="cooper" />
-    <meta name="description" content="" />
+    <meta name="description" content="ECDO支持系统" />
 
     <!-- Mobile Specific Metas
     ================================================== -->
@@ -110,7 +109,7 @@
 
     <p>
         <hr />
-        在线工单平台 &copy; <a href="http://www.ecdo.cc" target="_blank">ecdo.cc</a> 2013 当前呈现版本 13.07.19
+    ECDO支持系统 &copy; <a href="http://www.ecdo.cc" target="_blank">ecdo.cc</a> 2013 当前呈现版本 beta 1.0 13.07.19
     </p>
 </div>
 <!-- ./ container -->

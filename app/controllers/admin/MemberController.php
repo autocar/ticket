@@ -58,6 +58,7 @@ class MemberController extends AdminController {
             'start_time'            => 'date',
             'end_time'              => 'date',
             'product'               => 'Required',
+            'company'               => 'Required',
         );
 
         $validator = Validator::make(Input::all(), $rules);
@@ -70,14 +71,16 @@ class MemberController extends AdminController {
         $member = new Member;
         $mp     = new MP;
 
-        $member->bn          = e(Input::get('bn'));
-        $member->name        = e(Input::get('name'));
-        $member->email       = e(Input::get('email'));
-        $member->mobile      = e(Input::get('mobile'));
-        $member->start_time  = e(Input::get('start_time'));
-        $member->end_time    = e(Input::get('end_time'));
-        $member->password    = Hash::make(Input::get('password'));
-        $member->operator_id = Input::get('operator_id');
+        $member->bn           = e(Input::get('bn'));
+        $member->name         = e(Input::get('name'));
+        $member->email        = e(Input::get('email'));
+        $member->mobile       = e(Input::get('mobile'));
+        $member->company      = e(Input::get('company'));
+        $member->introduction = e(Input::get('introduction'));
+        $member->start_time   = e(Input::get('start_time'));
+        $member->end_time     = e(Input::get('end_time'));
+        $member->password     = Hash::make(Input::get('password'));
+        $member->operator_id  = Input::get('operator_id');
 
         if ($member->save())
         {
@@ -148,6 +151,7 @@ class MemberController extends AdminController {
             'start_time' => 'date',
             'end_time'   => 'date',
             'product'    => 'Required',
+            'company'    => 'Required',
         );
 
         if (Input::get('password'))
@@ -164,13 +168,15 @@ class MemberController extends AdminController {
             return Redirect::back()->withInput()->withErrors($validator);
         }
 
-        $member->bn          = e(Input::get('bn'));
-        $member->name        = e(Input::get('name'));
-        $member->email       = e(Input::get('email'));
-        $member->mobile      = e(Input::get('mobile'));
-        $member->start_time  = e(Input::get('start_time'));
-        $member->end_time    = e(Input::get('end_time'));
-        $member->operator_id = Input::get('operator_id');
+        $member->bn           = e(Input::get('bn'));
+        $member->name         = e(Input::get('name'));
+        $member->email        = e(Input::get('email'));
+        $member->mobile       = e(Input::get('mobile'));
+        $member->company      = e(Input::get('company'));
+        $member->introduction = e(Input::get('introduction'));
+        $member->start_time   = e(Input::get('start_time'));
+        $member->end_time     = e(Input::get('end_time'));
+        $member->operator_id  = Input::get('operator_id');
 
         if (Input::get('password') !== '')
         {

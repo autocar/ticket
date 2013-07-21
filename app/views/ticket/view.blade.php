@@ -40,9 +40,11 @@
     @else
     <span class="label">已作废</span>
     @endif
+    @if (is_array($job->JP))
     &nbsp; / &nbsp;
     相关产品：
     @foreach ($job->JP as $product) <span class="label label-inverse">{{ $product->product->name }}</span> @endforeach
+    @endif
 </p>
 
 @foreach ($job->titles as $title)
