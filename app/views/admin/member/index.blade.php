@@ -40,8 +40,8 @@
         <td>
             @foreach ($member->MP as $product) <span class="label label-inverse">{{ $product->product->name }}</span> @endforeach
         </td>
-        <td>{{ $member->start_time }}</td>
-        <td>{{ $member->end_time }}</td>
+        <td>{{ date("Y-m-d", strtotime($member->start_time)) }}</td>
+        <td>{{ date("Y-m-d", strtotime($member->end_time)) }}</td>
         <td>
             <a href="{{ route('update/member', $member->id) }}" class="btn btn-mini">编辑</a>
             <a href="{{ route('delete/member', $member->id) }}" class="btn btn-mini btn-danger">删除</a>

@@ -77,10 +77,12 @@ class MemberController extends AdminController {
         $member->mobile       = e(Input::get('mobile'));
         $member->company      = e(Input::get('company'));
         $member->introduction = e(Input::get('introduction'));
-        $member->start_time   = e(Input::get('start_time'));
-        $member->end_time     = e(Input::get('end_time'));
-        $member->password     = Hash::make(Input::get('password'));
-        $member->operator_id  = Input::get('operator_id');
+        // $member->start_time   = e(Input::get('start_time'));
+        // $member->end_time     = e(Input::get('end_time'));
+        $member->start_time  = substr(e(Input::get('start_time')), 0, 10) . ' 00:00:00';
+        $member->end_time    = substr(e(Input::get('end_time')), 0, 10) . ' 00:00:00';
+        $member->password    = Hash::make(Input::get('password'));
+        $member->operator_id = Input::get('operator_id');
 
         if ($member->save())
         {
@@ -174,8 +176,10 @@ class MemberController extends AdminController {
         $member->mobile       = e(Input::get('mobile'));
         $member->company      = e(Input::get('company'));
         $member->introduction = e(Input::get('introduction'));
-        $member->start_time   = e(Input::get('start_time'));
-        $member->end_time     = e(Input::get('end_time'));
+        // $member->start_time   = e(Input::get('start_time'));
+        // $member->end_time     = e(Input::get('end_time'));
+        $member->start_time   = substr(e(Input::get('start_time')), 0, 10) . ' 00:00:00';
+        $member->end_time     = substr(e(Input::get('end_time')), 0, 10) . ' 00:00:00';
         $member->operator_id  = Input::get('operator_id');
 
         if (Input::get('password') !== '')

@@ -82,7 +82,7 @@
 @endforeach
 @endforeach
 
-@if ($job->status == 1)
+@if ($job->status == 0 || $job->status == 1)
 <form method="post" action="" class="form-horizontal">
     <!-- CSRF Token -->
     {{ Form::token() }}
