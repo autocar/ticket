@@ -46,44 +46,37 @@ class TicketController extends AuthorizedController {
             return Redirect::back()->withInput()->withErrors($validator);
         }
 
-        $job   = new Job;
-        $title = new Title;
+        $job = new Job;
 
         $job->member_id   = Auth::user()->id;
         $job->operator_id = Auth::user()->operator_id;
         $job->trouble_id  = e(Input::get('trouble_id'));
         $job->level       = e(Input::get('level'));
         $job->status      = '0';
-        $job->assess      = '0';
-        $job->repeat      = '0';
+        $job->title       = e(Input::get('title'));
+        $job->content     = e(Input::get('content'));
+        $job->start_time  = new DateTime;
 
         if ($job->save())
         {
-            $title->job_id     = $job->id;
-            $title->title      = e(Input::get('title'));
-            $title->content    = e(Input::get('content'));
-            $title->member_id  = Auth::user()->id;
-            $title->start_time = new DateTime;
 
-            if ($title->save())
+            if (is_array(Input::get('product')))
             {
+                $jp = new JP;
 
-                if(is_array(Input::get('product'))){
-                    $jp = new JP;
+                $jp_array = array();
 
-                    $jp_array = array();
-
-                    foreach (Input::get('product') as $key => $val)
-                    {
-                        $jp_array[$key]['job_id']     = $job->id;
-                        $jp_array[$key]['product_id'] = $val;
-                    }
-
-                    $jp->insert($jp_array);
+                foreach (Input::get('product') as $key => $val)
+                {
+                    $jp_array[$key]['job_id']     = $job->id;
+                    $jp_array[$key]['product_id'] = $val;
                 }
 
-                return Redirect::to("ticket")->with('success', '工单提交成功');
+                $jp->insert($jp_array);
             }
+
+            return Redirect::to("ticket")->with('success', '工单提交成功');
+
         }
 
         return Redirect::to('ticket/create')->with('error', '工单提交失败');
@@ -131,27 +124,93 @@ class TicketController extends AuthorizedController {
             return Redirect::back()->withInput()->withErrors($validator);
         }
 
-        $title = new Title;
+        $project = new Project;
 
-        $title->job_id     = e(Input::get('job_id'));
-        $title->content    = e(Input::get('content'));
-        $title->member_id  = Auth::user()->id;
-        $title->start_time = new DateTime;
+        $project->member_id  = Auth::user()->id;
+        $project->job_id     = e(Input::get('job_id'));
+        $project->content    = e(Input::get('content'));
+        $project->type       = '0';
+        $project->reply_time = new DateTime;
 
-
-        if ($title->save())
+        if ($project->save())
         {
-            $job = Job::find($title->job_id);
+            $job = Job::find($project->job_id);
 
             $job->status = '0';
 
             if ($job->save())
             {
-                return Redirect::to("ticket/view/" . $title->job_id)->with('success', '工单追加成功');
+                return Redirect::to("ticket/view/" . $project->job_id)->with('success', '回复成功');
             }
         }
 
-        return Redirect::to('ticket/view/' . $title->job_id)->with('error', '工单追加失败');
+        return Redirect::to('ticket/view/' . $project->job_id)->with('error', '回复失败');
+    }
+
+    /**
+     * getAppend
+     *
+     * @param null $job_id
+     *
+     * @return mixed
+     */
+    public function getAppend($job_id = NULL)
+    {
+        if (is_null($job = Job::where('member_id', '=', Auth::user()->id)->find($job_id)))
+        {
+            return Redirect::to('ticket')->with('error', '工单不存在');
+        }
+
+        return View::make('ticket/append', compact('job'));
+    }
+
+    /**
+     * postAppend
+     *
+     * @param null $job_id
+     *
+     * @return mixed
+     */
+    public function postAppend($job_id = NULL)
+    {
+        if (is_null($job = Job::where('member_id', '=', Auth::user()->id)->find($job_id)))
+        {
+            return Redirect::to('ticket')->with('error', '工单不存在');
+        }
+
+        $rules = array(
+            'content' => 'required|min:10',
+        );
+
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails())
+        {
+            return Redirect::back()->withInput()->withErrors($validator);
+        }
+
+        $project = new Project;
+
+        $project->member_id  = Auth::user()->id;
+        $project->job_id     = e(Input::get('job_id'));
+        $project->content    = e(Input::get('content'));
+        $project->type       = '0';
+        $project->append       = '1';
+        $project->reply_time = new DateTime;
+
+        if ($project->save())
+        {
+            $job = Job::find($project->job_id);
+
+            $job->status = '0';
+
+            if ($job->save())
+            {
+                return Redirect::to("ticket/view/" . $project->job_id)->with('success', '工单追加成功');
+            }
+        }
+
+        return Redirect::to('ticket/view/' . $project->job_id)->with('error', '工单追加失败');
     }
 
     /**
@@ -169,7 +228,10 @@ class TicketController extends AuthorizedController {
             return Redirect::to('ticket')->with('error', '工单不存在');
         }
 
-        $job->where('id', $job_id)->update(array('status' => 2));
+        $job->where('id', $job_id)->update(array(
+                                                'status'   => 2,
+                                                'end_time' => new Datetime
+                                           ));
 
         return Redirect::to('ticket')->with('success', '工单关闭成功');
     }
@@ -188,7 +250,10 @@ class TicketController extends AuthorizedController {
             return Redirect::to('ticket')->with('error', '工单不存在');
         }
 
-        $job->where('id', $job_id)->update(array('status' => 3));
+        $job->where('id', $job_id)->update(array(
+                                                'status'   => 3,
+                                                'end_time' => new Datetime
+                                           ));
 
         return Redirect::to('ticket')->with('success', '工单作废成功');
     }

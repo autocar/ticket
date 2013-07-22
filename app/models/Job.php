@@ -43,27 +43,7 @@ class Job extends Eloquent  {
     }
 
     /**
-     * 标题
-     *
-     * @return mixed
-     */
-    public function title()
-    {
-        return $this->hasOne('Title');
-    }
-
-    /**
-     *
-     *
-     * @return mixed
-     */
-    public function titles()
-    {
-        return $this->hasMany('Title');
-    }
-
-    /**
-     * 回复累容
+     * 回复内容
      *
      * @return mixed
      */

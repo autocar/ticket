@@ -81,11 +81,10 @@ class TicketController extends AdminController {
         $project = new Project;
 
         $project->job_id      = e(Input::get('job_id'));
-        $project->title_id    = e(Input::get('title_id'));
         $project->content     = e(Input::get('content'));
         $project->operator_id = Auth::user()->id;
-        $project->end_time    = new DateTime;
-
+        $project->type        = '1';
+        $project->reply_time  = new DateTime;
 
         if ($project->save())
         {
@@ -104,15 +103,15 @@ class TicketController extends AdminController {
                 $u = array(
                     'email' => $job->member->email,
                     'name'  => $job->member->name,
-                    'title' => $job->title->title,
+                    'title' => $job->title,
                 );
 
                 // 发送邮件
-                Mail::send('emails.ticket.reply', $d, function ($m) use ($u)
-                {
-                    $m->to($u['email'], $u['name']);
-                    $m->subject('回复工单：' . $u['title']);
-                });
+//                Mail::send('emails.ticket.reply', $d, function ($m) use ($u)
+//                {
+//                    $m->to($u['email'], $u['name']);
+//                    $m->subject('回复工单：' . $u['title']);
+//                });
 
                 return Redirect::to("admin/ticket/{$job_id}/view")->with('success', '工单回复成功');
             }
@@ -182,7 +181,10 @@ class TicketController extends AdminController {
             return Redirect::to('admin/ticket')->with('error', '工单不存在');
         }
 
-        $job->where('id', $job_id)->update(array('status' => 2));
+        $job->where('id', $job_id)->update(array(
+                                                'status'   => 2,
+                                                'end_time' => new Datetime
+                                           ));
 
         return Redirect::to('admin/ticket')->with('success', '工单关闭成功');
     }

@@ -36,7 +36,7 @@
         </td>
         <td>{{ $job->trouble->name }}</td>
         <td>
-            <a href="{{{ URL::to('ticket/view/'. $job->id) }}}" >{{ $job->title->title }}</a>
+            <a href="{{{ URL::to('ticket/view/'. $job->id) }}}" >{{ $job->title }}</a>
         </td>
         <td>
             @if ($job->status == 0)
@@ -49,7 +49,7 @@
             <span class="label">已作废</span>
             @endif
         </td>
-        <td>{{ $job->title->start_time }}</td>
+        <td>{{ $job->start_time }}</td>
         <td>
             <a href="{{{ URL::to('ticket/view/'. $job->id) }}}" class="btn btn-mini">查看</a>
 

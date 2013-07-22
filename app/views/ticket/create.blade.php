@@ -70,7 +70,7 @@
     <div class="control-group {{{ $errors->has('content') ? 'error' : '' }}}">
         <label class="control-label" for="content">工单内容</label>
         <div class="controls">
-            <textarea class="full-width span6" name="content" value="{{{ Request::old('content') }}}" rows="10" placeholder="请输入工单内容">{{{ Input::old('content')}}}</textarea>
+            <textarea class="full-width span6" name="content" value="{{{ Request::old('content') }}}" rows="6" placeholder="请输入工单内容">{{{ Input::old('content')}}}</textarea>
             {{ $errors->first('content') }}
         </div>
     </div>

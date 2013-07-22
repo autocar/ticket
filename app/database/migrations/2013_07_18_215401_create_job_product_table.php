@@ -13,7 +13,6 @@ class CreateJobProductTable extends Migration {
     public function up()
     {
         Schema::create('job_product', function(Blueprint $table) {
-            $table->increments('id');
             $table->integer('job_id')->unsigned();
             $table->integer('product_id')->unsigned();
         });

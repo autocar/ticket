@@ -15,11 +15,13 @@ class UsersTableSeeder extends Seeder {
                 'id'          => '10000',
                 'email'       => 'demo@ecdo.cc',
                 'password'    => Hash::make('demo'),
-                'name'        => 'demo',
+                'name'        => '喜柚',
                 'mobile'      => '13000000000',
-                'bn'          => '',
+                'bn'          => 'CS001',
                 'operator_id' => '1',
+                'company'     => '上海喜柚网络科技有限公司',
                 'start_time'  => new DateTime,
+                'end_time'    => new DateTime,
                 'created_at'  => new DateTime,
             )
         );

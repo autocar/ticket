@@ -20,7 +20,11 @@ class CreateJobsTable extends Migration {
             $table->enum('status', array('0', '1','2','3'));
             $table->enum('level', array('0', '1','2'));
             $table->enum('assess', array('0', '1','2','3'));
-            $table->enum('repeat', array('0', '1'));
+            $table->string('title');
+            $table->text('content');
+            $table->string('file');
+            $table->timestamp('start_time');
+            $table->timestamp('end_time');
         });
 	}
 

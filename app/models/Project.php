@@ -23,6 +23,16 @@ class Project extends Eloquent  {
     }
 
     /**
+     * 客户
+     *
+     * @return mixed
+     */
+    public function member()
+    {
+        return $this->belongsTo('Member');
+    }
+
+    /**
      * 客服
      *
      * @return mixed

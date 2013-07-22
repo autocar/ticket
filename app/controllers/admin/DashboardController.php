@@ -2,6 +2,7 @@
 
 use Auth;
 use View;
+use Redirect;
 
 class DashboardController extends AdminController {
 
@@ -12,8 +13,9 @@ class DashboardController extends AdminController {
 	 */
 	public function getIndex()
 	{
+        return Redirect::to('admin/login');
 		// Show the page
-		return View::make('admin/dashboard');
+		//return View::make('admin/dashboard');
 	}
 
 }

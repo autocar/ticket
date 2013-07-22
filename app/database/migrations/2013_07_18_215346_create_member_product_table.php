@@ -13,7 +13,6 @@ class CreateMemberProductTable extends Migration {
     public function up()
     {
         Schema::create('member_product', function(Blueprint $table) {
-            $table->increments('id');
             $table->integer('member_id')->unsigned();
             $table->integer('product_id')->unsigned();
         });
