@@ -9,7 +9,7 @@
                     class="icon-circle-arrow-left icon-white"></i> 返回</a>
         </div>
 
-        分配客服: #{{ $job->title->title }}
+        分配客服: #{{ $job->title }}
     </h3>
 </div>
 

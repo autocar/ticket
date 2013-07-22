@@ -48,6 +48,14 @@ class TicketController extends AuthorizedController {
 
         $job = new Job;
 
+        // 判断是否存在相同工单
+        $j = $job->where('member_id', '=', Auth::user()->id)->where('title', '=', e(Input::get('title')))->first();
+
+        if (isset($j->id))
+        {
+            return Redirect::to("ticket/view/" . $j->id)->with('error', '存在相同工单！');
+        }
+
         $job->member_id   = Auth::user()->id;
         $job->operator_id = Auth::user()->operator_id;
         $job->trouble_id  = e(Input::get('trouble_id'));
@@ -195,7 +203,7 @@ class TicketController extends AuthorizedController {
         $project->job_id     = e(Input::get('job_id'));
         $project->content    = e(Input::get('content'));
         $project->type       = '0';
-        $project->append       = '1';
+        $project->append     = '1';
         $project->reply_time = new DateTime;
 
         if ($project->save())

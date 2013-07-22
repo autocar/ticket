@@ -42,14 +42,6 @@ class Project extends Eloquent  {
         return $this->belongsTo('Operator');
     }
 
-    /**
-     * 标题
-     *
-     * @return mixed
-     */
-    public function title()
-    {
-        return $this->belongsTo('Title');
-    }
+
 
 }
