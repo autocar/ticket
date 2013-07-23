@@ -114,7 +114,7 @@
             @if ( $jobs[$key+1]->type != $project->type )
             </div>
             @endif
-        @elseif (($project->type == $jobs[$key-1]->type) && ($jobs[$key+1]->type != $jobs[$key-1]->type))
+        @elseif (($project->type == $jobs[$key-1]->type) && ($jobs[$key+1]->type != $jobs[$key-1]->type) || ($project->type != $jobs[$key-1]->type) && ($jobs[$key+1]->type == $jobs[$key-1]->type))
             </div>
         @endif
     @endif
