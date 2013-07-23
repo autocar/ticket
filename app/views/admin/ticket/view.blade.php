@@ -55,7 +55,7 @@
     <p>
         <i class="icon-user"></i>
         &nbsp;
-        提交人：<span class="label label-info">{{ Auth::user()->name }}</span>
+        提交人：<span class="label label-info">{{ $job->member->name }}</span>
         &nbsp;
         提交时间：<span class="label">{{ $job->start_time }}</span>
     </p>
