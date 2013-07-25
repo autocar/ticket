@@ -2,7 +2,7 @@
 
 use Auth;
 use View;
-use Trouble;
+use Cgroup;
 use Validator;
 use Input;
 use Redirect;
@@ -17,10 +17,10 @@ class CustomerGroupController extends AdminController {
      */
     public function getIndex()
     {
-        $troubles = Trouble::all();
+        $cgroups = Cgroup::all();
 
         // Show the page
-        return View::make('admin/type/index', compact('troubles'));
+        return View::make('admin/customergroup/index', compact('cgroups'));
     }
 
     /**
@@ -30,7 +30,7 @@ class CustomerGroupController extends AdminController {
      */
     public function getCreate()
     {
-        return View::make('admin/type/create');
+        return View::make('admin/customergroup/create');
     }
 
     /**
@@ -52,50 +52,50 @@ class CustomerGroupController extends AdminController {
             return Redirect::back()->withInput()->withErrors($validator);
         }
 
-        $trouble = new Trouble;
+        $cgroup = new Cgroup;
 
-        $trouble->name = e(Input::get('name'));
+        $cgroup->name = e(Input::get('name'));
 
-        if ($trouble->save())
+        if ($cgroup->save())
         {
             // Redirect to the new blog post page
-            return Redirect::to("admin/type")->with('success', '添加成功');
+            return Redirect::to("admin/customergroup")->with('success', '添加成功');
         }
 
-        return Redirect::to('admin/type/create')->with('error', '添加失败');
+        return Redirect::to('admin/customergroup/create')->with('error', '添加失败');
     }
 
     /**
      * getEdit
      *
-     * @param null $typeId
+     * @param null $cgroupId
      *
      * @return mixed
      */
-    public function getEdit($typeId = NULL)
+    public function getEdit($cgroupId = NULL)
     {
-        if (is_null($trouble = Trouble::find($typeId)))
+        if (is_null($cgroup = Cgroup::find($cgroupId)))
         {
-            return Redirect::to('admin/type')->with('error', '问题类型不存在');
+            return Redirect::to('admin/customergroup')->with('error', '客服组不存在');
         }
 
         // Show the page
-        return View::make('admin/type/edit', compact('trouble'));
+        return View::make('admin/customergroup/edit', compact('cgroup'));
     }
 
     /**
      *
      * postEdit
      *
-     * @param null $typeId
+     * @param null $cgroupId
      *
      * @return mixed
      */
-    public function postEdit($typeId = NULL)
+    public function postEdit($cgroupId = NULL)
     {
-        if (is_null($trouble = Trouble::find($typeId)))
+        if (is_null($cgroup = Cgroup::find($cgroupId)))
         {
-            return Redirect::to('admin/type')->with('error', '问题类型不存在');
+            return Redirect::to('admin/customergroup')->with('error', '客服组不存在');
         }
 
         $rules = array(
@@ -111,33 +111,33 @@ class CustomerGroupController extends AdminController {
             return Redirect::back()->withInput()->withErrors($validator);
         }
 
-        $trouble->name = e(Input::get('name'));
+        $cgroup->name = e(Input::get('name'));
 
-        if ($trouble->save())
+        if ($cgroup->save())
         {
-            return Redirect::to("admin/type")->with('success', '更新成功');
+            return Redirect::to("admin/customergroup")->with('success', '更新成功');
         }
 
-        return Redirect::to("admin/type/$typeId/edit")->with('error', '更新失败');
+        return Redirect::to("admin/customergroup/$cgroupId/edit")->with('error', '更新失败');
 
     }
 
     /**
      * getDelete
      *
-     * @param null $typeId
+     * @param null $cgroupId
      *
      * @return mixed
      */
-    public function getDelete($typeId = NULL){
+    public function getDelete($cgroupId = NULL){
 
-        if (is_null($trouble = Trouble::find($typeId)))
+        if (is_null($cgroup = Cgroup::find($cgroupId)))
         {
-            return Redirect::to('admin/type')->with('error', '问题类型不存在');
+            return Redirect::to('admin/customergroup')->with('error', '客服组不存在');
         }
 
-        $trouble->delete();
+        $cgroup->delete();
 
-        return Redirect::to('admin/type')->with('success', '删除成功');
+        return Redirect::to('admin/customergroup')->with('success', '删除成功');
     }
 }

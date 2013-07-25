@@ -5,11 +5,11 @@
 <div class="page-header">
     <h3>
         <div class="pull-right">
-            <a href="{{ route('type') }}" class="btn btn-small btn-inverse"><i
+            <a href="{{ route('customergroup') }}" class="btn btn-small btn-inverse"><i
                     class="icon-circle-arrow-left icon-white"></i> 返回</a>
         </div>
 
-        创建问题类型
+        创建客服组
     </h3>
 </div>
 
@@ -19,7 +19,7 @@
 
     <!-- Name -->
     <div class="control-group {{ $errors->has('name') ? 'error' : '' }}">
-        <label class="control-label" for="name">问题类型</label>
+        <label class="control-label" for="name">客服组名称</label>
 
         <div class="controls">
             <input type="text" name="name" id="name" value="{{ Input::old('name') }}"/>
@@ -34,7 +34,7 @@
 
             <button type="reset" class="btn">重置</button>
 
-            <a class="btn btn-link" href="{{ route('type') }}">取消</a>
+            <a class="btn btn-link" href="{{ route('customergroup') }}">取消</a>
         </div>
     </div>
 </form>
