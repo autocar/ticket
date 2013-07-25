@@ -46,7 +46,7 @@
             @elseif ($job->status == 2)
             <span class="label label-info">已完成</span>
             @else
-            <span class="label">已作废</span>
+            <span class="label">挂起</span>
             @endif
         </td>
         <td>{{ $job->start_time }}</td>
@@ -58,7 +58,7 @@
             @endif
 
             @if ($job->status == 0)
-            <a href="{{{ URL::to('ticket/invalid/'. $job->id) }}}" class="btn btn-mini btn-danger">作废</a>
+            <a href="{{{ URL::to('ticket/invalid/'. $job->id) }}}" class="btn btn-mini btn-danger">挂起</a>
             @endif
         </td>
     </tr>

@@ -12,16 +12,6 @@ class Cgroup extends Eloquent  {
 
     public $timestamps = false;
 
-    /**
-     * 客服
-     *
-     * @return mixed
-     */
-    public function OCG()
-    {
-        return $this->hasMany('OCG', 'cgroup_id');
-    }
-
     // 客服
     public function operators()
     {

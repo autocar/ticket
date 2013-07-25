@@ -1,9 +1,29 @@
 @extends('admin.layouts')
 
+{{-- styles_src --}}
+@section('styles_src')
+<link href="{{{ asset('assets/css/jquery.lighter.css') }}}" rel="stylesheet">
+@stop
+
+{{-- script --}}
+@section('script')
+<script src="{{{ asset('assets/js/jquery.lighter.js') }}}"></script>
+<script type="text/javascript">
+
+</script>
+@stop
+
 {{-- styles--}}
 @section('styles')
 @parent
-.o_content { margin-left: 80px; background: #FAFAD2; }
+.j_title { background: #e7e7e7; padding: 5px; border-radius: 5px; -webkit-border-radius: 5px; margin-bottom: 20px; }
+.j_title_inner { background: #fff; border: 1px solid #ddd; padding: 15px; }
+.o_title, .m_title { padding:5px 15px; }
+.o_title { background: #e0f1f8; }
+.m_title { background: #f1f1f1; }
+.a_content { margin-top: 20px; }
+.p_content { padding: 10px; }
+.a_title { padding:10px 10px 10px 20px; background: #fffff9; border-left:3px solid #fefbc1; }
 @stop
 
 {{-- Content --}}
@@ -20,8 +40,8 @@
 <p class="well well-small">
     问题类型：
     <span class="label label-info">{{ $job->trouble->name }}</span>
-
     &nbsp; / &nbsp;
+
     处理等级：
     @if ($job->level == 0)
     <span class="label">一般</span>
@@ -40,82 +60,68 @@
     @elseif ($job->status == 2)
     <span class="label label-info">已完成</span>
     @else
-    <span class="label">已作废</span>
+    <span class="label">挂起</span>
     @endif
 
-    @if (count($job->JP))
+    @if (count($job->products))
     &nbsp; / &nbsp;
     相关产品：
-    @foreach ($job->JP as $product) <span class="label label-inverse">{{ $product->product->name }}</span> @endforeach
+    @foreach ($job->products as $product)
+    <span class="label label-inverse">{{ $product->name }}</span>
+    @endforeach
     @endif
 </p>
 
-<div class="t_content well well-small" id="j_{{ $job->id }}">
-    <h4>标题：{{ $job->title }}</h4>
-    <p>
-        <i class="icon-user"></i>
-        &nbsp;
-        提交人：<span class="label label-info">{{ $job->member->name }}</span>
-        &nbsp;
-        提交时间：<span class="label">{{ $job->start_time }}</span>
-    </p>
-    <p>
-        <i class="icon-comment"></i>
-        &nbsp;
-        {{ $job->content }}
-    </p>
-    <!-- 追加 -->
-    @if (count($job->projects()->where('append', '=', '1')->get()))
-    <hr />
-    @foreach ($job->projects()->where('append', '=', '1')->get() as $project)
-    <p>
-        <i class="icon-share"></i>
-        &nbsp;
-        {{ $project->content }}
-    </p>
-    @endforeach
-    @endif
+<div class="j_title" id="j_{{ $job->id }}">
+    <div class="j_title_inner">
+        <h3>标题：{{ $job->title }}</h3>
+        <p>
+            <i class="icon-user"></i> <b>{{ $job->member->name }}</b> 发表于 {{ $job->start_time }}
+        </p>
+        <hr />
+        <p>
+            {{ $job->content }}
+        </p>
+
+        @if ($job->image)
+        <p>
+            <a href="{{{ asset($job->image->url) }}}"  data-lighter title="点击查看大图"><img  class="img-polaroid" src="{{{ asset($job->image->url) }}}" alt="点击查看大图" width="150" /></a>
+        </p>
+        @endif
+
+        <!-- 追加 -->
+        @if (count($job->projects()->where('append', '=', '1')->get()))
+        <hr />
+        <div class="clearfix"></div>
+        <div class="a_content">
+            @foreach ($job->projects()->where('append', '=', '1')->get() as $key=>$project)
+            <p class="a_title">
+                第 {{ $key + 1 }} 条附言  ·  {{ $project->reply_time }}
+                <br /><br />
+                {{ $project->content }}
+            </p>
+            @endforeach
+        </div>
+        @endif
+    </div>
+    <div class="clearfix"></div>
 </div>
 
 @if ($count = count($jobs = $job->projects()->where('append', '=', '0')->get()))
 @foreach ($jobs as $key=>$project)
-
-@if ($key == 0 || ($project->type != $jobs[$key-1]->type))
-<div class="@if ($project->operator_id) o_content @endif well well-small">
-
-    <p id="c_{{ $project->id }}">
-        @if ($project->operator_id)
-        <i class="icon-user"></i>
-        &nbsp;
-        <span class="label label-inverse">{{ $project->operator->name }}</span>
-        &nbsp;
-        <span class="label">{{ $project->reply_time }}</span>
-        @else
-        <span class="label label-info">{{ $project->member->name }}</span>
-        &nbsp;
-        <span class="label">{{ $project->reply_time }}</span>
-        @endif
-    </p>
-@endif
-
-    <p>
-        <i class="icon-comment"></i>
-        &nbsp;
-        {{ $project->content }}
-    </p>
-
-    @if ($key == $count-1)
+<div class="@if ($project->operator_id)o_title @else m_title @endif" >
+    <div class="pull-right" id="c_{{ $project->id }}">
+        #{{ $key + 1 }}
     </div>
+    @if ($project->operator_id)
+    <b>{{ $project->operator->name }}</b>  ·  {{ $project->reply_time }}
     @else
-        @if ($key == 0 && isset($jobs[$key+1]->type) )
-            @if ( $jobs[$key+1]->type != $project->type )
-                </div>
-            @endif
-        @elseif (($project->type == $jobs[$key-1]->type) && ($jobs[$key+1]->type != $jobs[$key-1]->type) || ($project->type != $jobs[$key-1]->type) && ($jobs[$key+1]->type == $jobs[$key-1]->type))
-            </div>
-        @endif
+    <b>{{ $project->member->name }}</b>  ·  {{ $project->reply_time }}
     @endif
-
+</div>
+<p class="p_content">
+    {{ $project->content }}
+</p>
 @endforeach
 @endif
 
@@ -124,7 +130,7 @@
     <!-- CSRF Token -->
     {{ Form::token() }}
 
-    <legend>回复工单</legend>
+    <hr />
 
     <div class="control-group {{{ $errors->has('content') ? 'error' : '' }}}">
         <label class="control-label" for="content">回复内容</label>

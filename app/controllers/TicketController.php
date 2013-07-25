@@ -58,7 +58,7 @@ class TicketController extends AuthorizedController {
         }
 
         $job->member_id   = Auth::user()->id;
-        $job->operator_id = Auth::user()->operator_id;
+        $job->cgroup_id   = Auth::user()->cgroup_id;
         $job->trouble_id  = e(Input::get('trouble_id'));
         $job->level       = e(Input::get('level'));
         $job->status      = '0';
@@ -84,7 +84,14 @@ class TicketController extends AuthorizedController {
 
                 if ($upload_success)
                 {
-                    $job->file = $destinationPath . '/' . $filename;
+                    $image = new Image();
+                    $image->url = $destinationPath . '/' . $filename;
+                    $image->create_time = new DateTime();
+
+                    if($image->save()){
+                        $job->image_id = $image->id;
+                    }
+
                 }
                 else
                 {

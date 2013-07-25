@@ -61,14 +61,14 @@
     @elseif ($job->status == 2)
     <span class="label label-info">已完成</span>
     @else
-    <span class="label">已作废</span>
+    <span class="label">挂起</span>
     @endif
 
-    @if (count($job->JP))
+    @if (count($job->products))
     &nbsp; / &nbsp;
     相关产品：
-    @foreach ($job->JP as $product)
-    <span class="label label-inverse">{{ $product->product->name }}</span>
+    @foreach ($job->products as $product)
+    <span class="label label-inverse">{{ $product->name }}</span>
     @endforeach
     @endif
 </p>
@@ -82,15 +82,17 @@
     <hr />
     <p>
         {{ $job->content }}
-        <br />
-        @if ($job->file)
-        <div class="clearfix"></div>
-            <a href="{{{ asset($job->file) }}}" class="thumbnail span3" data-lighter title="点击查看大图"><img src="{{{ asset($job->file) }}}" alt="点击查看大图" /></a>
-        <div class="clearfix"></div>
-        @endif
     </p>
+
+    @if ($job->image)
+        <p>
+            <a href="{{{ asset($job->image->url) }}}"  data-lighter title="点击查看大图"><img  class="img-polaroid" src="{{{ asset($job->image->url) }}}" alt="点击查看大图" width="150" /></a>
+        </p>
+    @endif
+
     <!-- 追加 -->
     @if (count($job->projects()->where('append', '=', '1')->get()))
+    <hr />
     <div class="clearfix"></div>
     <div class="a_content">
     @foreach ($job->projects()->where('append', '=', '1')->get() as $key=>$project)

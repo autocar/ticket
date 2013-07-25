@@ -44,15 +44,13 @@
             @elseif ($job->status == 2)
             <span class="label label-info">已完成</span>
             @else
-            <span class="label">已作废</span>
+            <span class="label">挂起</span>
             @endif
         </td>
         <td>{{ $job->start_time }}</td>
         <td>
             <a href="{{ route('view/ticket', $job->id) }}" class="btn btn-mini">查看</a>
-
             <a href="{{ route('view/close', $job->id) }}" class="btn btn-mini btn-danger">关闭</a>
-
             @if (Auth::user()->lv > 0)
             <a href="{{ route('view/assign', $job->id) }}" class="btn btn-mini btn-primary">分配客服</a>
             @endif
