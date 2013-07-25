@@ -52,6 +52,14 @@ Route::group(array('prefix' => 'admin'), function()
     Route::post('operator/{operatorId}/edit', 'Controllers\Admin\OperatorController@postEdit');
     Route::get('operator/{operatorId}/delete', array('as' => 'delete/operator', 'uses' => 'Controllers\Admin\OperatorController@getDelete'));
 
+    // 客服组
+    Route::get('customergroup', array('as' => 'customergroup', 'uses' => 'Controllers\Admin\CustomerGroupController@getIndex'));
+    Route::get('customergroup/create', array('as' => 'customergroup/add', 'uses' => 'Controllers\Admin\CustomerGroupController@getCreate'));
+    Route::post('customergroup/create', 'Controllers\Admin\CustomerGroupController@postCreate');
+    Route::get('customergroup/{operatorId}/edit', array('as' => 'update/customergroup', 'uses' => 'Controllers\Admin\CustomerGroupController@getEdit'));
+    Route::post('customergroup/{operatorId}/edit', 'Controllers\Admin\CustomerGroupController@postEdit');
+    Route::get('customergroup/{operatorId}/delete', array('as' => 'delete/customergroup', 'uses' => 'Controllers\Admin\CustomerGroupController@getDelete'));
+
     // 产品管理
     Route::get('product', array('as' => 'product', 'uses' => 'Controllers\Admin\ProductController@getIndex'));
     Route::get('product/create', array('as' => 'product/add', 'uses' => 'Controllers\Admin\ProductController@getCreate'));

@@ -107,7 +107,7 @@
     <div class="control-group {{ $errors->has('start_time') ? 'error' : '' }}">
         <label class="control-label" for="start_time">服务开始时间</label>
         <div class="controls date form_datetime" data-date="" data-date-format="yyyy-mm-dd" data-link-field="start_time">
-            <input type="text" value="{{ Input::old('start_time') }}" readonly>
+            <input type="text" value="{{ substr(Input::old('start_time'), 0, 10) }}" readonly>
             <span class="add-on"><i class="icon-remove"></i></span>
             <span class="add-on"><i class="icon-th"></i></span>
             <input type="hidden" id="start_time" name="start_time" value="{{ Input::old('start_time') }}" />
@@ -118,7 +118,7 @@
     <div class="control-group {{ $errors->has('end_time') ? 'error' : '' }}">
         <label class="control-label" for="end_time">服务结束时间</label>
         <div class="controls date form_datetime" data-date="" data-date-format="yyyy-mm-dd" data-link-field="end_time">
-            <input type="text" value="{{ Input::old('end_time') }}" readonly>
+            <input type="text" value="{{ substr(Input::old('end_time'), 0, 10) }}" readonly>
             <span class="add-on"><i class="icon-remove"></i></span>
             <span class="add-on"><i class="icon-th"></i></span>
             <input type="hidden" id="end_time" name="end_time" value="{{ Input::old('end_time') }}" />

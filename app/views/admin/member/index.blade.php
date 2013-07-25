@@ -44,7 +44,7 @@
         <td>{{ date("Y-m-d", strtotime($member->end_time)) }}</td>
         <td>
             <a href="{{ route('update/member', $member->id) }}" class="btn btn-mini">编辑</a>
-            <a href="{{ route('delete/member', $member->id) }}" class="btn btn-mini btn-danger">删除</a>
+<!--            <a href="{{ route('delete/member', $member->id) }}" class="btn btn-mini btn-danger">删除</a>-->
         </td>
     </tr>
     @endforeach

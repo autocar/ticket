@@ -27,6 +27,8 @@
     <!-- google style -->
     <!--<link href="{{{ asset('http://todc.github.io/todc-bootstrap/assets/css/todc-bootstrap.css') }}}" rel="stylesheet">-->
 
+    @yield('styles_src')
+
     <style>
         @section('styles')
 			body {
@@ -122,6 +124,12 @@
 <!-- baidu js cdn-->
 <script src="http://libs.baidu.com/jquery/1.9.0/jquery.min.js"></script>
 <script src="http://libs.baidu.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+
+@section('script')
+<script type="text/javascript">
+
+</script>
+@show
 
 </body>
 </html>

@@ -11,3 +11,5 @@
 |
 */
 
+// 定时关闭工单
+$artisan->add(new JobEndCronCommand);

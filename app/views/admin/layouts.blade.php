@@ -69,12 +69,28 @@
 
                     <!--工单-->
                     @if (Auth::check())
-                    <li {{{ (Request::is('admin/ticket') ? 'class=active' : '') }}}><a href="{{{ URL::to('admin/ticket') }}}"><i class="icon-th-list icon-white"></i> 工单管理</a></li>
+                    <li {{{ (Request::is('admin/ticket*') ? 'class=active' : '') }}}><a href="{{{ URL::to('admin/ticket') }}}"><i class="icon-th-list icon-white"></i> 工单管理</a></li>
                         @if (Auth::user()->lv > 0)
-                        <li {{{ (Request::is('admin/member') ? 'class=active' : '') }}}><a href="{{{ URL::to('admin/member') }}}"><i class="icon-user icon-white"></i> 客户管理</a></li>
-                        <li {{{ (Request::is('admin/operator') ? 'class=active' : '') }}}><a href="{{{ URL::to('admin/operator') }}}"><i class="icon-list-alt icon-white"></i> 用户管理</a></li>
-                        <li {{{ (Request::is('admin/product') ? 'class=active' : '') }}}><a href="{{{ URL::to('admin/product') }}}"><i class="icon-align-justify icon-white"></i> 产品管理</a></li>
-                        <li {{{ (Request::is('admin/type') ? 'class=active' : '') }}}><a href="{{{ URL::to('admin/type') }}}"><i class="icon-globe icon-white"></i> 问题类型</a></li>
+                        <li {{{ (Request::is('admin/member*') ? 'class=active' : '') }}}><a href="{{{ URL::to('admin/member') }}}"><i class="icon-user icon-white"></i> 客户管理</a></li>
+
+<!--                        <li {{{ (Request::is('admin/operator') ? 'class=active' : '') }}}><a href="{{{ URL::to('admin/operator') }}}"><i class="icon-list-alt icon-white"></i> 用户管理</a></li>-->
+
+                        <li class="dropdown {{ (Request::is('admin/operator*') || Request::is('admin/customergroup*') ? 'active' : '') }}">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="{{{ URL::to('admin/operator') }}}">
+                                <i class="icon-list-alt icon-white"></i> 用户管理 <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li {{ (Request::is('admin/operator*') ? 'class=active' : '') }}>
+                                    <a href="{{ URL::to('admin/operator') }}"> 用户管理</a>
+                                </li>
+                                <li {{ (Request::is('admin/customergroup*') ? 'class=active' : '') }}>
+                                    <a href="{{ URL::to('admin/customergroup') }}"> 客服组</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li {{{ (Request::is('admin/product*') ? 'class=active' : '') }}}><a href="{{{ URL::to('admin/product') }}}"><i class="icon-align-justify icon-white"></i> 产品管理</a></li>
+                        <li {{{ (Request::is('admin/type*') ? 'class=active' : '') }}}><a href="{{{ URL::to('admin/type') }}}"><i class="icon-globe icon-white"></i> 问题类型</a></li>
                         @endif
                     @endif
                 </ul>

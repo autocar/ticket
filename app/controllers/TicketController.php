@@ -37,6 +37,7 @@ class TicketController extends AuthorizedController {
             'trouble_id' => 'required',
             'content'    => 'required|min:10',
             //'product'    => 'Required',
+            'file'       => 'image',
         );
 
         $validator = Validator::make(Input::all(), $rules);
@@ -64,6 +65,33 @@ class TicketController extends AuthorizedController {
         $job->title       = e(Input::get('title'));
         $job->content     = e(Input::get('content'));
         $job->start_time  = new DateTime;
+
+        // 工单附件
+        $file = Input::file('file');
+
+        if (!empty($file))
+        {
+            if ($file->getSize() > (1024 * 1024))
+            {
+                return Redirect::back()->with('error', '上传图片过大，请控制在1M以内！');
+            }
+            else
+            {
+                $destinationPath = 'uploads/' . date('Y/m/d');
+                $extension       = $file->getClientOriginalExtension();
+                $filename        = str_random(8) . '.' . $extension;
+                $upload_success  = $file->move($destinationPath, $filename);
+
+                if ($upload_success)
+                {
+                    $job->file = $destinationPath . '/' . $filename;
+                }
+                else
+                {
+                    return Redirect::back()->with('error', '上传图片失败！');
+                }
+            }
+        }
 
         if ($job->save())
         {

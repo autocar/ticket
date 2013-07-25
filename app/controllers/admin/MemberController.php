@@ -50,15 +50,15 @@ class MemberController extends AdminController {
     {
         $rules = array(
             'bn'                    => 'required|min:4|max:10|Unique:members,bn',
-            'name'                  => 'required|min:2',
+            'name'                  => 'required|min:2|Unique:members,name',
             'email'                 => 'Required|Email|Unique:members,email',
             'mobile'                => 'Required|Unique:operators,mobile',
             'password'              => 'Required|Confirmed',
             'password_confirmation' => 'Required',
             'start_time'            => 'date',
-            'end_time'              => 'date',
+            'end_time'              => 'date|different:start_time|after:' . substr(e(Input::get('start_time')), 0, 10),
             'product'               => 'Required',
-            'company'               => 'Required',
+            'company'               => 'Required|min:4|Unique:members,company',
         );
 
         $validator = Validator::make(Input::all(), $rules);
@@ -151,9 +151,9 @@ class MemberController extends AdminController {
             'mobile'     => 'Required',
             'email'      => 'Required|Email',
             'start_time' => 'date',
-            'end_time'   => 'date',
+            'end_time'   => 'date|different:start_time|after:' . substr(e(Input::get('start_time')), 0, 10),
             'product'    => 'Required',
-            'company'    => 'Required',
+            'company'    => 'Required|min:4|Unique:members,company',
         );
 
         if (Input::get('password'))
@@ -163,7 +163,6 @@ class MemberController extends AdminController {
         }
 
         $validator = Validator::make(Input::all(), $rules);
-
 
         if ($validator->fails())
         {
@@ -178,9 +177,9 @@ class MemberController extends AdminController {
         $member->introduction = e(Input::get('introduction'));
         // $member->start_time   = e(Input::get('start_time'));
         // $member->end_time     = e(Input::get('end_time'));
-        $member->start_time   = substr(e(Input::get('start_time')), 0, 10) . ' 00:00:00';
-        $member->end_time     = substr(e(Input::get('end_time')), 0, 10) . ' 00:00:00';
-        $member->operator_id  = Input::get('operator_id');
+        $member->start_time  = substr(e(Input::get('start_time')), 0, 10) . ' 00:00:00';
+        $member->end_time    = substr(e(Input::get('end_time')), 0, 10) . ' 00:00:00';
+        $member->operator_id = Input::get('operator_id');
 
         if (Input::get('password') !== '')
         {

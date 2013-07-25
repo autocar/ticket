@@ -19,6 +19,11 @@ class Member extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $hidden = array('password');
 
+    /**
+     * @var bool
+     */
+    protected $softDelete = true;
+
 	/**
 	 * Get the unique identifier for the user.
 	 *

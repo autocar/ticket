@@ -18,7 +18,6 @@ class UsersTableSeeder extends Seeder {
                 'name'        => '喜柚',
                 'mobile'      => '13000000000',
                 'bn'          => 'CS001',
-                'operator_id' => '1',
                 'company'     => '上海喜柚网络科技有限公司',
                 'start_time'  => new DateTime,
                 'end_time'    => new DateTime,

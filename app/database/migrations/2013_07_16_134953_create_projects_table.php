@@ -17,11 +17,18 @@ class CreateProjectsTable extends Migration {
             $table->integer('job_id')->unsigned();
             $table->integer('member_id')->unsigned();
             $table->integer('operator_id')->unsigned();
-            $table->enum('type', array('0','1','2'));
+            $table->enum('type', array(
+                                      '0',
+                                      '1',
+                                      '2'
+                                 ));
             $table->text('content');
-            $table->string('file');
+            $table->integer('image_id')->unsigned();
             $table->timestamp('reply_time');
-            $table->enum('append', array('0','1'));
+            $table->enum('append', array(
+                                        '0',
+                                        '1'
+                                   ));
         });
     }
 

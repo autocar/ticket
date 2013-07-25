@@ -1,9 +1,29 @@
 @extends('layouts.default')
 
+{{-- styles_src --}}
+@section('styles_src')
+<link href="{{{ asset('assets/css/jquery.lighter.css') }}}" rel="stylesheet">
+@stop
+
+{{-- script --}}
+@section('script')
+<script src="{{{ asset('assets/js/jquery.lighter.js') }}}"></script>
+<script type="text/javascript">
+
+</script>
+@stop
+
 {{-- styles--}}
 @section('styles')
 @parent
-.o_content { margin-left: 80px; background: #FAFAD2;}
+.j_title { background: #e7e7e7; padding: 5px; border-radius: 5px; -webkit-border-radius: 5px; margin-bottom: 20px; }
+.j_title_inner { background: #fff; border: 1px solid #ddd; padding: 15px; }
+.o_title, .m_title { padding:5px 15px; }
+.o_title { background: #e0f1f8; }
+.m_title { background: #f1f1f1; }
+.a_content { margin-top: 20px; }
+.p_content { padding: 10px; }
+.a_title { padding:10px 10px 10px 20px; background: #fffff9; border-left:3px solid #fefbc1; }
 @stop
 
 {{-- Content --}}
@@ -14,7 +34,7 @@
             @if ($job->status == 1)<a href="{{{ URL::to('ticket/close/'. $job->id) }}}" class="btn btn-danger">关闭工单</a>@endif
 
         </div>
-        查看工单
+        查看工单 #{{ $job->id }}
     </h2>
 </div>
 
@@ -53,72 +73,54 @@
     @endif
 </p>
 
-<div class="t_content well well-small" id="j_{{ $job->id }}">
-    <h4>标题：{{ $job->title }} @if ($job->status == 0 || $job->status == 1) <a href="{{{ URL::to('ticket/append/'. $job->id) }}}" class="btn btn-inverse btn-mini">追加问题描述</a> @endif</h4>
+<div class="j_title" id="j_{{ $job->id }}">
+    <div class="j_title_inner">
+    <h3>标题：{{ $job->title }} @if ($job->status == 0 || $job->status == 1) <a href="{{{ URL::to('ticket/append/'. $job->id) }}}" class="btn btn-inverse btn-mini">追加问题描述</a> @endif</h3>
     <p>
-        <i class="icon-user"></i>
-        &nbsp;
-        提交人：<span class="label label-info">{{ Auth::user()->name }}</span>
-        &nbsp;
-        提交时间：<span class="label">{{ $job->start_time }}</span>
+        <i class="icon-user"></i> <b>{{ $job->member->name }}</b> 发表于 {{ $job->start_time }}
     </p>
+    <hr />
     <p>
-        <i class="icon-comment"></i>
-        &nbsp;
         {{ $job->content }}
+        <br />
+        @if ($job->file)
+        <div class="clearfix"></div>
+            <a href="{{{ asset($job->file) }}}" class="thumbnail span3" data-lighter title="点击查看大图"><img src="{{{ asset($job->file) }}}" alt="点击查看大图" /></a>
+        <div class="clearfix"></div>
+        @endif
     </p>
     <!-- 追加 -->
     @if (count($job->projects()->where('append', '=', '1')->get()))
-    <hr />
-    @foreach ($job->projects()->where('append', '=', '1')->get() as $project)
-    <p>
-        <i class="icon-share"></i>
-        &nbsp;
+    <div class="clearfix"></div>
+    <div class="a_content">
+    @foreach ($job->projects()->where('append', '=', '1')->get() as $key=>$project)
+    <p class="a_title">
+        第 {{ $key + 1 }} 条附言  ·  {{ $project->reply_time }}
+        <br /><br />
         {{ $project->content }}
     </p>
     @endforeach
+    </div>
     @endif
+    </div>
+    <div class="clearfix"></div>
 </div>
 
 @if ($count = count($jobs = $job->projects()->where('append', '=', '0')->get()))
 @foreach ($jobs as $key=>$project)
-
-@if ($key == 0 || ($project->type != $jobs[$key-1]->type))
-<div class="@if ($project->operator_id) o_content @endif well well-small">
-
-    <p id="c_{{ $project->id }}">
-        @if ($project->operator_id)
-        <i class="icon-user"></i>
-        &nbsp;
-        <span class="label label-inverse">{{ $project->operator->name }}</span>
-        &nbsp;
-        <span class="label">{{ $project->reply_time }}</span>
-        @else
-        <span class="label label-info">{{ $project->member->name }}</span>
-        &nbsp;
-        <span class="label">{{ $project->reply_time }}</span>
-        @endif
-    </p>
-@endif
-
-    <p>
-        <i class="icon-comment"></i>
-        &nbsp;
-        {{ $project->content }}
-    </p>
-
-    @if ($key == $count-1)
+<div class="@if ($project->operator_id)o_title @else m_title @endif" >
+    <div class="pull-right" id="c_{{ $project->id }}">
+        #{{ $key + 1 }}
     </div>
+    @if ($project->operator_id)
+        <b>{{ $project->operator->name }}</b>  ·  {{ $project->reply_time }}
     @else
-        @if ($key == 0 && isset($jobs[$key+1]->type) )
-            @if ( $jobs[$key+1]->type != $project->type )
-            </div>
-            @endif
-        @elseif (($project->type == $jobs[$key-1]->type) && ($jobs[$key+1]->type != $jobs[$key-1]->type) || ($project->type != $jobs[$key-1]->type) && ($jobs[$key+1]->type == $jobs[$key-1]->type))
-            </div>
-        @endif
+        <b>{{ $project->member->name }}</b>  ·  {{ $project->reply_time }}
     @endif
-
+</div>
+<p class="p_content">
+    {{ $project->content }}
+</p>
 @endforeach
 @endif
 
