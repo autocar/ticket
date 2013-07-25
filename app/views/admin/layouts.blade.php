@@ -76,7 +76,7 @@
 <!--                        <li {{{ (Request::is('admin/operator') ? 'class=active' : '') }}}><a href="{{{ URL::to('admin/operator') }}}"><i class="icon-list-alt icon-white"></i> 用户管理</a></li>-->
 
                         <li class="dropdown {{ (Request::is('admin/operator*') || Request::is('admin/customergroup*') ? 'active' : '') }}">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="{{{ URL::to('admin/operator') }}}">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 <i class="icon-list-alt icon-white"></i> 用户管理 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
@@ -97,14 +97,18 @@
 
                 <ul class="nav pull-right">
                     @if (Auth::check())
-                    <li class="navbar-text">您好， {{{ Auth::user()->username }}}</li>
-                    <li class="divider-vertical"></li>
-                    <li><a href="{{{ URL::to('/') }}}"><i class="icon-home icon-white"></i> 首页</a></li>
-                    <li {{{ (Request::is('admin/account') ? 'class=active' : '') }}}><a href="{{{ URL::to('admin/account') }}}"><i class="icon-user icon-white"></i> 个人资料</a></li>
-                    <li><a href="{{{ URL::to('admin/logout') }}}"><i class="icon-off icon-white"></i> 退出</a></li>
+                    <li class="dropdown {{{ (Request::is('admin/account') ? 'active' : '') }}}">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        您好， {{{ Auth::user()->username }}} <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <li {{{ (Request::is('admin/account') ? 'class=active' : '') }}}><a href="{{{ URL::to('admin/account') }}}"><i class="icon-user"></i> 个人资料</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{{{ URL::to('/') }}}" target="_blank"><i class="icon-home"></i> 首页</a></li>
+                            <li><a href="{{{ URL::to('admin/logout') }}}"><i class="icon-off"></i> 退出</a></li>
+                        </ul>
+                    </li>
                     @endif
-
-
                 </ul>
             </div>
             <!-- ./ nav-collapse -->

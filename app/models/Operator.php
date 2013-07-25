@@ -48,4 +48,14 @@ class Operator extends Eloquent implements UserInterface{
         return $this->hasMany('Member');
     }
 
+    /**
+     * 客户组
+     *
+     * @return mixed
+     */
+    public function OCG()
+    {
+        return $this->hasMany('OCG', 'operator_id');
+    }
+
 }

@@ -59,6 +59,8 @@ Route::group(array('prefix' => 'admin'), function()
     Route::get('customergroup/{operatorId}/edit', array('as' => 'update/customergroup', 'uses' => 'Controllers\Admin\CustomerGroupController@getEdit'));
     Route::post('customergroup/{operatorId}/edit', 'Controllers\Admin\CustomerGroupController@postEdit');
     Route::get('customergroup/{operatorId}/delete', array('as' => 'delete/customergroup', 'uses' => 'Controllers\Admin\CustomerGroupController@getDelete'));
+    Route::get('customergroup/{operatorId}/bound', array('as' => 'bound/customergroup', 'uses' => 'Controllers\Admin\CustomerGroupController@getBound'));
+    Route::post('customergroup/{operatorId}/bound', 'Controllers\Admin\CustomerGroupController@postBound');
 
     // 产品管理
     Route::get('product', array('as' => 'product', 'uses' => 'Controllers\Admin\ProductController@getIndex'));

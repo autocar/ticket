@@ -132,19 +132,19 @@
         </div>
     </div>
 
-    <div class="control-group {{ $errors->has('operator_id') ? 'error' : '' }}">
-        <label class="control-label" for="operator_id">绑定客服</label>
+    <div class="control-group {{ $errors->has('cgroup_id') ? 'error' : '' }}">
+        <label class="control-label" for="cgroup_id">绑定客服组</label>
         <div class="controls">
-            <select name="operator_id" id="operator_id">
-                @if ($operators->count() >= 1)
-                @foreach ($operators as $operator)
-                <option value="{{ $operator->id }}" {{ ($member->operator_id == $operator->id  ? ' selected="selected"' : '') }}>{{ $operator->name }}</option>
+            <select name="cgroup_id" id="cgroup_id">
+                @if ($cgroups->count() >= 1)
+                @foreach ($cgroups as $cgroup)
+                <option value="{{ $cgroup->id }}" {{ ($member->cgroup_id == $cgroup->id  ? ' selected="selected"' : '') }}>{{ $cgroup->name }}</option>
                 @endforeach
                 @else
                 <option value="0">请先添加客服</option>
                 @endif
             </select>
-            {{ $errors->first('operator_id', '<span class="help-inline">:message</span>') }}
+            {{ $errors->first('cgroup_id', '<span class="help-inline">:message</span>') }}
         </div>
     </div>
 

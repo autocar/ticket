@@ -19,7 +19,7 @@ class CreateOperatorsTable extends Migration {
             $table->string('name');
             $table->string('mobile');
             $table->string('email');
-            $table->integer('cgroup_id')->unsigned();
+            $table->integer('image_id')->unsigned();
             $table->enum('lv', array(
                                     '0',
                                     '1',

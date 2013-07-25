@@ -3,6 +3,7 @@
 use Auth;
 use View;
 use Cgroup;
+use Operator;
 use Validator;
 use Input;
 use Redirect;
@@ -123,13 +124,63 @@ class CustomerGroupController extends AdminController {
     }
 
     /**
+     * getBound
+     *
+     * @param null $cgroupId
+     *
+     * @return mixed
+     */
+    public function getBound($cgroupId = NULL)
+    {
+        if (is_null($cgroup = Cgroup::find($cgroupId)))
+        {
+            return Redirect::to('admin/customergroup')->with('error', '客服组不存在');
+        }
+        $operators = Operator::where('lv', '0')->get();
+        //$ocGroups = $cgroup->OCG()->where('operator_id','=',Auth::user()->id)->get();
+        $ocGroups = $cgroup->operators()->lists('name', 'operator_id');
+
+        return View::make('admin/customergroup/bound', compact('operators', 'cgroup', 'ocGroups'));
+    }
+
+    public function postBound($cgroupId = NULL)
+    {
+        if (is_null($cgroup = Cgroup::find($cgroupId)))
+        {
+            return Redirect::to('admin/customergroup')->with('error', '客服组不存在');
+        }
+
+        $ocGroups = $cgroup->operators()->lists('operator_id', 'operator_id');
+
+        $operatorsGroups = Input::get('operators', array());
+
+        $operatorToAdd    = array_diff($operatorsGroups, $ocGroups);
+        $operatorToRemove = array_diff($ocGroups, $operatorsGroups);
+
+        foreach ($operatorToAdd as $operatorid)
+        {
+            $operator = Operator::find($operatorid);
+            $cgroup->operators()->attach($operator);
+        }
+
+        foreach ($operatorToRemove as $operatorid)
+        {
+            $operator = Operator::find($operatorid);
+            $cgroup->operators()->detach($operator);
+        }
+
+        return Redirect::to('admin/customergroup')->with('success', '绑定成功');
+    }
+
+    /**
      * getDelete
      *
      * @param null $cgroupId
      *
      * @return mixed
      */
-    public function getDelete($cgroupId = NULL){
+    public function getDelete($cgroupId = NULL)
+    {
 
         if (is_null($cgroup = Cgroup::find($cgroupId)))
         {

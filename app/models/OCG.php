@@ -12,4 +12,14 @@ class OCG extends Eloquent  {
 
     public $timestamps = false;
 
+    public function cgroup()
+    {
+        return $this->belongsTo('Cgroup');
+    }
+
+    public function operator()
+    {
+        return $this->belongsTo('Operator');
+    }
+
 }

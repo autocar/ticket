@@ -3,7 +3,7 @@
 use Auth;
 use View;
 use Member;
-use Operator;
+use Cgroup;
 use MP;
 use Product;
 use Hash;
@@ -35,10 +35,10 @@ class MemberController extends AdminController {
      */
     public function getCreate()
     {
-        $operators = Operator::where('lv', '0')->get();
-        $products  = Product::all();
+        $cgroups  = Cgroup::all();
+        $products = Product::all();
 
-        return View::make('admin/member/create', compact('operators', 'products'));
+        return View::make('admin/member/create', compact('cgroups', 'products'));
     }
 
     /**
@@ -79,10 +79,10 @@ class MemberController extends AdminController {
         $member->introduction = e(Input::get('introduction'));
         // $member->start_time   = e(Input::get('start_time'));
         // $member->end_time     = e(Input::get('end_time'));
-        $member->start_time  = substr(e(Input::get('start_time')), 0, 10) . ' 00:00:00';
-        $member->end_time    = substr(e(Input::get('end_time')), 0, 10) . ' 00:00:00';
-        $member->password    = Hash::make(Input::get('password'));
-        $member->operator_id = Input::get('operator_id');
+        $member->start_time = substr(e(Input::get('start_time')), 0, 10) . ' 00:00:00';
+        $member->end_time   = substr(e(Input::get('end_time')), 0, 10) . ' 00:00:00';
+        $member->password   = Hash::make(Input::get('password'));
+        $member->cgroup_id  = Input::get('cgroup_id');
 
         if ($member->save())
         {
@@ -121,13 +121,13 @@ class MemberController extends AdminController {
             return Redirect::to('admin/member')->with('error', '客户不存在');
         }
 
-        $operators = Operator::where('lv', '0')->get();
-        $products  = Product::all();
+        $cgroups  = Cgroup::all();
+        $products = Product::all();
 
         return View::make('admin/member/edit', array(
-                                                    'operators' => $operators,
-                                                    'member'    => $member,
-                                                    'products'  => $products,
+                                                    'cgroups'  => $cgroups,
+                                                    'member'   => $member,
+                                                    'products' => $products,
                                                ));
     }
 
@@ -153,7 +153,7 @@ class MemberController extends AdminController {
             'start_time' => 'date',
             'end_time'   => 'date|different:start_time|after:' . substr(e(Input::get('start_time')), 0, 10),
             'product'    => 'Required',
-            'company'    => 'Required|min:4|Unique:members,company',
+            'company'    => 'Required|min:4',
         );
 
         if (Input::get('password'))
@@ -179,7 +179,7 @@ class MemberController extends AdminController {
         // $member->end_time     = e(Input::get('end_time'));
         $member->start_time  = substr(e(Input::get('start_time')), 0, 10) . ' 00:00:00';
         $member->end_time    = substr(e(Input::get('end_time')), 0, 10) . ' 00:00:00';
-        $member->operator_id = Input::get('operator_id');
+        $member->cgroup_id  = Input::get('cgroup_id');
 
         if (Input::get('password') !== '')
         {
