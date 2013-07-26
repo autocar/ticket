@@ -49,13 +49,15 @@ class Operator extends Eloquent implements UserInterface{
     }
 
     /**
-     * 客户组
+     * 客服
      *
      * @return mixed
      */
-    public function OCG()
+    public function cgroups()
     {
-        return $this->hasMany('OCG', 'operator_id');
+        return $this->belongsToMany('Cgroup', 'operator_cgroup');
     }
+
+
 
 }

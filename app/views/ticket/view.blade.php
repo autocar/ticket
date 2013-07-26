@@ -57,10 +57,12 @@
     @if ($job->status == 0)
     <span class="label label-success">处理中</span>
     @elseif ($job->status == 1)
-    <span class="label badge-warning">已处理</span>
+    <span class="label label-warning">已处理</span>
     @elseif ($job->status == 2)
+    <span class="label label-info">已关闭</span>
+    @elseif ($job->status == 3)
     <span class="label label-info">已完成</span>
-    @else
+    @elseif ($job->status == 4)
     <span class="label">挂起</span>
     @endif
 

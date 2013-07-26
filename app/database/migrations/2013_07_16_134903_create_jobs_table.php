@@ -21,7 +21,8 @@ class CreateJobsTable extends Migration {
                                         '0',
                                         '1',
                                         '2',
-                                        '3'
+                                        '3',
+                                        '4'
                                    ));
             $table->enum('level', array(
                                        '0',

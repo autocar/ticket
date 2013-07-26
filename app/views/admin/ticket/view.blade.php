@@ -31,7 +31,7 @@
 <div class="page-header">
     <h2>
         <div class="pull-right">
-            @if ($job->status == 1)<a href="{{ route('view/close', $job->id) }}" class="btn btn-danger">关闭工单</a>@endif
+
         </div>
         查看工单
     </h2>
@@ -54,12 +54,14 @@
     &nbsp; / &nbsp;
     工单状态：
     @if ($job->status == 0)
-    <span class="label label-success">处理中</span>
+    <span class="label badge-warning">待处理</span>
     @elseif ($job->status == 1)
-    <span class="label badge-warning">已处理</span>
+    <span class="label label-success">已处理</span>
     @elseif ($job->status == 2)
+    <span class="label label-info">已关闭</span>
+    @elseif ($job->status == 3)
     <span class="label label-info">已完成</span>
-    @else
+    @elseif ($job->status == 4)
     <span class="label">挂起</span>
     @endif
 
@@ -125,7 +127,7 @@
 @endforeach
 @endif
 
-@if ($job->status == 0 || $job->status == 1)
+@if (($job->status == 0 || $job->status == 1) && ($job->operator_id == Auth::user()->id || Auth::user()->lv > 0) )
 <form method="post" action="" class="form-horizontal">
     <!-- CSRF Token -->
     {{ Form::token() }}

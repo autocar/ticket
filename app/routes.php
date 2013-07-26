@@ -27,6 +27,7 @@ Route::group(array('prefix' => 'admin'), function()
     Route::get('ticket/{jobId}/assign', array('as' => 'view/assign', 'uses' => 'Controllers\Admin\TicketController@getAssign'));
     Route::post('ticket/{jobId}/assign', 'Controllers\Admin\TicketController@postAssign');
     Route::get('ticket/{jobId}/close', array('as' => 'view/close', 'uses' => 'Controllers\Admin\TicketController@getClose'));
+    Route::get('ticket/{jobId}/apply', array('as' => 'view/apply', 'uses' => 'Controllers\Admin\TicketController@getApply'));
 
     // 问题类型
     Route::get('type', array('as' => 'type', 'uses' => 'Controllers\Admin\TypeController@getIndex'));

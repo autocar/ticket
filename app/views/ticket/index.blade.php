@@ -42,10 +42,12 @@
             @if ($job->status == 0)
             <span class="label label-success">处理中</span>
             @elseif ($job->status == 1)
-            <span class="label badge-warning">已处理</span>
+            <span class="label label-warning">已处理</span>
             @elseif ($job->status == 2)
+            <span class="label label-info">已关闭</span>
+            @elseif ($job->status == 3)
             <span class="label label-info">已完成</span>
-            @else
+            @elseif ($job->status == 4)
             <span class="label">挂起</span>
             @endif
         </td>
@@ -55,10 +57,15 @@
 
             @if ($job->status == 1)
             <a href="{{{ URL::to('ticket/close/'. $job->id) }}}" class="btn btn-mini btn-danger">关闭</a>
+            <a href="{{{ URL::to('ticket/over/'. $job->id) }}}" class="btn btn-mini btn-success">完成</a>
             @endif
 
-            @if ($job->status == 0)
-            <a href="{{{ URL::to('ticket/invalid/'. $job->id) }}}" class="btn btn-mini btn-danger">挂起</a>
+            @if ($job->status == 0 || $job->status == 1)
+            <a href="{{{ URL::to('ticket/invalid/'. $job->id) }}}" class="btn btn-mini btn-warning">挂起</a>
+            @endif
+
+            @if ($job->status == 4)
+            <a href="{{{ URL::to('ticket/reinvalid/'. $job->id) }}}" class="btn btn-mini btn-info">恢复</a>
             @endif
         </td>
     </tr>

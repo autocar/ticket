@@ -25,7 +25,9 @@ class TicketController extends AdminController {
         // 客服
         if (Auth::user()->lv == 0)
         {
-            $jobs = Job::where('operator_id', '=', Auth::user()->id)->orderBy('id', 'desc')->paginate();
+            $o       = Operator::find(Auth::user()->id);
+            $cgroups = $o->cgroups()->lists('cgroup_id', 'cgroup_id');
+            $jobs = Job::whereIn('cgroup_id', $cgroups)->orderBy('id', 'desc')->paginate();
         }
         else
         {
@@ -167,6 +169,27 @@ class TicketController extends AdminController {
     }
 
     /**
+     * getApply
+     *
+     * @param null $job_id
+     *
+     * @return mixed
+     */
+    public function getApply($job_id = NULL)
+    {
+        if (is_null($job = Job::find($job_id)))
+        {
+            return Redirect::to('admin/ticket')->with('error', '工单不存在');
+        }
+
+        $job->where('id', $job_id)->update(array(
+                                                'operator_id'   => Auth::user()->id,
+                                           ));
+
+        return Redirect::to('admin/ticket/'.$job_id.'/view')->with('success', '工单申请成功');
+    }
+
+    /**
      *
      * getClose
      *
@@ -182,8 +205,7 @@ class TicketController extends AdminController {
         }
 
         $job->where('id', $job_id)->update(array(
-                                                'status'   => 2,
-                                                'end_time' => new Datetime
+                                                'status'   => 2
                                            ));
 
         return Redirect::to('admin/ticket')->with('success', '工单关闭成功');

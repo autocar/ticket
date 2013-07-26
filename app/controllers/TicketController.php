@@ -272,11 +272,32 @@ class TicketController extends AuthorizedController {
         }
 
         $job->where('id', $job_id)->update(array(
-                                                'status'   => 2,
-                                                'end_time' => new Datetime
+                                                'status'   => 2
                                            ));
 
         return Redirect::to('ticket')->with('success', '工单关闭成功');
+    }
+
+    /**
+     * getOver
+     *
+     * @param null $job_id
+     *
+     * @return mixed
+     */
+    public function getOver($job_id = NULL)
+    {
+        if (is_null($job = Job::where('member_id', '=', Auth::user()->id)->find($job_id)))
+        {
+            return Redirect::to('ticket')->with('error', '工单不存在');
+        }
+
+        $job->where('id', $job_id)->update(array(
+                                                'status'   => 3,
+                                                'end_time' => new Datetime
+                                           ));
+
+        return Redirect::to('ticket')->with('success', '工单完成');
     }
 
     /**
@@ -294,11 +315,31 @@ class TicketController extends AuthorizedController {
         }
 
         $job->where('id', $job_id)->update(array(
-                                                'status'   => 3,
-                                                'end_time' => new Datetime
+                                                'status'   => 4
                                            ));
 
-        return Redirect::to('ticket')->with('success', '工单作废成功');
+        return Redirect::to('ticket')->with('success', '工单挂起成功');
+    }
+
+    /**
+     * getReinvalid
+     *
+     * @param null $job_id
+     *
+     * @return mixed
+     */
+    public function getReinvalid($job_id = NULL)
+    {
+        if (is_null($job = Job::where('member_id', '=', Auth::user()->id)->find($job_id)))
+        {
+            return Redirect::to('ticket')->with('error', '工单不存在');
+        }
+
+        $job->where('id', $job_id)->update(array(
+                                                'status'   => 0
+                                           ));
+
+        return Redirect::to('ticket')->with('success', '工单恢复成功');
     }
 
 }
