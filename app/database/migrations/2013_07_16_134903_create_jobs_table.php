@@ -37,7 +37,6 @@ class CreateJobsTable extends Migration {
                                    ));
             $table->string('title');
             $table->text('content');
-            $table->integer('image_id')->unsigned();
             $table->integer('cgroup_id')->unsigned();
             $table->timestamp('start_time');
             $table->timestamp('end_time');

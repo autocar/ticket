@@ -69,7 +69,7 @@
     <div class="control-group">
         <label class="control-label" for="product">服务产品</label>
         <div class="controls">
-            <textarea disabled>@foreach ($user->MP as $product) {{ $product->product->name }} \ @endforeach </textarea>
+            <textarea disabled>@foreach ($user->products as $product) {{ $product->name }} \ @endforeach </textarea>
         </div>
     </div>
     <!-- ./ product -->

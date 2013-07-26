@@ -24,6 +24,7 @@
 .a_content { margin-top: 20px; }
 .p_content { padding: 10px; }
 .a_title { padding:10px 10px 10px 20px; background: #fffff9; border-left:3px solid #fefbc1; }
+.job_image img {width: 260px;height: 180px;}
 @stop
 
 {{-- Content --}}
@@ -86,15 +87,8 @@
         {{ $job->content }}
     </p>
 
-    @if ($job->image)
-        <p>
-            <a href="{{{ asset($job->image->url) }}}"  data-lighter title="点击查看大图"><img  class="img-polaroid" src="{{{ asset($job->image->url) }}}" alt="点击查看大图" width="150" /></a>
-        </p>
-    @endif
-
     <!-- 追加 -->
     @if (count($job->projects()->where('append', '=', '1')->get()))
-    <hr />
     <div class="clearfix"></div>
     <div class="a_content">
     @foreach ($job->projects()->where('append', '=', '1')->get() as $key=>$project)
@@ -106,6 +100,18 @@
     @endforeach
     </div>
     @endif
+
+    @if (count($job->images))
+    <hr />
+    <p class="job_image">
+        @foreach ($job->images as $image)
+       <a href="{{{ asset($image->url) }}}"  data-lighter title="点击查看大图">
+           <img  class="img-polaroid" src="{{{ asset($image->url) }}}" alt="点击查看大图" />
+       </a>
+        @endforeach
+    </p>
+    @endif
+
     </div>
     <div class="clearfix"></div>
 </div>

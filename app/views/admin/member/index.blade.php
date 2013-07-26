@@ -38,7 +38,7 @@
         <td>{{ $member->name }}</td>
         <td>{{ $member->mobile }}</td>
         <td>
-            @foreach ($member->MP as $product) <span class="label label-inverse">{{ $product->product->name }}</span> @endforeach
+            @foreach ($member->products as $product) <span class="label label-inverse">{{ $product->name }}</span> @endforeach
         </td>
         <td>{{ date("Y-m-d", strtotime($member->start_time)) }}</td>
         <td>{{ date("Y-m-d", strtotime($member->end_time)) }}</td>

@@ -57,69 +57,75 @@ class TicketController extends AuthorizedController {
             return Redirect::to("ticket/view/" . $j->id)->with('error', '存在相同工单！');
         }
 
-        $job->member_id   = Auth::user()->id;
-        $job->cgroup_id   = Auth::user()->cgroup_id;
-        $job->trouble_id  = e(Input::get('trouble_id'));
-        $job->level       = e(Input::get('level'));
-        $job->status      = '0';
-        $job->title       = e(Input::get('title'));
-        $job->content     = e(Input::get('content'));
-        $job->start_time  = new DateTime;
+        $job->member_id  = Auth::user()->id;
+        $job->cgroup_id  = Auth::user()->cgroup_id;
+        $job->trouble_id = e(Input::get('trouble_id'));
+        $job->level      = e(Input::get('level'));
+        $job->status     = '0';
+        $job->title      = e(Input::get('title'));
+        $job->content    = e(Input::get('content'));
+        $job->start_time = new DateTime;
 
         // 工单附件
-        $file = Input::file('file');
+        $files = Input::file('file');
 
-        if (!empty($file))
+        $images = array();
+
+        if (is_array($files))
         {
-            if ($file->getSize() > (1024 * 1024))
+            foreach ($files as $file)
             {
-                return Redirect::back()->with('error', '上传图片过大，请控制在1M以内！');
-            }
-            else
-            {
-                $destinationPath = 'uploads/' . date('Y/m/d');
-                $extension       = $file->getClientOriginalExtension();
-                $filename        = str_random(8) . '.' . $extension;
-                $upload_success  = $file->move($destinationPath, $filename);
-
-                if ($upload_success)
+                if (!empty($file))
                 {
-                    $image = new Image();
-                    $image->url = $destinationPath . '/' . $filename;
-                    $image->create_time = new DateTime();
-
-                    if($image->save()){
-                        $job->image_id = $image->id;
+                    if ($file->getSize() > (1024 * 1024))
+                    {
+                        return Redirect::back()->with('error', '上传图片过大，请控制在1M以内！');
                     }
+                    else
+                    {
+                        $destinationPath = 'uploads/' . date('Y/m/d');
+                        $extension       = $file->getClientOriginalExtension();
+                        $filename        = str_random(8) . '.' . $extension;
+                        $upload_success  = $file->move($destinationPath, $filename);
 
-                }
-                else
-                {
-                    return Redirect::back()->with('error', '上传图片失败！');
+                        if ($upload_success)
+                        {
+                            $image              = new Image();
+                            $image->url         = $destinationPath . '/' . $filename;
+                            $image->create_time = new DateTime();
+
+                            if ($image->save())
+                            {
+                                $images[] = $image->id;
+                            }
+
+                        }
+                        else
+                        {
+                            return Redirect::back()->with('error', '上传图片失败！');
+                        }
+                    }
                 }
             }
         }
 
+
         if ($job->save())
         {
-
             if (is_array(Input::get('product')))
             {
-                $jp = new JP;
-
-                $jp_array = array();
-
-                foreach (Input::get('product') as $key => $val)
+                foreach (Input::get('product') as $val)
                 {
-                    $jp_array[$key]['job_id']     = $job->id;
-                    $jp_array[$key]['product_id'] = $val;
+                    $job->products()->attach($val);
                 }
+            }
 
-                $jp->insert($jp_array);
+            foreach ($images as $v)
+            {
+                $job->images()->attach($v);
             }
 
             return Redirect::to("ticket")->with('success', '工单提交成功');
-
         }
 
         return Redirect::to('ticket/create')->with('error', '工单提交失败');
@@ -195,11 +201,12 @@ class TicketController extends AuthorizedController {
 
                 if ($upload_success)
                 {
-                    $image = new Image();
-                    $image->url = $destinationPath . '/' . $filename;
+                    $image              = new Image();
+                    $image->url         = $destinationPath . '/' . $filename;
                     $image->create_time = new DateTime();
 
-                    if($image->save()){
+                    if ($image->save())
+                    {
                         $project->image_id = $image->id;
                     }
 
@@ -308,7 +315,7 @@ class TicketController extends AuthorizedController {
         }
 
         $job->where('id', $job_id)->update(array(
-                                                'status'   => 2
+                                                'status' => 2
                                            ));
 
         return Redirect::to('ticket')->with('success', '工单关闭成功');
@@ -351,7 +358,7 @@ class TicketController extends AuthorizedController {
         }
 
         $job->where('id', $job_id)->update(array(
-                                                'status'   => 4
+                                                'status' => 4
                                            ));
 
         return Redirect::to('ticket')->with('success', '工单挂起成功');
@@ -372,7 +379,7 @@ class TicketController extends AuthorizedController {
         }
 
         $job->where('id', $job_id)->update(array(
-                                                'status'   => 0
+                                                'status' => 0
                                            ));
 
         return Redirect::to('ticket')->with('success', '工单恢复成功');

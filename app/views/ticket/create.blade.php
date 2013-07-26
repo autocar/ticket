@@ -78,8 +78,13 @@
     <div class="control-group {{{ $errors->has('file') ? 'error' : '' }}}">
         <label class="control-label" for="file">图片附件</label>
         <div class="controls">
-            <input type="file" name="file" id="file" value="" />
-            {{ $errors->first('file') }}
+            <input type="file" name="file[]" id="file_1" value="" />
+        </div>
+        <div class="controls">
+            <input type="file" name="file[]" id="file_2" value="" />
+        </div>
+        <div class="controls">
+            <input type="file" name="file[]" id="file_3" value="" />
         </div>
         <div class="controls">
             图片附件请控制在1M以内！

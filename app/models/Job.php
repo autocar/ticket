@@ -57,9 +57,9 @@ class Job extends Eloquent  {
      *
      * @return mixed
      */
-    public function image()
+    public function images()
     {
-        return $this->belongsTo('Image');
+        return $this->belongsToMany('Image', 'job_image');
     }
 
     /**
@@ -72,14 +72,6 @@ class Job extends Eloquent  {
         return $this->belongsToMany('Product', 'job_product');
     }
 
-    /**
-     * 绑定产品
-     *
-     * @return mixed
-     */
-    public function JP()
-    {
-        return $this->hasMany('JP', 'job_id');
-    }
+
 
 }
