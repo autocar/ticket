@@ -11,12 +11,12 @@
 <table class="table table-bordered table-striped table-hover">
     <thead>
     <tr>
-        <th class="span1">编号</th>
-        <th class="span1">等级</th>
+        <th class="span1"><a href="{{ URL::to('ticket?sort=id'.$querystr) }}">编号</a></th>
+        <th class="span1"><a href="{{ URL::to('ticket?sort=level'.$querystr) }}">等级</a></th>
         <th class="span2">类型</th>
-        <th class="span3">标题</th>
-        <th class="span1">状态</th>
-        <th class="span2">提交时间</th>
+        <th class="span3"><a href="{{ URL::to('ticket?sort=title'.$querystr) }}">标题</a></th>
+        <th class="span1"><a href="{{ URL::to('ticket?sort=status'.$querystr) }}">状态</a></th>
+        <th class="span2"><a href="{{ URL::to('ticket?sort=start_time'.$querystr) }}">提交时间</a></th>
         <th class="span2">操作</th>
     </tr>
     </thead>
@@ -78,6 +78,6 @@
     </tbody>
 </table>
 
-{{ $jobs->links() }}
+{{ $jobs->appends( array('sort' => Input::get('sort'), 'order' => Input::get('order')))->links() }}
 
 @stop

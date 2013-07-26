@@ -4,11 +4,23 @@ class TicketController extends AuthorizedController {
 
     public function getIndex()
     {
-        $jobs = Job::where('member_id', '=', Auth::user()->id)->orderBy('id', 'desc')->paginate();
+        $allowed = array(
+            'id',
+            'level',
+            'title',
+            'status',
+            'start_time'
+        );
+        $sort    = in_array(Input::get('sort'), $allowed) ? Input::get('sort') : 'id';
+        $order   = Input::get('order') === 'asc' ? 'asc' : 'desc';
+
+        $jobs = Job::where('member_id', '=', Auth::user()->id)->orderBy($sort, $order)->paginate();
+
+        $querystr = '&order=' . (Input::get('order') == 'asc' || NULL ? 'desc' : 'asc');
 
         // Show the page.
         //
-        return View::make('ticket/index', compact('jobs'));
+        return View::make('ticket/index', compact('jobs',  'querystr'));
     }
 
     /**

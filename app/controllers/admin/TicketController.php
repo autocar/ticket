@@ -23,21 +23,48 @@ class TicketController extends AdminController {
      */
     public function getIndex()
     {
+        $allowed = array(
+            'id',
+            'level',
+            'title',
+            'status',
+            'start_time'
+        );
+        $sort    = in_array(Input::get('sort'), $allowed) ? Input::get('sort') : 'id';
+        $order   = Input::get('order') === 'asc' ? 'asc' : 'desc';
+
         // 客服
         if (Auth::user()->lv == 0)
         {
             $o       = Operator::find(Auth::user()->id);
             $cgroups = $o->cgroups()->lists('cgroup_id', 'cgroup_id');
-            $jobs = Job::whereIn('cgroup_id', $cgroups)->orderBy('status', 'asc')->orderBy('level', 'desc')->orderBy('id', 'desc')->paginate();
+
+            if (Input::get('order'))
+            {
+                $jobs = Job::whereIn('cgroup_id', $cgroups)->orderBy($sort, $order)->paginate();
+            }
+            else
+            {
+                $jobs = Job::whereIn('cgroup_id', $cgroups)->orderBy('status', 'asc')->orderBy('level', 'desc')->orderBy('id', 'desc')->paginate();
+            }
         }
         else
         {
-            $jobs = Job::query()->orderBy('status', 'asc')->orderBy('level', 'desc')->orderBy('id', 'desc')->paginate();
+            if (Input::get('order'))
+            {
+                $jobs = Job::query()->orderBy('status', 'asc')->orderBy($sort, $order)->paginate();
+            }
+            else
+            {
+                $jobs = Job::query()->orderBy('status', 'asc')->orderBy('level', 'desc')->orderBy('id', 'desc')->paginate();
+            }
         }
+
+        $querystr = '&order=' . (Input::get('order') == 'asc' || NULL ? 'desc' : 'asc');
 
         // Show the page.
         //
-        return View::make('admin/ticket/index', compact('jobs'));
+        return View::make('admin/ticket/index', compact('jobs', 'querystr'));
     }
 
     /**
@@ -108,11 +135,12 @@ class TicketController extends AdminController {
 
                 if ($upload_success)
                 {
-                    $image = new Image();
-                    $image->url = $destinationPath . '/' . $filename;
+                    $image              = new Image();
+                    $image->url         = $destinationPath . '/' . $filename;
                     $image->create_time = new DateTime();
 
-                    if($image->save()){
+                    if ($image->save())
+                    {
                         $project->image_id = $image->id;
                     }
 
@@ -219,10 +247,10 @@ class TicketController extends AdminController {
         }
 
         $job->where('id', $job_id)->update(array(
-                                                'operator_id'   => Auth::user()->id,
+                                                'operator_id' => Auth::user()->id,
                                            ));
 
-        return Redirect::to('admin/ticket/'.$job_id.'/view')->with('success', '工单申请成功');
+        return Redirect::to('admin/ticket/' . $job_id . '/view')->with('success', '工单申请成功');
     }
 
     /**
@@ -241,7 +269,7 @@ class TicketController extends AdminController {
         }
 
         $job->where('id', $job_id)->update(array(
-                                                'status'   => 2
+                                                'status' => 2
                                            ));
 
         return Redirect::to('admin/ticket')->with('success', '工单关闭成功');
