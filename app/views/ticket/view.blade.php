@@ -24,7 +24,7 @@
 .a_content { margin-top: 20px; }
 .p_content { padding: 10px; }
 .a_title { padding:10px 10px 10px 20px; background: #fffff9; border-left:3px solid #fefbc1; }
-.job_image img {width: 260px;height: 180px;}
+.job_image img {width: 200px;height: 150px;}
 @stop
 
 {{-- Content --}}
@@ -134,7 +134,7 @@
 </p>
 
 @if ($project->image)
-<p class="p_content">
+<p class="p_content job_image">
     <a href="{{{ asset($project->image->url) }}}"  data-lighter title="点击查看大图"><img  class="img-polaroid" src="{{{ asset($project->image->url) }}}" alt="点击查看大图" width="150" /></a>
 </p>
 @endif

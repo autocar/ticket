@@ -56,10 +56,10 @@
     <div class="control-group {{ $errors->has('product') ? 'error' : '' }}">
         <label class="control-label" for="product">相关产品</label>
         <div class="controls">
-            @if (Auth::user()->MP->count() >= 1)
-            @foreach (Auth::user()->MP as $product)
+            @if (Auth::user()->products->count() >= 1)
+            @foreach (Auth::user()->products as $product)
             <label class="checkbox inline">
-                <input type="checkbox" name="product[]" id="product_{{ $product->product_id }}" value="{{ $product->product_id }}"> {{ $product->product->name }}
+                <input type="checkbox" name="product[]" id="product_{{ $product->id }}" value="{{ $product->id }}"> {{ $product->name }}
             </label>
             @endforeach
             @endif

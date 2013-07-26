@@ -12,14 +12,4 @@ class Product extends Eloquent  {
 
     public $timestamps = false;
 
-    /**
-     * 用户
-     *
-     * @return mixed
-     */
-    public function members()
-    {
-        return $this->hasMany('MP');
-    }
-
 }

@@ -4,7 +4,6 @@ use Auth;
 use View;
 use Member;
 use Cgroup;
-use MP;
 use Product;
 use Hash;
 use Validator;
@@ -69,7 +68,6 @@ class MemberController extends AdminController {
         }
 
         $member = new Member;
-        $mp     = new MP;
 
         $member->bn           = e(Input::get('bn'));
         $member->name         = e(Input::get('name'));
@@ -86,22 +84,12 @@ class MemberController extends AdminController {
 
         if ($member->save())
         {
-            $mp_array = array();
-
-            foreach (Input::get('product') as $key => $val)
+            foreach (Input::get('product') as $val)
             {
-                $mp_array[$key]['member_id']  = $member->id;
-                $mp_array[$key]['product_id'] = $val;
+                $member->products()->attach($val);
             }
 
-            if ($mp->insert($mp_array))
-            {
-                return Redirect::to("admin/member")->with('success', '客户添加成功');
-            }
-            else
-            {
-                return Redirect::to("admin/member")->with('error', '客户绑定产品失败');
-            }
+            return Redirect::to("admin/member")->with('success', '客户添加成功');
         }
 
         return Redirect::to('admin/member/create')->with('error', '客户添加失败');
@@ -124,10 +112,13 @@ class MemberController extends AdminController {
         $cgroups  = Cgroup::all();
         $products = Product::all();
 
+        $mproducts = $member->products()->lists('name', 'product_id');
+
         return View::make('admin/member/edit', array(
-                                                    'cgroups'  => $cgroups,
-                                                    'member'   => $member,
-                                                    'products' => $products,
+                                                    'cgroups'   => $cgroups,
+                                                    'member'    => $member,
+                                                    'products'  => $products,
+                                                    'mproducts' => $mproducts,
                                                ));
     }
 
@@ -177,8 +168,8 @@ class MemberController extends AdminController {
         $member->introduction = e(Input::get('introduction'));
         // $member->start_time   = e(Input::get('start_time'));
         // $member->end_time     = e(Input::get('end_time'));
-        $member->start_time  = substr(e(Input::get('start_time')), 0, 10) . ' 00:00:00';
-        $member->end_time    = substr(e(Input::get('end_time')), 0, 10) . ' 00:00:00';
+        $member->start_time = substr(e(Input::get('start_time')), 0, 10) . ' 00:00:00';
+        $member->end_time   = substr(e(Input::get('end_time')), 0, 10) . ' 00:00:00';
         $member->cgroup_id  = Input::get('cgroup_id');
 
         if (Input::get('password') !== '')
@@ -186,28 +177,26 @@ class MemberController extends AdminController {
             $member->password = Hash::make(Input::get('password'));
         }
 
+        $mproducts = $member->products()->lists('product_id', 'product_id');
+
+        $productsGroups = Input::get('product', array());
+
+        $productsToAdd    = array_diff($productsGroups, $mproducts);
+        $productsToRemove = array_diff($mproducts, $productsGroups);
+
         if ($member->save())
         {
-            $mp = new MP;
-
-            $mp_array = array();
-
-            foreach (Input::get('product') as $key => $val)
+            foreach ($productsToAdd as $productid)
             {
-                $mp_array[$key]['member_id']  = $member->id;
-                $mp_array[$key]['product_id'] = $val;
+                $member->products()->attach($productid);
             }
 
-            $mp->where('member_id', '=', $member->id)->delete();
+            foreach ($productsToRemove as $productid)
+            {
+                $member->products()->detach($productid);
+            }
 
-            if ($mp->insert($mp_array))
-            {
-                return Redirect::to("admin/member")->with('success', '更新成功');
-            }
-            else
-            {
-                return Redirect::to("admin/member")->with('error', '客户绑定产品失败');
-            }
+            return Redirect::to("admin/member")->with('success', '更新成功');
         }
 
         return Redirect::to("admin/member/$memberId/edit")->with('error', '更新失败');
