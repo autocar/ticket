@@ -28,11 +28,11 @@ class TicketController extends AdminController {
         {
             $o       = Operator::find(Auth::user()->id);
             $cgroups = $o->cgroups()->lists('cgroup_id', 'cgroup_id');
-            $jobs = Job::whereIn('cgroup_id', $cgroups)->orderBy('id', 'desc')->paginate();
+            $jobs = Job::whereIn('cgroup_id', $cgroups)->orderBy('status', 'asc')->orderBy('level', 'desc')->orderBy('id', 'desc')->paginate();
         }
         else
         {
-            $jobs = Job::query()->orderBy('id', 'desc')->paginate();
+            $jobs = Job::query()->orderBy('status', 'asc')->orderBy('level', 'desc')->orderBy('id', 'desc')->paginate();
         }
 
         // Show the page.

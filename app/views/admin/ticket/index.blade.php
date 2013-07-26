@@ -12,7 +12,7 @@
     <thead>
     <tr>
         <th class="span1">编号</th>
-        <th class="span1">等级</th>
+        <th class="span1">请求</th>
         <th class="span2">类型</th>
         <th class="span3">标题</th>
         <th class="span1">状态</th>
