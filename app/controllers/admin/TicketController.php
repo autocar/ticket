@@ -11,6 +11,7 @@ use DateTime;
 use Operator;
 use URL;
 use Mail;
+use Image;
 
 
 class TicketController extends AdminController {
@@ -71,6 +72,7 @@ class TicketController extends AdminController {
 
         $rules = array(
             'content' => 'required|min:10',
+            'file'    => 'image',
         );
 
         $validator = Validator::make(Input::all(), $rules);
@@ -87,6 +89,40 @@ class TicketController extends AdminController {
         $project->operator_id = Auth::user()->id;
         $project->type        = '1';
         $project->reply_time  = new DateTime;
+
+        // 图片附件
+        $file = Input::file('file');
+
+        if (!empty($file))
+        {
+            if ($file->getSize() > (1024 * 1024))
+            {
+                return Redirect::back()->with('error', '上传图片过大，请控制在1M以内！');
+            }
+            else
+            {
+                $destinationPath = 'uploads/' . date('Y/m/d');
+                $extension       = $file->getClientOriginalExtension();
+                $filename        = str_random(8) . '.' . $extension;
+                $upload_success  = $file->move($destinationPath, $filename);
+
+                if ($upload_success)
+                {
+                    $image = new Image();
+                    $image->url = $destinationPath . '/' . $filename;
+                    $image->create_time = new DateTime();
+
+                    if($image->save()){
+                        $project->image_id = $image->id;
+                    }
+
+                }
+                else
+                {
+                    return Redirect::back()->with('error', '上传图片失败！');
+                }
+            }
+        }
 
         if ($project->save())
         {

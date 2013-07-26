@@ -42,6 +42,16 @@ class Project extends Eloquent  {
         return $this->belongsTo('Operator');
     }
 
+    /**
+     * 图片
+     *
+     * @return mixed
+     */
+    public function image()
+    {
+        return $this->belongsTo('Image');
+    }
+
 
 
 }
