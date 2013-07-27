@@ -20,6 +20,10 @@ Route::group(array('prefix' => 'admin'), function()
     Route::get('account', 'Controllers\Admin\AccountController@getIndex');
     Route::post('account', 'Controllers\Admin\AccountController@postIndex');
 
+    // 系统配置
+    Route::get('configuration', 'Controllers\Admin\ConfigurationController@getIndex');
+    Route::post('configuration', 'Controllers\Admin\ConfigurationController@postIndex');
+
     // 工单管理
     Route::get('ticket', array('as' => 'ticket', 'uses' => 'Controllers\Admin\TicketController@getIndex'));
     Route::get('ticket/{jobId}/view', array('as' => 'view/ticket', 'uses' => 'Controllers\Admin\TicketController@getView'));

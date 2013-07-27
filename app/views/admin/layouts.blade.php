@@ -84,7 +84,7 @@
                             </ul>
                         </li>
 
-                        <li class="dropdown {{ (Request::is('admin/product*') || Request::is('admin/type*') ? 'active' : '') }}">
+                        <li class="dropdown {{ (Request::is('admin/product*') || Request::is('admin/type*') ? 'active' : '' || Request::is('admin/configuration') ? 'active' : '') }}">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 <i class="icon-align-justify icon-white"></i> 系统配置<span class="caret"></span>
                             </a>
@@ -94,6 +94,9 @@
                                 </li>
                                 <li {{{ (Request::is('admin/type*') ? 'class=active' : '') }}}>
                                     <a href="{{{ URL::to('admin/type') }}}"> 问题类型</a>
+                                </li>
+                                <li {{{ (Request::is('admin/configuration') ? 'class=active' : '') }}}>
+                <a href="{{{ URL::to('admin/configuration') }}}"> 参数配置</a>
                                 </li>
                             </ul>
                         </li>
