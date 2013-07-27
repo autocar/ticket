@@ -34,7 +34,7 @@
         <div class="pull-right">
 
         </div>
-        查看工单
+        查看工单 #{{ $job->id }}
     </h2>
 </div>
 
@@ -62,7 +62,9 @@
     <span class="label label-info">已关闭</span>
     @elseif ($job->status == 3)
     <span class="label label-info">已完成</span>
-    @elseif ($job->status == 4)
+    @endif
+
+    @if ($job->invalid)
     <span class="label">挂起</span>
     @endif
 
@@ -140,7 +142,7 @@
 @endforeach
 @endif
 
-@if (($job->status == 0 || $job->status == 1) && ($job->operator_id == Auth::user()->id || Auth::user()->lv > 0) )
+@if ($job->invalid == 0 && ($job->status == 0 || $job->status == 1) && ($job->operator_id == Auth::user()->id || Auth::user()->lv > 0) )
 <form method="post" action="" class="form-horizontal" enctype="multipart/form-data">
     <!-- CSRF Token -->
     {{ Form::token() }}

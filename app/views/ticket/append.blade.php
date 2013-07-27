@@ -31,8 +31,6 @@
 <div class="page-header">
     <h2>
         <div class="pull-right">
-            @if ($job->status == 1)<a href="{{{ URL::to('ticket/close/'. $job->id) }}}" class="btn btn-danger">关闭工单</a>@endif
-
             <a href="{{{ URL::to('ticket/view/'. $job->id) }}}" class="btn btn-primary">查看工单详情</a>
         </div>
         追加工单问题描述 #{{ $job->id }}
@@ -63,7 +61,9 @@
     <span class="label label-info">已关闭</span>
     @elseif ($job->status == 3)
     <span class="label label-info">已完成</span>
-    @elseif ($job->status == 4)
+    @endif
+
+    @if ($job->invalid)
     <span class="label">挂起</span>
     @endif
 

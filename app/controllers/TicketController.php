@@ -4,23 +4,21 @@ class TicketController extends AuthorizedController {
 
     public function getIndex()
     {
-        $allowed = array(
+        $allowed  = array(
             'id',
             'level',
             'title',
             'status',
             'start_time'
         );
-        $sort    = in_array(Input::get('sort'), $allowed) ? Input::get('sort') : 'id';
-        $order   = Input::get('order') === 'asc' ? 'asc' : 'desc';
-
-        $jobs = Job::where('member_id', '=', Auth::user()->id)->orderBy($sort, $order)->paginate();
-
+        $sort     = in_array(Input::get('sort'), $allowed) ? Input::get('sort') : 'id';
+        $order    = Input::get('order') === 'asc' ? 'asc' : 'desc';
+        $jobs     = Job::where('member_id', '=', Auth::user()->id)->orderBy($sort, $order)->paginate();
         $querystr = '&order=' . (Input::get('order') == 'asc' || NULL ? 'desc' : 'asc');
 
         // Show the page.
         //
-        return View::make('ticket/index', compact('jobs',  'querystr'));
+        return View::make('ticket/index', compact('jobs', 'querystr'));
     }
 
     /**
@@ -370,7 +368,7 @@ class TicketController extends AuthorizedController {
         }
 
         $job->where('id', $job_id)->update(array(
-                                                'status' => 4
+                                                'invalid' => 1
                                            ));
 
         return Redirect::to('ticket')->with('success', '工单挂起成功');
@@ -391,7 +389,7 @@ class TicketController extends AuthorizedController {
         }
 
         $job->where('id', $job_id)->update(array(
-                                                'status' => 0
+                                                'invalid' => 0
                                            ));
 
         return Redirect::to('ticket')->with('success', '工单恢复成功');

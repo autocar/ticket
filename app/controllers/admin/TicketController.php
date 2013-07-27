@@ -45,7 +45,7 @@ class TicketController extends AdminController {
             }
             else
             {
-                $jobs = Job::whereIn('cgroup_id', $cgroups)->orderBy('status', 'asc')->orderBy('level', 'desc')->orderBy('id', 'desc')->paginate();
+                $jobs = Job::whereIn('cgroup_id', $cgroups)->orderBy('status', 'asc')->orderBy('invalid', 'asc')->orderBy('level', 'desc')->orderBy('id', 'desc')->paginate();
             }
         }
         else
@@ -56,7 +56,7 @@ class TicketController extends AdminController {
             }
             else
             {
-                $jobs = Job::query()->orderBy('status', 'asc')->orderBy('level', 'desc')->orderBy('id', 'desc')->paginate();
+                $jobs = Job::query()->orderBy('status', 'asc')->orderBy('invalid', 'asc')->orderBy('level', 'desc')->orderBy('id', 'desc')->paginate();
             }
         }
 

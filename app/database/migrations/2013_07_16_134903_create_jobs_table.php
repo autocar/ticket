@@ -21,8 +21,7 @@ class CreateJobsTable extends Migration {
                                         '0',
                                         '1',
                                         '2',
-                                        '3',
-                                        '4'
+                                        '3'
                                    ));
             $table->enum('level', array(
                                        '0',
@@ -35,6 +34,10 @@ class CreateJobsTable extends Migration {
                                         '2',
                                         '3'
                                    ));
+            $table->enum('invalid', array(
+                                       '0',
+                                       '1'
+                                  ));
             $table->string('title');
             $table->text('content');
             $table->integer('cgroup_id')->unsigned();

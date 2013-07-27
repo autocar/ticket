@@ -32,8 +32,14 @@
 <div class="page-header">
     <h2>
         <div class="pull-right">
-            @if ($job->status == 1)<a href="{{{ URL::to('ticket/close/'. $job->id) }}}" class="btn btn-danger">关闭工单</a>@endif
+            @if ($job->status == 0 && $job->invalid == 0)<a href="{{{ URL::to('ticket/close/'. $job->id) }}}" class="btn btn-success">工单关闭</a>@endif
+            @if ($job->status == 1 && $job->invalid == 0)<a href="{{{ URL::to('ticket/over/'. $job->id) }}}" class="btn btn-success">工单完成</a>@endif
 
+            @if ($job->invalid)
+            <a href="{{{ URL::to('ticket/reinvalid/'. $job->id) }}}" class="btn btn-info">工单恢复</a>
+            @else
+            <a href="{{{ URL::to('ticket/invalid/'. $job->id) }}}" class="btn btn-warning">工单挂起</a>
+            @endif
         </div>
         查看工单 #{{ $job->id }}
     </h2>
@@ -63,7 +69,9 @@
     <span class="label label-info">已关闭</span>
     @elseif ($job->status == 3)
     <span class="label label-info">已完成</span>
-    @elseif ($job->status == 4)
+    @endif
+
+    @if ($job->invalid)
     <span class="label">挂起</span>
     @endif
 
@@ -78,7 +86,7 @@
 
 <div class="j_title" id="j_{{ $job->id }}">
     <div class="j_title_inner">
-    <h3>标题：{{ $job->title }} @if ($job->status == 0 || $job->status == 1) <a href="{{{ URL::to('ticket/append/'. $job->id) }}}" class="btn btn-inverse btn-mini">追加问题描述</a> @endif</h3>
+    <h3>标题：{{ $job->title }} @if ( $job->invalid == 0 && ($job->status == 0 || $job->status == 1)) <a href="{{{ URL::to('ticket/append/'. $job->id) }}}" class="btn btn-inverse btn-mini">追加问题描述</a> @endif</h3>
     <p>
         <i class="icon-user"></i> <b>{{ $job->member->name }}</b> 发表于 {{ $job->start_time }}
     </p>
@@ -142,7 +150,7 @@
 @endforeach
 @endif
 
-@if ($job->status == 0 || $job->status == 1)
+@if ( $job->invalid == 0 && ($job->status == 0 || $job->status == 1))
 <form method="post" action="" class="form-horizontal" enctype="multipart/form-data">
     <!-- CSRF Token -->
     {{ Form::token() }}

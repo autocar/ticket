@@ -45,7 +45,9 @@
             <span class="label label-info">已关闭</span>
             @elseif ($job->status == 3)
             <span class="label label-info">已完成</span>
-            @elseif ($job->status == 4)
+            @endif
+
+            @if ($job->invalid)
             <span class="label">挂起</span>
             @endif
         </td>
@@ -53,13 +55,15 @@
         <td>
             <a href="{{ route('view/ticket', $job->id) }}" class="btn btn-mini">查看</a>
 
-            @if ($job->status == 0 && Auth::user()->lv == 0 && $job->operator_id != Auth::user()->id)
-                <a href="{{ route('view/apply', $job->id) }}" class="btn btn-mini btn-primary">申请</a>
-            @endif
+            @if ($job->invalid == 0)
+                @if ($job->status == 0 && Auth::user()->lv == 0 && $job->operator_id != Auth::user()->id)
+                    <a href="{{ route('view/apply', $job->id) }}" class="btn btn-mini btn-primary">申请</a>
+                @endif
 
-            @if (Auth::user()->lv > 0)
-            <a href="{{ route('view/close', $job->id) }}" class="btn btn-mini btn-danger">关闭</a>
-            <a href="{{ route('view/assign', $job->id) }}" class="btn btn-mini btn-primary">分配客服</a>
+                @if (Auth::user()->lv > 0)
+                <a href="{{ route('view/close', $job->id) }}" class="btn btn-mini btn-danger">关闭</a>
+                <a href="{{ route('view/assign', $job->id) }}" class="btn btn-mini btn-primary">分配客服</a>
+                @endif
             @endif
         </td>
     </tr>

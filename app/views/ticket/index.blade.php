@@ -47,7 +47,9 @@
             <span class="label label-info">已关闭</span>
             @elseif ($job->status == 3)
             <span class="label label-info">已完成</span>
-            @elseif ($job->status == 4)
+            @endif
+
+            @if ($job->invalid)
             <span class="label">挂起</span>
             @endif
         </td>
@@ -55,18 +57,24 @@
         <td>
             <a href="{{{ URL::to('ticket/view/'. $job->id) }}}" class="btn btn-mini">查看</a>
 
-            @if ($job->status == 1)
-            <a href="{{{ URL::to('ticket/close/'. $job->id) }}}" class="btn btn-mini btn-danger">关闭</a>
-            <a href="{{{ URL::to('ticket/over/'. $job->id) }}}" class="btn btn-mini btn-success">完成</a>
-            @endif
-
             @if ($job->status == 0 || $job->status == 1)
-            <a href="{{{ URL::to('ticket/invalid/'. $job->id) }}}" class="btn btn-mini btn-warning">挂起</a>
+
+                @if ($job->status == 0 && $job->invalid == 0)
+                <a href="{{{ URL::to('ticket/close/'. $job->id) }}}" class="btn btn-mini btn-danger">关闭</a>
+                @endif
+
+                @if ($job->status == 1 && $job->invalid == 0)
+                <a href="{{{ URL::to('ticket/over/'. $job->id) }}}" class="btn btn-mini btn-success">完成</a>
+                @endif
+
+                @if ($job->invalid)
+                <a href="{{{ URL::to('ticket/reinvalid/'. $job->id) }}}" class="btn btn-mini btn-info">恢复</a>
+                @else
+                <a href="{{{ URL::to('ticket/invalid/'. $job->id) }}}" class="btn btn-mini btn-warning">挂起</a>
+                @endif
+
             @endif
 
-            @if ($job->status == 4)
-            <a href="{{{ URL::to('ticket/reinvalid/'. $job->id) }}}" class="btn btn-mini btn-info">恢复</a>
-            @endif
         </td>
     </tr>
     @endforeach
