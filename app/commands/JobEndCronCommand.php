@@ -51,6 +51,8 @@ class JobEndCronCommand extends Command {
                 Job::where('id', $job->id)->update(array('status' => 2));
             }
         }
+
+        $this->line('Done !');
     }
 
     /**
