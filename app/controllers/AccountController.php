@@ -20,9 +20,14 @@ class AccountController extends AuthorizedController {
      */
     public function getIndex()
     {
+        $troubles = Trouble::all();
+
         // Show the page.
         //
-        return View::make('account/index')->with('user', Auth::user());
+        return View::make('account/index', array(
+                                                'user'     => Auth::user(),
+                                                'troubles' => $troubles,
+                                           ));
     }
 
     /**
@@ -37,9 +42,10 @@ class AccountController extends AuthorizedController {
         //
         $rules = array(
             //'email'      => 'Required|Email|Unique:users,email,' . Auth::user()->email . ',email',
-            'name'    => 'Required',
-            'mobile'  => 'Required',
-            'company' => 'Required',
+            'name'       => 'Required',
+            'mobile'     => 'Required',
+            'company'    => 'Required',
+            'trouble_id' => 'Required',
         );
 
         // If we are updating the password.
@@ -72,6 +78,7 @@ class AccountController extends AuthorizedController {
             $user->mobile       = Input::get('mobile');
             $user->company      = Input::get('company');
             $user->introduction = Input::get('introduction');
+            $user->trouble_id   = Input::get('trouble_id');
 
             if (Input::get('password') !== '')
             {

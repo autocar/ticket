@@ -23,6 +23,7 @@ class CreateMembersTable extends Migration {
             $table->string('introduction');
             $table->timestamp('start_time');
             $table->timestamp('end_time');
+            $table->integer('trouble_id')->unsigned();
             $table->integer('cgroup_id')->unsigned();
             $table->integer('image_id')->unsigned();
             $table->timestamps();

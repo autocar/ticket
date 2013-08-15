@@ -74,6 +74,26 @@
     </div>
     <!-- ./ product -->
 
+    <div class="control-group">
+        <label class="control-label" for="trouble_id">默认问题类型</label>
+        <div class="controls">
+            @if ($troubles->count() >= 1)
+            @foreach ($troubles as $trouble)
+                <label class="radio">
+                    <input type="radio" name="trouble_id" id="trouble_id_{{ $trouble->id }}" value="{{ $trouble->id }}"
+                    @if ($trouble->id == $user->trouble_id)
+                    checked
+                    @endif
+                    >{{ $trouble->name }}
+                </label>
+            @endforeach
+            @else
+                未添加问题类型
+            @endif
+            {{ $errors->first('trouble_id') }}
+        </div>
+    </div>
+
 
     <legend>修改密码 <small>不修改请为空</small></legend>
 

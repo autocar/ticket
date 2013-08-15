@@ -31,7 +31,7 @@
             <select name="trouble_id" id="trouble_id">
             @if ($troubles->count() >= 1)
             @foreach ($troubles as $trouble)
-            <option value="{{ $trouble->id }}" >{{ $trouble->name }}</option>
+            <option value="{{ $trouble->id }}" {{ (Auth::user()->trouble_id == $trouble->id  ? ' selected="selected"' : '') }} >{{ $trouble->name }}</option>
             @endforeach
             @else
             <option value="">请先添加问题类型</option>
