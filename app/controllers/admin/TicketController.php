@@ -3,6 +3,7 @@
 use Auth;
 use View;
 use Job;
+use Member;
 use Redirect;
 use Project;
 use Validator;
@@ -65,6 +66,35 @@ class TicketController extends AdminController {
         // Show the page.
         //
         return View::make('admin/ticket/index', compact('jobs', 'querystr'));
+    }
+
+    /**
+     * getMember
+     *
+     * @param null $member_id
+     */
+    public function getMember($member_id = NULL)
+    {
+
+        if (is_null($member = Member::find($member_id)))
+        {
+            return Redirect::to('admin/member')->with('error', '客户不存在');
+        }
+
+        $allowed = array(
+            'id',
+            'level',
+            'title',
+            'status',
+            'start_time'
+        );
+
+        $sort     = in_array(Input::get('sort'), $allowed) ? Input::get('sort') : 'id';
+        $order    = Input::get('order') === 'asc' ? 'asc' : 'desc';
+        $jobs     = Job::where('member_id', '=', $member_id)->orderBy($sort, $order)->paginate();
+        $querystr = '&order=' . (Input::get('order') == 'asc' || NULL ? 'desc' : 'asc');
+
+        return View::make('admin/ticket/index', compact('jobs', 'querystr', 'member'));
     }
 
     /**

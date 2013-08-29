@@ -32,6 +32,7 @@ Route::group(array('prefix' => 'admin'), function()
     Route::post('ticket/{jobId}/assign', 'Controllers\Admin\TicketController@postAssign');
     Route::get('ticket/{jobId}/close', array('as' => 'view/close', 'uses' => 'Controllers\Admin\TicketController@getClose'));
     Route::get('ticket/{jobId}/apply', array('as' => 'view/apply', 'uses' => 'Controllers\Admin\TicketController@getApply'));
+    Route::get('ticket/{memberId}/member', array('as' => 'member/ticket', 'uses' => 'Controllers\Admin\TicketController@getMember'));
 
     // 问题类型
     Route::get('type', array('as' => 'type', 'uses' => 'Controllers\Admin\TypeController@getIndex'));

@@ -25,6 +25,14 @@ class CreateOperatorsTable extends Migration {
                                     '1',
                                     '2'
                                ));
+            $table->enum('level', array(
+                                    '1',
+                                    '2',
+                                    '3'
+                               ));
+            $table->string('territory');
+            $table->string('score');
+
             $table->timestamps();
         });
     }

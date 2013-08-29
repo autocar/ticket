@@ -111,7 +111,7 @@
 
     <p>
         <hr />
-     &copy; <a href="http://www.ecdo.cc" target="_blank">ecdo.cc</a> 2013 ECDO支持系统 当前呈现版本 beta 1.0
+     &copy; <a href="http://www.ecdo.cc" target="_blank">ecdo.cc</a> 2013 ECDO支持系统 当前呈现版本 beta 1.1
     </p>
 </div>
 <!-- ./ container -->

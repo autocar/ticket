@@ -58,6 +58,16 @@ class Operator extends Eloquent implements UserInterface{
         return $this->belongsToMany('Cgroup', 'operator_cgroup');
     }
 
+    /**
+     * 头像
+     *
+     * @return mixed
+     */
+    public function image()
+    {
+        return $this->belongsTo('Image');
+    }
+
 
 
 }

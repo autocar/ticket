@@ -32,7 +32,7 @@
     @if ($members->count() >= 1)
     @foreach ($members as $member)
     <tr>
-        <td>{{ $member->id }}</td>
+        <td><a href="{{ route('member/ticket', $member->id) }}">{{ $member->id }}</a></td>
         <td>{{ $member->bn }}</td>
         <td>{{ $member->email }}</td>
         <td>{{ $member->name }}</td>

@@ -74,5 +74,15 @@ class Member extends Eloquent implements UserInterface, RemindableInterface {
         return $this->belongsToMany('Product', 'member_product');
     }
 
+    /**
+     * 头像
+     *
+     * @return mixed
+     */
+    public function image()
+    {
+        return $this->belongsTo('Image');
+    }
+
 
 }

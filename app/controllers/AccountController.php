@@ -41,11 +41,12 @@ class AccountController extends AuthorizedController {
         // Declare the rules for the form validation.
         //
         $rules = array(
-            //'email'      => 'Required|Email|Unique:users,email,' . Auth::user()->email . ',email',
+            // 'email'      => 'Required|Email|Unique:users,email,' . Auth::user()->email . ',email',
             'name'       => 'Required',
             'mobile'     => 'Required',
             'company'    => 'Required',
-            'trouble_id' => 'Required',
+            // 'trouble_id' => 'Required',
+            'file'       => 'image',
         );
 
         // If we are updating the password.
@@ -79,6 +80,41 @@ class AccountController extends AuthorizedController {
             $user->company      = Input::get('company');
             $user->introduction = Input::get('introduction');
             $user->trouble_id   = Input::get('trouble_id');
+
+            // 图片附件
+            $file = Input::file('file');
+
+            if (!empty($file))
+            {
+                if ($file->getSize() > (100 * 1024))
+                {
+                    return Redirect::back()->with('error', '上传图片过大，请控制在100k以内！');
+                }
+                else
+                {
+                    $destinationPath = 'uploads/avatar/' . date('Y/m/d');
+                    $extension       = $file->getClientOriginalExtension();
+                    $filename        = str_random(8) . '.' . $extension;
+                    $upload_success  = $file->move($destinationPath, $filename);
+
+                    if ($upload_success)
+                    {
+                        $image              = new Image();
+                        $image->url         = $destinationPath . '/' . $filename;
+                        $image->create_time = new DateTime();
+
+                        if ($image->save())
+                        {
+                            $user->image_id = $image->id;
+                        }
+
+                    }
+                    else
+                    {
+                        return Redirect::back()->with('error', '上传图片失败！');
+                    }
+                }
+            }
 
             if (Input::get('password') !== '')
             {

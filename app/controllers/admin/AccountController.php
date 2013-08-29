@@ -9,6 +9,8 @@ use Validator;
 use View;
 use Hash;
 use Operator;
+use Image;
+use DateTime;
 
 class AccountController extends AdminController {
     /**
@@ -49,6 +51,7 @@ class AccountController extends AdminController {
             'name'   => 'Required',
             'mobile' => 'Required',
             'email'  => 'Required|Email',
+            'file'   => 'image',
         );
 
         // If we are updating the password.
@@ -79,6 +82,41 @@ class AccountController extends AdminController {
             $user->email  = Input::get('email');
             $user->name   = Input::get('name');
             $user->mobile = Input::get('mobile');
+
+            // 图片附件
+            $file = Input::file('file');
+
+            if (!empty($file))
+            {
+                if ($file->getSize() > (100 * 1024))
+                {
+                    return Redirect::back()->with('error', '上传图片过大，请控制在100k以内！');
+                }
+                else
+                {
+                    $destinationPath = 'uploads/avatar/' . date('Y/m/d');
+                    $extension       = $file->getClientOriginalExtension();
+                    $filename        = str_random(8) . '.' . $extension;
+                    $upload_success  = $file->move($destinationPath, $filename);
+
+                    if ($upload_success)
+                    {
+                        $image              = new Image();
+                        $image->url         = $destinationPath . '/' . $filename;
+                        $image->create_time = new DateTime();
+
+                        if ($image->save())
+                        {
+                            $user->image_id = $image->id;
+                        }
+
+                    }
+                    else
+                    {
+                        return Redirect::back()->with('error', '上传图片失败！');
+                    }
+                }
+            }
 
             if (Input::get('password') !== '')
             {
@@ -167,7 +205,8 @@ class AccountController extends AdminController {
                 // Redirect to the users page.
                 //
                 return Redirect::to('admin/ticket')->with('success', '登陆成功');
-            } else
+            }
+            else
             {
                 // Redirect to the login page.
                 //

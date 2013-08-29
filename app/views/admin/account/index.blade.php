@@ -11,7 +11,7 @@
 	<h1>更改个人资料</h1>
 </div>
 
-<form method="post" action="" class="form-horizontal">
+<form method="post" action="" class="form-horizontal" enctype="multipart/form-data">
 
 	<!-- CSRF Token -->
 	{{ Form::token() }}
@@ -49,6 +49,30 @@
         <div class="controls">
             <input type="text" name="mobile" id="mobile" value="{{{ Request::old('mobile', $user->mobile) }}}" />
             {{ $errors->first('mobile') }}
+        </div>
+    </div>
+
+    <div class="control-group {{{ $errors->has('file') ? 'error' : '' }}}">
+        <label class="control-label" for="file">头像</label>
+        <div class="controls">
+            <input type="file" name="file" id="file" value="" />
+            {{ $errors->first('file') }}
+        </div>
+
+        <div class="controls">
+
+            @if ($user->image_id)
+
+                <?php $image = Image::find($user->image_id) ?>
+
+                <img src="{{{ asset($image['url']) }}}"  width="100" height="100"  class="img-circle" />
+            @else
+                <img src="{{{ asset('assets/img/engineer.png') }}}" width="100" height="100" />
+            @endif
+
+            <br />
+
+            图片附件请控制在100k以内！
         </div>
     </div>
 
