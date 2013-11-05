@@ -29,10 +29,11 @@ class CreateJobsTable extends Migration {
                                        '2'
                                   ));
             $table->enum('assess', array(
-                                        '0',
                                         '1',
                                         '2',
-                                        '3'
+                                        '3',
+                                        '4',
+                                        '5',
                                    ));
             $table->enum('invalid', array(
                                        '0',

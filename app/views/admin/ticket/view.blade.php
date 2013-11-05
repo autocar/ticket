@@ -53,14 +53,6 @@
     <span class="label label-important">紧急</span>
     @endif
 
-    @if (count($job->products))
-    &nbsp; / &nbsp;
-    相关产品：
-    @foreach ($job->products as $product)
-    <span class="label label-inverse">{{ $product->name }}</span>
-    @endforeach
-    @endif
-
     &nbsp; / &nbsp;
     工单状态：
     @if ($job->status == 0)
@@ -75,6 +67,14 @@
 
     @if ($job->invalid)
     <span class="label">挂起</span>
+    @endif
+
+    @if (count($job->products))
+    &nbsp; / &nbsp;
+    相关产品：
+    @foreach ($job->products as $product)
+    <span class="label label-inverse">{{ $product->name }}</span>
+    @endforeach
     @endif
 </p>
 

@@ -13,9 +13,16 @@
 
     @if ($job->operator_id)
     var pscore = {{ $job->operator->score }};
+    var phints = ['一星', '二星', '三星', '四星', '五星'];
 
     $.fn.raty.defaults.path = "{{{ asset('assets/img') }}}";
-    $('#star').raty({ readOnly: true, score: pscore });
+
+    $('#star').raty({ readOnly: true, score: pscore, hints: phints });
+    $('#star1').raty({ readOnly: true, score: 1, hints: phints });
+    $('#star2').raty({ readOnly: true, score: 2, hints: phints });
+    $('#star3').raty({ readOnly: true, score: 3, hints: phints });
+    $('#star4').raty({ readOnly: true, score: 4, hints: phints });
+    $('#star5').raty({ readOnly: true, score: 5, hints: phints });
     @endif
 
 </script>
@@ -222,6 +229,40 @@
                         </td>
                     </tr>
                 </table>
+
+                @if (!$job->assess)
+                <form method="post" action="" class="form-horizontal">
+                <table class="table table-bordered">
+                    <tr>
+                        <td><b>评分：</b></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="radio">
+                                <input type="radio" name="assess" id="assess_1" value="1" > <span id="star1"></span>
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="assess" id="assess_2" value="2" > <span id="star2"></span>
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="assess" id="assess_3" value="3" > <span id="star3"></span>
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="assess" id="assess_4" value="4" > <span id="star4"></span>
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="assess" id="assess_5" value="5" checked > <span id="star5"></span>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="submit" class="btn">评分</button>
+                        </td>
+                    </tr>
+                </table>
+                </form>
+                @endif
             </div>
         </div>
     </div>
