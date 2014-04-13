@@ -6,7 +6,7 @@
     <meta charset="utf-8"/>
     <title>
         @section('title')
-        ECDO支持系统 :: 管理后台
+        卡卡罗特支持系统 :: 管理后台
         @show
     </title>
 

@@ -6,7 +6,7 @@
     <meta charset="utf-8"/>
     <title>
         @section('title')
-        ECDO支持系统
+        卡卡罗特支持系统
         @show
     </title>
     <meta name="keywords" content="ecdo" />
@@ -111,7 +111,7 @@
 
     <p>
         <hr />
-     &copy; <a href="http://www.ecdo.cc" target="_blank">ecdo.cc</a> 2013 ECDO支持系统 当前呈现版本 beta 8.29
+     &copy; <a href="http://www.lapland.name" target="_blank">卡卡罗特</a> 2013 - 2014  当前呈现版本 beta 4.13
     </p>
 </div>
 <!-- ./ container -->

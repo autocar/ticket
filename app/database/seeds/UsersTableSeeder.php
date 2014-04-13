@@ -13,12 +13,12 @@ class UsersTableSeeder extends Seeder {
         $users = array(
             array(
                 'id'          => '10000',
-                'email'       => 'demo@ecdo.cc',
+                'email'       => 'demo@demo.com',
                 'password'    => Hash::make('demo'),
                 'name'        => '喜柚',
                 'mobile'      => '13000000000',
                 'bn'          => 'CS001',
-                'company'     => '上海喜柚网络科技有限公司',
+                'company'     => '常德卡卡罗特网络科技有限公司',
                 'start_time'  => new DateTime,
                 'end_time'    => new DateTime,
                 'created_at'  => new DateTime,
@@ -35,7 +35,7 @@ class UsersTableSeeder extends Seeder {
                 'username'   => 'admin',
                 'password'   => Hash::make('admin'),
                 'name'       => 'admin',
-                'email'      => 'cc@ecdo.cc',
+                'email'      => 'com@demo.com',
                 'mobile'     => '13500000000',
                 'lv'         => '2',
                 'created_at' => new DateTime,
