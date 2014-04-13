@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'ticket@ecdo.cc', 'name' => 'ticket ecdo'),
+	'from' => array('address' => '', 'name' => 'ticket'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'username' => 'postmaster@ecdoticket.sendcloud.org',
+	'username' => '',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -93,6 +93,6 @@ return array(
 	|
 	*/
 
-	'password' => '9W9VBWfN',
+	'password' => '',
 
 );

@@ -26,6 +26,6 @@ return array(
 	|
 	*/
 
-	'email' => 'cooper@ecdo.cc',
+	'email' => 'myxiaoao@gmail.com',
 
 );

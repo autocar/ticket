@@ -11,6 +11,6 @@
             <p>详情地址：{{ $url }} </p>
 		</div>
 
-        <p>Ecdo Team , http://www.ecdo.cc</p>
+        <p>KK Team , http://www.lapland.name</p>
 	</body>
 </html>

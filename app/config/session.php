@@ -94,7 +94,7 @@ return array(
 	|
 	*/
 
-	'cookie' => 'ecdo_ticket',
+	'cookie' => 'kk_ticket',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -133,6 +133,6 @@ return array(
 	|
 	*/
 
-	'payload' => 'ecdo_payload',
+	'payload' => 'kk_payload',
 
 );

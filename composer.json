@@ -14,7 +14,7 @@
 			"app/tests/TestCase.php"
 		],
         "psr-0": {
-            "Ecdo": "app/library"
+            "Kk": "app/library"
         }
 	},
 	"scripts": {

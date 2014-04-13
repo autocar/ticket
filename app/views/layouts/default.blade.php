@@ -9,8 +9,8 @@
         卡卡罗特支持系统
         @show
     </title>
-    <meta name="keywords" content="ecdo" />
-    <meta name="description" content="ECDO支持系统" />
+    <meta name="keywords" content="KK" />
+    <meta name="description" content="卡卡罗特支持系统" />
 
     <!-- Mobile Specific Metas
     ================================================== -->

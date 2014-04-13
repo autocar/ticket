@@ -84,6 +84,6 @@ return array(
 	|
 	*/
 
-	'prefix' => 'ecdo',
+	'prefix' => 'kk',
 
 );

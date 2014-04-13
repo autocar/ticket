@@ -3,7 +3,7 @@
 @section('content')
 <div class="hero-unit" style="margin-top: 30px;">
     <div class="page-header">
-        <h1>ECDO支持系统 <small>beta 1.0</small></h1>
+        <h1>卡卡罗特支持系统 <small>beta 1.0</small></h1>
     </div>
 
     <p>

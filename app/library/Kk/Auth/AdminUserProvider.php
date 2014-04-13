@@ -1,4 +1,4 @@
-<?php namespace Ecdo\Auth;
+<?php namespace Kk\Auth;
 
 use Illuminate\Auth\UserInterface;
 //use Illuminate\Auth\GenericUser;
